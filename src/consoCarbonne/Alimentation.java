@@ -9,9 +9,9 @@ public class Alimentation extends ConsoCarbonne {
         setTxVolaille(txBoeuf, txVege);
         setCalculImpact();
     }
-    private double txBoeuf;
-    private double txVege;
-    private double txVolaille;
+    private double txBoeuf = 0.0;
+    private double txVege = 0.0;
+    private double txVolaille = 0.0;
     private final double cst1 = 8.0;
     private final double cst2 = 1.6;
     private final double cst3 = 0.9;

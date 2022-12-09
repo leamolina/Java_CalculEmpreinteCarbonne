@@ -8,42 +8,9 @@ public class Logement extends ConsoCarbonne {
         setCe(ce);
         setCalculImpact();
     }
-    private int superficie;
-    private CE ce;
-/*
-    //Methode qui renvoie le coefficient multiplicatif
-    private double coefCE (CE ce){
-        double coef;
-        switch (ce){
-            case A :
-                coef = 0.005;
-                break;
-            case B:
-                coef = 0.01;
-                break;
-            case C :
-                coef = 0.02;
-                break;
-            case D :
-                coef = 0.035;
-                break;
-            case E:
-                coef = 0.055;
-                break;
-            case F :
-                coef = 0.08;
-                break;
-            case G:
-                coef = 0.1;
-                break;
-            default :
-                coef = 0.0;
-        }
-        return coef;
+    private int superficie = 0;
+    private CE ce = CE.A;
 
-    }
-
- */
     //Setters
     public void setSuperficie (int s) {
         if (s >= 0) {
@@ -61,7 +28,7 @@ public class Logement extends ConsoCarbonne {
     public void setCalculImpact(){
         if (this.ce == null) super.setImpact(0.0);
         else {
-            super.setImpact(CE.coefCE(this.ce) * this.superficie);
+            super.setImpact(this.ce.getCoefCE() * this.superficie);
         }
     }
 

@@ -7,7 +7,7 @@ public class Transport extends ConsoCarbonne{
         setKilomAnnee(kilomAnnee);
     }
 
-    private int kilomAnnee;
+    private int kilomAnnee = 0;
 
     //Setter :
     public void setKilomAnnee(int kilomAnnee) {

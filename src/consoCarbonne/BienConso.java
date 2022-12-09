@@ -6,7 +6,7 @@ public class BienConso extends ConsoCarbonne{
         setMontant(montant);
         setCalculImpact();
     }
-    private double montant;
+    private double montant = 0.0;
 
     //Getters
     public double getMontant() {

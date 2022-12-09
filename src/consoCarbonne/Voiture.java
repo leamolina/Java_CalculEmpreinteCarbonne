@@ -11,19 +11,19 @@ public class Voiture extends Transport{
         setAmortissement(amortissement);
         setCalculImpact();
     }
-    private boolean possede;
-    private Taille taille;
-    private int amortissement;
-
+    private boolean possede = false;
+    private Taille taille = Taille.P;
+    private int amortissement = 0;
+/*
     //Methode fabrication qui verifie si une voiture est petite ou grande et renvoie l emission de gaz de la fabrication correspondant
     private double fabrication(Taille taille){
         if (taille==Taille.P) return 4.2;
         else return 19;
-    }
+    }*/
 
     //Getters
     public Taille getTaille() {
-        return taille;
+        return this.taille;
     }
     public boolean isPossede() {
         return possede;
@@ -65,7 +65,7 @@ public class Voiture extends Transport{
     }
     public void setCalculImpact() {
         if (this.possede){
-            super.setImpact(super.getKilomAnnee()*1.93*(0.0001) +fabrication(this.taille)/this.amortissement);
+            super.setImpact(super.getKilomAnnee()*1.93*(0.0001) +taille.getFabrication()/this.amortissement);
         }
         else super.setImpact(0.0);
     }

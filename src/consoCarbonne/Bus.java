@@ -2,7 +2,8 @@ package consoCarbonne;
 
 public class Bus extends Transport{
 
-    private TypeB type;
+    //On considere par défaut que le bus n'est pas electrique (bus à moteur)
+    private TypeB type = TypeB.M;
 
     public Bus(int kilomAnnee, TypeB type) {
         super(kilomAnnee);

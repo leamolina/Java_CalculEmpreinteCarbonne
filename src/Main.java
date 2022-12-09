@@ -13,7 +13,12 @@ public class Main {
         Logement l2 = new Logement(140, CE.B);
         System.out.println(l2.getCe());
 
+        //Tests du polymorphisme
+        System.out.println("Test du polymorphisme");
+        ConsoCarbonne c = new Alimentation(0.6, 0.1);
+        System.out.println(c.toString());
 
+        /*
         //Tests sur Alimentation
         Alimentation a = new Alimentation(0.5, 0.2);
         System.out.println(a.toString());
@@ -23,7 +28,7 @@ public class Main {
         System.out.println(b.toString());
 
         //Tests sur Transport:
-        Transport t = new Transport(Taille.P, true, 5, 16 );
+        Transport t = new Transport(16 );
         System.out.println(t.toString());
 
         // b.impact= 1.0 et t.impact=0.26 donc t<b donc retourne -1
@@ -53,6 +58,7 @@ public class Main {
         Pas de test du polymorphisme
         Enumeration peuvent ztre ameliorées avec des attributs et des methodes
         */
+
 
     }
 

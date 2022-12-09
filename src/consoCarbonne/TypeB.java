@@ -9,7 +9,7 @@ public enum TypeB {
         this.coef = coef;
     }
 
-    private double coef;
+    private double coef = 0.0;
 
 
     //Getter :
