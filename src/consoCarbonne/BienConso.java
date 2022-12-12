@@ -2,6 +2,7 @@ package consoCarbonne;
 
 public class BienConso extends ConsoCarbonne{
     //Constructeur
+    public BienConso(){}
     public BienConso(double montant){
         setMontant(montant);
         setCalculImpact();
