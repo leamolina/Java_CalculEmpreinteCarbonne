@@ -3,6 +3,11 @@ package consoCarbonne;
 public class Transport extends ConsoCarbonne{
 
     //Constructeur :
+
+    public Transport(){
+
+    }
+
     public Transport(int kilomAnnee){
         setKilomAnnee(kilomAnnee);
     }
@@ -16,7 +21,14 @@ public class Transport extends ConsoCarbonne{
         }
         else {
             this.kilomAnnee = kilomAnnee;
+            setCalculImpact(); //Dès qu'on met à jour le nb de km, on recalcule l'impact
+
         }
+    }
+
+    //On récupère setCalculImpact de la classe fille
+    public void setCalculImpact(){
+
     }
 
     //Getter :
@@ -44,5 +56,7 @@ public class Transport extends ConsoCarbonne{
                 "kilomAnnee=" + kilomAnnee + super.toString() +
                 '}';
     }
+
+
 }
 

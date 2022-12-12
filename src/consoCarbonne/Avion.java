@@ -3,8 +3,13 @@ package consoCarbonne;
 public class Avion extends Transport{
 
     //Constructeur
+
+    public Avion(){
+    }
+
     public Avion(int kilomAnnee) {
         super(kilomAnnee);
+        setCalculImpact();
     }
 
     //Calcul de l'impact selon le site : https://impactco2.fr/transport/avion (on inclus les trainees dans notre calcul)
@@ -20,6 +25,7 @@ public class Avion extends Transport{
        }
 
     }
+
 
     @Override
     public String toString() {
