@@ -1,6 +1,8 @@
 import consoCarbonne.*;
 import Utilisateur.*;
 
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -18,18 +20,10 @@ public class Main {
         ConsoCarbonne c = new Alimentation(0.6, 0.1);
         System.out.println(c.toString());
 
-        /*
-        //Tests sur Alimentation
         Alimentation a = new Alimentation(0.5, 0.2);
-        System.out.println(a.toString());
-
-        //Tests sur bienConso
         BienConso b = new BienConso(1750);
-        System.out.println(b.toString());
-
-        //Tests sur Transport:
-        Transport t = new Transport(16 );
-        System.out.println(t.toString());
+        Transport t = new TGV(16 );
+        Transport v = new Voiture(Taille.P, true, 10000,50);
 
         // b.impact= 1.0 et t.impact=0.26 donc t<b donc retourne -1
         System.out.println("Resultat du compareTo");
@@ -37,14 +31,23 @@ public class Main {
 
         //Tests sur Services Public
         ServicesPublic s = ServicesPublic.getInstance();
-        System.out.println("Resultat de l'impact du ServicesPublic ");
-        System.out.println (s.getImpact());
 
         //Tests sur Utilisateur :
-        Utilisateur u = new Utilisateur(a, b, l, t, s);
+        //D'abbord on cree la liste des logements et on la remplit
+        ArrayList liste_logement = new ArrayList();
+        liste_logement.add(l);
+        liste_logement.add(l2);
+
+        //Maintenant on cree la liste des transports : une voiture et un TGV
+        ArrayList liste_transport = new ArrayList();
+        liste_transport.add(v);
+        liste_transport.add(t);
+
+        Utilisateur u = new Utilisateur(a, b, liste_logement, liste_transport, s);
         System.out.println("Resultat de l'impact d'Utilisateur ");
         System.out.println(u.calculerEmpreinte());
         u.detaillerEmpreinte();
+        u.recommandation();
         /*
         PROJET JALON :
 

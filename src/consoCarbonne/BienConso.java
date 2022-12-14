@@ -15,6 +15,7 @@ public class BienConso extends ConsoCarbonne{
     }
 
     //Setters
+
     public void setMontant(double montant) {
         if( montant < 0) System.out.println("Le montant ne peut etre negatif ");
         else {

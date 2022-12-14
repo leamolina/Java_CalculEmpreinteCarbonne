@@ -11,6 +11,10 @@ public enum CE {
 
     private double coefCE = 0.0;
 
+
+    /**
+     * @return Le coefficient associe a la classe energetique du logement associe
+     */
     //Getter :
     public double getCoefCE() {
         return coefCE;
