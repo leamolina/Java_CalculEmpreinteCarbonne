@@ -74,7 +74,7 @@ public class Utilisateur {
 
 
     //Methode qui fait la somme de tous les impacts des differents logements de la liste
-    double calculImpactLogement (Collection<Logement> collection_logement){
+    public double calculImpactLogement (Collection<Logement> collection_logement){
         double somme = 0.0;
         for (Logement l : collection_logement){
             somme += l.getImpact();
@@ -82,7 +82,7 @@ public class Utilisateur {
         return (somme);
     }
 
-    double calculImpactTransport (Collection<Transport> collection_transport){
+    public double calculImpactTransport (Collection<Transport> collection_transport){
         double somme = 0.0;
         for (ConsoCarbonne t : collection_transport){
             somme += t.getImpact();
