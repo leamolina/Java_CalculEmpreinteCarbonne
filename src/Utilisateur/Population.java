@@ -39,7 +39,32 @@ public class Population {
 
     //Methodes à rajouter (si possible) :
     //Methode qui permet de detailler un a un chaque utilisateur
-    //Methode qui permet de comparer un a un chaque catégorie (+ une comparaison a la moyenne d un francais)
+    //Methode qui permet de comparer un a un chaque catégorie avec la moyenne de notre population (+ une comparaison a la moyenne d un francais)
+
+    //Comment utiliser la classe Population :
+    // * Creer une methode qui porte le nom d'une mesure politique
+    //   Exemple de mesure : reduire 10 min le temps d'eclairage de lumiere d'
+    /*
+    Exemple de mesure : Une mesure datant de 2020 interdisant les trajets en avion qui peuvent se faire en moins de 2h30 en TGV
+    On a calcule la distance ( de maniere approximative) d'un trajet de 2h30 de TGV :  600 km
+    Pour chaque utilisateur, si sa
+    Limite de la methode : Si l'utilisateur decide de faire un trajet de 400km, et un autre de 500km, sa distance totale sera de 900km.
+    Et la mesure ne sera pas applliquable pour lui (c'est pas ce que je veux)
+    */
+
+
+    /*
+    Autre exemple de mesure : considerer qu'avec l'aide de l'Etat sur l'isolation (pompe a chaleur, etc...), la classe
+    energetique (CE) de chaque logement augmente en efficacite (TRES TRES SIMPLIFIE)
+    Ou peut etre on peut considérer que ceux qui sont cata augmente et pas les autres ?
+     */
+
+
+    /*
+    Autre exemple de mesure : passage de la voiture à moteur à une voiture electrique
+    Autre exemple de mesure : passage d'un bus à moteur à un bus electrique
+     */
+
 
 
     @Override

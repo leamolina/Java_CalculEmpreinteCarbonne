@@ -1,5 +1,10 @@
 package consoCarbonne;
 
+/**
+ * La classe ConsoCarbonne représente un poste de consommation carbone générique.
+ * Elle est la classe mere de toutes les autres.
+ * C'est elle qui nous donne l'empreinte carbone de chaque objet qu'utilise un Francais en fonction de son mode de vie.
+ */
 public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
     //Constructeur
     public ConsoCarbonne() {

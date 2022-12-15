@@ -1,9 +1,10 @@
 package Utilisateur;
-
 import consoCarbonne.*;
 import java.util.*;
 
 public class Utilisateur {
+
+    public Utilisateur(){}
 
     //Constructeur :
     public Utilisateur(Alimentation alimentation, BienConso bienConso, Collection<Logement> collection_logement, Collection<Transport> collection_transport, ServicesPublic service) {
@@ -229,3 +230,4 @@ public class Utilisateur {
 
 
 }
+

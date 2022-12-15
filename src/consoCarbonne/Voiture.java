@@ -1,6 +1,17 @@
 package consoCarbonne;
+import java.util.*;
+import java.io.*;
 
+/**
+ * La classe Voiture est une classe fille de la classe transport dans laquelle nous nous sommes interessees plus particulerement aux voitures en fonction des criteres suivant:
+ * Est ce que l'utilisateur.rice possède une voiture ?
+ * La taille de celle-ci.
+ * La duree de conservation du vehicule.
+ * Le nombre de kilomètres parcourus par an.
+ */
 public class Voiture extends Transport{
+
+    public Voiture(){}
 
     //Constructeur :
     public Voiture(Taille taille, boolean possede, int kilomAnnee, int amortissement){
@@ -11,6 +22,8 @@ public class Voiture extends Transport{
         setAmortissement(amortissement);
         setCalculImpact();
     }
+    private static Scanner scan = new Scanner(System.in);
+
     private boolean possede = false;
     private Taille taille = Taille.P;
     private int amortissement = 0;

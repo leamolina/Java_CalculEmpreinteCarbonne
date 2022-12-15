@@ -1,5 +1,8 @@
 package consoCarbonne;
 
+/**
+ * La classe Avion permet de connaitre l'impact d'un trajet en avion d'un francais en fonction des kilometres parcourus par an.
+ */
 public class Avion extends Transport{
 
     //Constructeur

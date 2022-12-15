@@ -1,8 +1,12 @@
 package consoCarbonne;
 
+/**
+ * La classe Bus permet de connaire l'impact d'un trajet en bus d'un francais en fonction des kilometres parcourus par an et du type de bus(electrique ou a moteur.
+ * Nous avons considere par défaut que le bus n'etait pas electrique.
+ */
 public class Bus extends Transport{
 
-    //On considere par défaut que le bus n'est pas electrique (bus à moteur)
+    public Bus(){}
     private TypeB type = TypeB.M;
 
     public Bus(int kilomAnnee, TypeB type) {
@@ -10,8 +14,16 @@ public class Bus extends Transport{
         this.type = type;
     }
 
-    //Calcul de l'impact selon le site : https://impactco2.fr/transport/bus
-    //On a séparé les deux cas : bus electrique et bus à moteur --> on a créé une enum pour ca
+    //Setters :
+    public void setType(TypeB type) {
+        this.type = type;
+    }
+
+    /**
+     * Calcul de l'impact selon le site : https://impactco2.fr/transport/bus
+     * Nous avons séparé les deux cas suivant : bus electrique et bus a moteur
+     * Nous avons represente ses deux cas a l'aide d'une enumeration
+     */
     public void setCalculImpact (){
         super.setImpact(type.getCoef()*getKilomAnnee());
     }

@@ -1,8 +1,16 @@
 package consoCarbonne;
 
+/**
+ * La classe BienConso represente l'impact de chaque depenses en fonction du montant des depenses annuelles de l'utilisateur-rice.
+ * Nous avons suppose qu'une tonne de CO2eq est equivalente a 1750€ de depenses.
+ */
 public class BienConso extends ConsoCarbonne{
     //Constructeur
     public BienConso(){}
+
+    /**
+     * @param montant
+     */
     public BienConso(double montant){
         setMontant(montant);
         setCalculImpact();
@@ -16,6 +24,10 @@ public class BienConso extends ConsoCarbonne{
 
     //Setters
 
+    /**
+     * Methode permettant de verifier que le montant est bien compris positif et de le fixer.
+     * @param montant
+     */
     public void setMontant(double montant) {
         if( montant < 0) System.out.println("Le montant ne peut etre negatif ");
         else {
@@ -24,10 +36,16 @@ public class BienConso extends ConsoCarbonne{
         }
     }
 
+    /**
+     * Methode permettant de calculer l'impact des depenses de l'utilisateur-rice.s, avec l'hypothese qu’une tonne de CO2eq est equivalente à 1750€ de dépenses.
+     */
     public void setCalculImpact (){
         super.setImpact((1.0/1750.0)*this.montant);
     }
 
+    /**
+     * Methode detaillant l'empreinte carbonne moyenne d un francais de chaque depenses de l'utilisateur-rice.
+     */
     public static void EmpreinteBienConso(){
         int habillement = 763;
         int autres = 682 ;

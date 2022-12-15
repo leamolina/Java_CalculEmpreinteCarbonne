@@ -1,5 +1,10 @@
 package consoCarbonne;
 
+/**
+ * La classe Transport represente l'empreinte carbonne moyenne d'un francais au niveau des transports.
+ * Elle est la classe mere des classes Avion, Bus,TGV et Voiture.
+ */
+
 public class Transport extends ConsoCarbonne{
 
     //Constructeur :

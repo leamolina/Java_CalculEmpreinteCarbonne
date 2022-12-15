@@ -1,6 +1,7 @@
 import consoCarbonne.*;
 import Utilisateur.*;
 
+
 import java.util.ArrayList;
 
 public class Main {
@@ -48,6 +49,22 @@ public class Main {
         System.out.println(u.calculerEmpreinte());
         u.detaillerEmpreinte();
         u.recommandation();
+
+
+        //Tests sur Population
+        Utilisateur u2 = u;
+        ArrayList liste_utilisateurs = new ArrayList();
+        liste_utilisateurs.add(u);
+        liste_utilisateurs.add(u2);
+        Population p = new Population(liste_utilisateurs);
+        System.out.println(p.toString());
+
+
+
+
+
+
+
         /*
         PROJET JALON :
 
