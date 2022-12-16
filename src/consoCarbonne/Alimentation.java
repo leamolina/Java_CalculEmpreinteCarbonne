@@ -7,6 +7,13 @@ package consoCarbonne;
 public class Alimentation extends ConsoCarbonne {
 
     //Constructeur
+    public Alimentation(){
+    }
+
+    /**
+     * @param txBoeuf
+     * @param txVege
+     */
     public Alimentation(double txBoeuf, double txVege) {
         setTxBoeuf(txBoeuf);
         setTxVege(txVege);
@@ -67,12 +74,26 @@ public class Alimentation extends ConsoCarbonne {
     }
 
     //Getters
+
+
+    /**
+     * @return  Le taux de repas a base de boeuf
+     */
     public double getTxBoeuf (){
         return this.txBoeuf;
     }
+
+    /**
+     * @return Le taux de repas vegetariens
+     */
     public double getTxVege (){
         return this.txVege;
     }
+
+    /**
+     * Le taux de repas a base de volaille a ete calculer avec la formule suivante: taux de repas a base de volaille = 1 - taux de repas a base de boeuf - taux de repas vegetariens
+     * @return Le taux de repas a base de volaille
+     */
     public double getTxVolaille (){
         return this.txVolaille;
     }
@@ -95,6 +116,9 @@ public class Alimentation extends ConsoCarbonne {
         System.out.println("Somme: " + sum + "\n");
     }
 
+    /**
+     * @return Une chaîne contenant les informations sur la classe Alimentation.
+     */
     @Override
     public String toString() {
         return "Alimentation{" +

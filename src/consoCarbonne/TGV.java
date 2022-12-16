@@ -5,16 +5,27 @@ package consoCarbonne;
  */
 public class TGV extends Transport{
 
+    public TGV(){
+
+    }
+    /**
+     * @param kilomAnnee
+     */
     //Constructeur
     public TGV(int kilomAnnee) {
         super(kilomAnnee);
     }
 
-    //Calcul de l'impact selon le site : https://impactco2.fr/transport/tgv
+    /**
+     * Calcul de l'impact selon le site : https://impactco2.fr/transport/tgv
+     */
     public void setCalculImpact (){
         super.setImpact(0.000002*getKilomAnnee());
     }
 
+    /**
+     * @return une chaîne contenant les informations relatives a  la classe TGV.
+     */
     @Override
     public String toString() {
         return "TGV{" + super.toString() + "}";

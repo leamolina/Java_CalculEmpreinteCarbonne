@@ -20,8 +20,10 @@ public class TestBienConso {
         bienConsoTest=null;
     }
 
-    //Je vais tester la methode setCalculImpact
-    //On decide de mettre le montant à 1750
+    /**
+     * Test de la methode setCalculImpact
+     * Nous avons decide de mettre le montant= 1750, la valeur attendue (calculee à la main) est 1.0
+     */
     @Test
     public void setCalculImpactTest(){
         bienConsoTest.setMontant(1750);

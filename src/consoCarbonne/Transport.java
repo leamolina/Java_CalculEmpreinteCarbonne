@@ -13,12 +13,18 @@ public class Transport extends ConsoCarbonne{
 
     }
 
+    /**
+     * @param kilomAnnee
+     */
     public Transport(int kilomAnnee){
         setKilomAnnee(kilomAnnee);
     }
 
     private int kilomAnnee = 0;
 
+    /**
+     * @param kilomAnnee
+     */
     //Setter :
     public void setKilomAnnee(int kilomAnnee) {
         if (kilomAnnee < 0) {
@@ -31,16 +37,24 @@ public class Transport extends ConsoCarbonne{
         }
     }
 
-    //On récupère setCalculImpact de la classe fille
+    /**
+     *Nous récupèrons setCalculImpact de la classe fille
+     */
     public void setCalculImpact(){
 
     }
 
+    /**
+     * @return le nombre de kilometres parcourus par an
+     */
     //Getter :
     public int getKilomAnnee() {
         return kilomAnnee;
     }
 
+    /**
+     * Cette fonction renvoie le detail de l'empreinte carbonne moyenne d'un francais dans la classe Transport
+     */
     public static void EmpreinteTransport(){
         int trainBus = 85;
         int fretMessagerie = 383 ;
@@ -55,6 +69,9 @@ public class Transport extends ConsoCarbonne{
         System.out.println("Somme: " + sum + "\n");
     }
 
+    /**
+     * @return une chaîne contenant les informations de la classe Transport en affichant le nombre de kilometres parcourus par an ainsi que les informations relatives de la classe consocarbone.
+     */
     @Override
     public String toString() {
         return "Transport{" +

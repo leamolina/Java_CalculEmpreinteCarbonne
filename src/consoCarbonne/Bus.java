@@ -9,6 +9,10 @@ public class Bus extends Transport{
     public Bus(){}
     private TypeB type = TypeB.M;
 
+    /**
+     * @param kilomAnnee
+     * @param type
+     */
     public Bus(int kilomAnnee, TypeB type) {
         super(kilomAnnee);
         this.type = type;
@@ -28,6 +32,11 @@ public class Bus extends Transport{
         super.setImpact(type.getCoef()*getKilomAnnee());
     }
 
+
+
+    /**
+     * @return Une chaîne contenant les informations sur la classe Bus et affiche son type ainsi,  que tout les informations relatives sur ce moyen de transport,
+     */
     @Override
     public String toString() {
         return "Bus{" +

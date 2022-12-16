@@ -1,4 +1,6 @@
 package consoCarbonne;
+import java.util.*;
+import java.io.*;
 
 /**
  * L'enumeration CE contient les differentes classes energetiques de A a G associees a leurs coefficient energetique.
@@ -6,8 +8,11 @@ package consoCarbonne;
  */
 public enum CE {
     A(0.005), B(0.01), C(0.02), D(0.035), E( 0.055), F( 0.08), G(0.1);
+    private static Scanner scan = new Scanner(System.in);
 
-
+    /**
+     * @param coefCE
+     */
     //Constructeur :
     CE(double coefCE) {
         this.coefCE = coefCE;
@@ -25,11 +30,61 @@ public enum CE {
     }
 
 
+    /**
+     * Methode permettant de fixer le coefficient energetique.
+     * @param coefCE
+     */
     //Setter :
     public void setCoefCE(double coefCE) {
         this.coefCE = coefCE;
     }
 
+
+    //Methode qui permet de communiquer avec l'utilisateur
+    //Il va mettre A B C D E ou F sur la console et la methode renvoie la classe
+
+    public CE StringToCE(){
+        boolean fin = false;
+        CE resultat = CE.A;
+        do{
+            System.out.println("Entrer la classe energetique de l'utilisatieur");
+            String c = scan.next();
+            switch(c) {
+                case ("A"):
+                    resultat = CE.A;
+                    fin = true;
+                    break;
+                case ("B"):
+                    resultat = CE.B;
+                    fin = true;
+                    break;
+                case ("C"):
+                    resultat = CE.C;
+                    fin = true;
+                    break;
+                case ("D"):
+                    resultat = CE.D;
+                    fin = true;
+                    break;
+                case ("E"):
+                    resultat = CE.E;
+                    fin = true;
+                    break;
+                case ("F"):
+                    resultat = CE.F;
+                    fin = true;
+                    break;
+                case ("G"):
+                    resultat = CE.G;
+                    fin = true;
+                    break;
+                default:
+                    System.out.println("La classe energetique indiquée n'existe pas. ");
+            }
+        } while(fin==false);
+    scan.close();
+    return (resultat);
+    }
 
 }
 

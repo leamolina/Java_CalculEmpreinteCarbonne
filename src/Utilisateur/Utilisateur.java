@@ -6,6 +6,14 @@ public class Utilisateur {
 
     public Utilisateur(){}
 
+    /**
+     * @param alimentation 
+     * @param bienConso
+     * @param collection_logement
+     * @param collection_transport
+     * @param service
+     */
+
     //Constructeur :
     public Utilisateur(Alimentation alimentation, BienConso bienConso, Collection<Logement> collection_logement, Collection<Transport> collection_transport, ServicesPublic service) {
         setAlimentation(alimentation);
@@ -25,10 +33,16 @@ public class Utilisateur {
 
     //Setters :
 
+    /**
+     * @param alimentation 
+     */
     public void setAlimentation(Alimentation alimentation) {
         this.alimentation = alimentation;
     }
 
+    /**
+     * @param bienConso 
+     */
     public void setBienConso(BienConso bienConso) {
         this.bienConso = bienConso;
     }
@@ -47,13 +61,23 @@ public class Utilisateur {
         this.collection_transport = collection_transport;
     }
 
+    /**
+     * @param service 
+     */
     public void setService(ServicesPublic service) {
         this.service = service;
     }
 
 
+    /**
+     * @return le poste de consommation carbone de l'utilisateur.rice concernant son alimentation
+     */
     //Getters :
     public Alimentation getAlimentation() { return this.alimentation; }
+
+    /**
+     * @return le poste de consommation carbone de l'utilisateur.rice concernant ses depenses en biens de consommation
+     */
     public BienConso getBienConso() {return this.bienConso; }
 
     /**
@@ -142,7 +166,10 @@ public class Utilisateur {
         }
     }
 
-    //Fonction qui compare l'empreinte de l'utilisateur avec l'empreinte moyenne d'un français
+    /**
+     * Cette methode affiche sur la console une description detaillee de l'empreinte carbonne de l'utilsateur.rice
+     * Nous avons compare l'empreinte de l'utilisateur avec l'empreinte moyenne d'un français
+     */
     public void detaillerEmpreinte(){
 
         System.out.println("Impact de l'alimentation : "+ this.alimentation.getImpact() );

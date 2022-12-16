@@ -5,17 +5,22 @@ package consoCarbonne;
  */
 public class Avion extends Transport{
 
-    //Constructeur
-
+    //Constructeurs
     public Avion(){
     }
 
+    /**
+     * @param kilomAnnee
+     */
     public Avion(int kilomAnnee) {
         super(kilomAnnee);
         setCalculImpact();
     }
 
-    //Calcul de l'impact selon le site : https://impactco2.fr/transport/avion (on inclus les trainees dans notre calcul)
+    /**
+     * Calcul de l'impact selon le site : https://impactco2.fr/transport/avion
+     * NB: Nous avons inclus les trainees dans le calcul des differents impacts
+     */
     public void setCalculImpact (){
        if (super.getKilomAnnee() < 1000){
            super.setImpact(0.00023*getKilomAnnee());
@@ -30,6 +35,9 @@ public class Avion extends Transport{
     }
 
 
+    /**
+     * @return Une chaîne contenant les informations sur la classe Avion.
+     */
     @Override
     public String toString() {
         return "Avion{" + super.toString() + "}";

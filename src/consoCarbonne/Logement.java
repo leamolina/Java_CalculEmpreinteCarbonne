@@ -5,6 +5,12 @@ package consoCarbonne;
  */
 public class Logement extends ConsoCarbonne {
 
+    public Logement(){}
+    /**
+     * Methode permettant de creer un logement.
+     * @param superficie
+     * @param ce
+     */
     //Constructeur
     public Logement (int superficie, CE ce){
         setSuperficie(superficie);
@@ -14,6 +20,10 @@ public class Logement extends ConsoCarbonne {
     private int superficie = 0;
     private CE ce = CE.A;
 
+    /**
+     *Methode permettant de verifier que la superficie du logement est positive et de la fixer.
+     * @param s
+     */
     //Setters
     public void setSuperficie (int s) {
         if (s >= 0) {
@@ -23,11 +33,19 @@ public class Logement extends ConsoCarbonne {
         else System.out.println("Erreur : Une superficie ne peut pas etre negative.");
 
     }
+
+    /**
+     * @param c
+     */
     public void setCe (CE c){
         this.ce = c ;
         setCalculImpact();
 
     }
+
+    /**
+     * Cette methode permet de calculer l'impact de la consocommation carbone dans la Logement
+     */
     public void setCalculImpact(){
         if (this.ce == null) super.setImpact(0.0);
         else {
@@ -35,16 +53,24 @@ public class Logement extends ConsoCarbonne {
         }
     }
 
+    /**
+     * @return la superficie du logement en metre carre
+     */
     //Getters
     public int getSuperficie(){
         return superficie;
     }
 
+    /**
+     * @return Le classe energetique du logement associe
+     */
     public CE getCe(){
         return ce;
     }
 
-    //Methode detaillant l empreinte carbonne moyenne d un francais dans ce domaine
+    /**
+     * Cette methode detaille l'empreinte carbonne moyenne d un francais dans ce domaine
+     */
     public static void EmpreinteLogement(){
         int equipementLogements = 335;
         int constructionEtGrosEntretien = 675 ;
@@ -57,6 +83,9 @@ public class Logement extends ConsoCarbonne {
         System.out.println("Somme: " + sum + "\n");
     }
 
+    /**
+     * @return une chaîne contenant les informations sur la classe Logement en affichant la superficie et la classe energetique associe a un logement
+     */
     @Override
     public String toString() {
         return "Logement{" +

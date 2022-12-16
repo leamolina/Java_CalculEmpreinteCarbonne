@@ -9,6 +9,9 @@ public enum TypeB {
     E(0.00002), M(0.0001);
     private static Scanner scan = new Scanner(System.in);
 
+    /**
+     * @param coef
+     */
     //Constructeur :
     TypeB(double coef) {
         this.coef = coef;
@@ -17,11 +20,17 @@ public enum TypeB {
     private double coef = 0.0;
 
 
+    /**
+     * @return le coefficient energitique en fonction de si l'objet est un bus electrique ou a moteur
+     */
     //Getter :
     public double getCoef() {
         return coef;
     }
 
+    /**
+     * @param coef
+     */
     //Setter
     public void setCoef(double coef) {
         this.coef = coef;

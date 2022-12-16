@@ -5,6 +5,7 @@ package consoCarbonne;
  * Nous avons suppose qu'une tonne de CO2eq est equivalente a 1750€ de depenses.
  */
 public class BienConso extends ConsoCarbonne{
+
     //Constructeur
     public BienConso(){}
 
@@ -17,6 +18,9 @@ public class BienConso extends ConsoCarbonne{
     }
     private double montant = 0.0;
 
+    /**
+     * @return Le montant des depenses annuelles de l'utilsateur.rice
+     */
     //Getters
     public double getMontant() {
         return montant;
@@ -59,6 +63,9 @@ public class BienConso extends ConsoCarbonne{
 
     }
 
+    /**
+     * @return Une chaîne contenant les informations sur la classe BienConso en indiquant le montant des depenses annuelles.
+     */
     @Override
     public String toString() {
         return "BienConso{" +
