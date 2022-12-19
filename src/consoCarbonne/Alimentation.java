@@ -46,13 +46,13 @@ public class Alimentation extends ConsoCarbonne {
      * Methode permettant de verifier que le taux de repas vegetariens est bien compris entre 0 et 1 et de le fixer.
      * @param tv
      */
-    public void setTxVege (double tv){
+    public void setTxVege (double tv)throws ErrTx{
         if(tv >=0 && tv <=1) {
             this.txVege = tv;
             setTxVolaille(this.txBoeuf, tv);
             setCalculImpact();
         }
-        else System.out.println("Erreur : le taux de repas vegetarien doit etre compris entre 0 et 1");
+        else throw new ErrTx("Erreur : le taux de repas vegetarien doit etre compris entre 0 et 1");
     }
 
     /**
@@ -60,13 +60,13 @@ public class Alimentation extends ConsoCarbonne {
      * @param tb
      * @param tv
      */
-    public void setTxVolaille (double tb, double tv){
+    public void setTxVolaille (double tb, double tv)throws ErrTx{
         double tVo = 1 - tb - tv;
         if(tVo >=0 && tVo <=1) {
             this.txVolaille = tVo;
             setCalculImpact();
         }
-        else System.out.println("Erreur : le taux de repas à base de volaille doit etre compris entre 0 et 1");
+        else throw new ErrTx("Erreur : le taux de repas à base de volaille doit etre compris entre 0 et 1");
     }
 
     /**

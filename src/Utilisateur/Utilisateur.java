@@ -105,23 +105,23 @@ public class Utilisateur implements Serializable {
 
 
     /**
-     * @return le poste de consommation carbone de l'utilisateur.rice concernant son alimentation
+     * @return Le poste de consommation carbone de l'utilisateur.rice concernant son alimentation.
      */
     //Getters :
     public Alimentation getAlimentation() { return this.alimentation; }
 
     /**
-     * @return le poste de consommation carbone de l'utilisateur.rice concernant ses depenses en biens de consommation
+     * @return Le poste de consommation carbone de l'utilisateur.rice concernant ses depenses en biens de consommation.
      */
     public BienConso getBienConso() {return this.bienConso; }
 
     /**
-     * @return le poste de consommation carbone de l'utilisateur.rice concernant son logement
+     * @return Le poste de consommation carbone de l'utilisateur.rice concernant son logement.
      */
     public Collection<Logement> getCollection_logement() { return this.collection_logement; }
 
     /**
-     * @return le poste de consommation carbone de l'utilisateur.rice concernant ses deplacements
+     * @return Le poste de consommation carbone de l'utilisateur.rice concernant ses deplacements.
      */
     public Collection<Voiture> getCollection_voiture() { return this.collection_voiture; }
     public Collection<Avion> getCollection_avion() { return this.collection_avion; }
@@ -130,7 +130,7 @@ public class Utilisateur implements Serializable {
     public Collection<TGV> getCollection_tgv() { return this.collection_tgv; }
 
     /**
-     * @return le poste de consommation carbone de l'utilisateur.rice concernant son utilisation des services publics
+     * @return Le poste de consommation carbone de l'utilisateur.rice concernant son utilisation des services publics.
      */
     public ServicesPublic getService() { return this.service; }
 
@@ -206,8 +206,8 @@ public class Utilisateur implements Serializable {
 
 
     /**
-     * Cette methode qui renvoie renvoie la somme des impacts de chaque catégorie
-     * @return L'empreinte carbonne calculee de l'utilsateur.rice
+     * Cette methode renvoie renvoie la somme des impacts de chaque catégorie.
+     * @return L'empreinte carbonne calculee de l'utilsateur.rice.
      */
     
     public double calculerEmpreinte(){
@@ -323,8 +323,8 @@ public class Utilisateur implements Serializable {
     }
 
     /**
-     * Cette methode affiche sur la console une description detaillee de l'empreinte carbonne de l'utilsateur.rice
-     * Nous avons compare l'empreinte de l'utilisateur avec l'empreinte moyenne d'un français
+     * Cette methode affiche sur la console une description detaillee de l'empreinte carbonne de l'utilsateur.rice.
+     * Nous avons compare l'empreinte de l'utilisateur avec l'empreinte moyenne d'un français.
      */
     public void detaillerEmpreinte(){
         System.out.println("Impact de l'alimentation : "+ this.alimentation.getImpact() );
@@ -355,10 +355,12 @@ public class Utilisateur implements Serializable {
 
 
     /**
-     * Cette methode ordonne les consommations carbone de l’utilisateur.rice dans une liste, présente l’information obtenue à ce.tte dernier.e
+     * Cette methode ordonne les consommations carbone de l’utilisateur.rice dans une liste, présente l’information obtenue à ce.tte dernier.e.
      * Et fait des recommendations pour obtenir un mode de vie plus durable.
-     * Nous avons fait une methode qui, lorsqu'on lui donne un double, retourne le type
-     * si celui ci est plus eleve que la moyenne, nous affichons une recommandation
+     * Nous avons fait une methode qui, lorsqu'on lui donne un double, retourne le type.
+     * Nous avons décide de ne pas donner de recommandation sur les services publiques, sachant que la valeur est unique, et qu'aucun parametre ne pourra modifier cet impact.
+     * En d'autres termes, l'utilisateur ne peut rien faire pour diminuer l'impact de cette catégorie.
+     * si celui ci est plus eleve que la moyenne, nous affichons une recommandation.
      * @param i
      */
     public void recommandationImpact(double i) {
@@ -408,10 +410,12 @@ public class Utilisateur implements Serializable {
             }
         } else if (i == this.service.getImpact()) {
             System.out.println("L'impact des services publiques est de :" + i);
-            //On décide de ne pas donner de recommandation sur les services publiques, sachant que la valeur est unique, et qu'aucun parametre ne pourra modifier cet impact
-            //En d'autres termes, l'utilisateur ne peut rien faire pour diminuer l'impact de cette catégorie
         }
     }
+
+    /**
+     * Methode qui ordonne les consommations carbonne de l'utilisateur.rice dans une liste, et qui appelle la fonction recommandationImpact pour faire des recommendations a l'utilisateur.
+     */
     public void recommandation() {
         double[] impacts = {this.alimentation.getImpact(), this.bienConso.getImpact(), calculImpactLogement(this.collection_logement), calculImpactVoiture(this.collection_voiture), calculImpactAvion(this.collection_avion), calculImpactBus(this.collection_bus), calculImpactTgv(this.collection_tgv), this.service.getImpact()};
         //Affichage de l'array :
@@ -421,6 +425,9 @@ public class Utilisateur implements Serializable {
         }
     }
 
+    /**
+     * @return une chaîne contenant les informations relatives a la classe Utilisateur.
+     */
     @Override
     public String toString() {
         return "Utilisateur{" +

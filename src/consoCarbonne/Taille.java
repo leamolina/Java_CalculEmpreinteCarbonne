@@ -39,7 +39,10 @@ public enum Taille {
         this.fabrication = fabrication;
     }
 
-    //Methode qui permet d'interagir avec l'utilisateur et qui renvoie l'enum correspondante à la taille de la voiture
+    /**
+     * Methode qui permet d'interagir avec l'utilisateur et qui renvoie la taille correspondante de la voiture.
+     * @return la reponse de l'utilisateur concernant la taille de la voiture et convertit cette reponse en type Taille.
+     */
     public Taille StringToTaille(){
         boolean fin = false;
         Taille resultat = Taille.P;

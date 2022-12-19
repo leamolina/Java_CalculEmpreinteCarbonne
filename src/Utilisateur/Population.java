@@ -25,7 +25,10 @@ public class Population {
         return this.collection_utilisateur;
     }
 
-    //Methode qui calcule l'empreinte totale d'une population
+    /**
+     * Methode qui calcule l'empreinte totale d'une population
+     * @return L'empreinte totale d'une population
+     */
     public double CalculEmpreinte(){
         double somme = 0.0;
         for(Utilisateur u : this.collection_utilisateur){
@@ -34,7 +37,10 @@ public class Population {
         return (somme);
     }
 
-    //Methode qui renvoie la moyenne de l'empreinte d'un utilisateur appartenent à la population
+    /**
+     * Methode qui renvoie la moyenne de l'empreinte d'un utilisateur appartenent à la collection d'utilisateurs.
+     * @return La moyenne de l'empreinte d'un utilisateur appartenent à la population (ie la collection d'utilisateurs).
+     */
     public double MoyenneEmpreinte(){
         double n = this.collection_utilisateur.size();
         return (this.CalculEmpreinte()/n);
@@ -49,7 +55,8 @@ public class Population {
     //   Exemple de mesure : reduire 10 min le temps d'eclairage de lumiere d'
     /*
     Exemple de mesure : Une mesure datant de 2020 interdisant les trajets en avion qui peuvent se faire en moins de 2h30 en TGV
-    On a calcule la distance ( de maniere approximative) d'un trajet de 2h30 de TGV :  600 km
+    #Les trajets en avion qui depassent 600km par trajet sont refuse
+    On a calcule la distance (de maniere approximative) d'un trajet de 2h30 de TGV :  600 km
     Pour chaque utilisateur, si sa
     Limite de la methode : Si l'utilisateur decide de faire un trajet de 400km, et un autre de 500km, sa distance totale sera de 900km.
     Et la mesure ne sera pas applliquable pour lui (c'est pas ce que je veux)
@@ -69,7 +76,9 @@ public class Population {
      */
 
 
-
+    /**
+     * @return une chaîne contenant les informations relatives a la classe Population.
+     */
     @Override
     public String toString() {
         return "Population{" +

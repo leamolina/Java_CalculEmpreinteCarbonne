@@ -38,7 +38,10 @@ public enum TypeB {
         this.coef = coef;
     }
 
-    //Methode qui demande à l'utilisateur si le bus qu'il veut détailler est à moteur ou electrique
+    /**
+     * Methode qui demande à l'utilisateur si le bus est à moteur ou electrique.
+     * @return la reponse de l'utilisateur concernant le type de bus en la convertissant en TypeB.
+     */
     public TypeB StringToTypeB(){
         boolean fin = false;
         TypeB resultat = TypeB.M;

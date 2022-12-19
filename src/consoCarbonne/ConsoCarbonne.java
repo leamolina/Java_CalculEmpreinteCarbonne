@@ -38,6 +38,7 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
      *Methode permettant de verifier que l'ID existe et de le fixer.
      * @param counter
      */
+
     //Setters
     public void setId(int counter) {
         if(counter<0) System.out.println("La valeur ID n'est pas possible");
@@ -70,7 +71,10 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
     }
 
 
-
+    /**
+     * @param c the object to be compared.
+     * @return -1 si la valeur placée en argument est inferieur a c, 0 si elles sont egales, 1 sinon
+     */
     @Override
     public int compareTo(ConsoCarbonne c) {
         if (this.impact < c.impact) {

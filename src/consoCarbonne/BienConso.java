@@ -33,8 +33,8 @@ public class BienConso extends ConsoCarbonne{
      * Methode permettant de verifier que le montant est bien compris positif et de le fixer.
      * @param montant
      */
-    public void setMontant(double montant) {
-        if( montant < 0) System.out.println("Le montant ne peut etre negatif ");
+    public void setMontant(double montant) throws ErrValNeg {
+        if( montant < 0) throw new ErrValNeg ("Le montant ne peut etre negatif ");
         else {
             this.montant = montant;
             setCalculImpact();

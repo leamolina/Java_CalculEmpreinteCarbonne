@@ -6,6 +6,10 @@ import org.junit.jupiter.api.Test;
 import Erreurs.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+/**
+ * La classe TestBienConso nous permet de nous assurer que notre code fonctionne toujours même après d'éventuelles modifications.
+ */
 public class TestBienConso {
 
     private static BienConso bienConsoTest;
@@ -19,6 +23,10 @@ public class TestBienConso {
         bienConsoTest = new BienConso();
     }
 
+
+    /**
+     * Cette methode nous permet de reinitialiser la variable bienConsoTest a NULL apres chaque test.
+     */
     @AfterEach
     //A chaque methode
     public void restore(){

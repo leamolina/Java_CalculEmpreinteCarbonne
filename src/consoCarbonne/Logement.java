@@ -26,12 +26,12 @@ public class Logement extends ConsoCarbonne {
      * @param s
      */
     //Setters
-    public void setSuperficie (int s) {
+    public void setSuperficie (int s) throws ErrValNeg {
         if (s >= 0) {
             this.superficie = s;
             setCalculImpact();
         }
-        else System.out.println("Erreur : Une superficie ne peut pas etre negative.");
+        else throw new ErrValNeg("Erreur : Une superficie ne peut pas etre negative.");
 
     }
 
@@ -45,7 +45,7 @@ public class Logement extends ConsoCarbonne {
     }
 
     /**
-     * Cette methode permet de calculer l'impact de la consocommation carbone dans la Logement
+     * Cette methode permet de calculer l'impact de la consocommation carbone dans le Logement
      */
     public void setCalculImpact(){
         if (this.ce == null) super.setImpact(0.0);

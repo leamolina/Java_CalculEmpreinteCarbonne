@@ -25,6 +25,7 @@ public class Transport extends ConsoCarbonne{
     private int kilomAnnee = 0;
 
     /**
+     *Methode permettant de verifier que le nombre de kilometres par an est bien positif et de le fixer.
      * @param kilomAnnee
      */
     //Setter :
@@ -80,7 +81,6 @@ public class Transport extends ConsoCarbonne{
                 "kilomAnnee=" + kilomAnnee + super.toString() +
                 '}';
     }
-
 
 }
 

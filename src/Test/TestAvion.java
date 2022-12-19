@@ -24,14 +24,18 @@ public class TestAvion {
        avionTest = new Avion();
     }
 
+    /**
+     * Cette methode nous permet de reinitialiser la variable avionTest a NULL apres chaque test.
+     */
     @AfterEach
-    //A chaque methode
     public void restore(){
         avionTest=null;
     }
 
 
-    //Je vais tester mon setCalculImpact
+    /**
+     * Cette methode nous permet de tester la methode setCalculImpact.
+     */
     @Test
     public void setCalculImpactTest() throws ErrValNeg {
         avionTest.setKilomAnnee(5);

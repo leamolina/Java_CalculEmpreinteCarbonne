@@ -40,20 +40,23 @@ public enum CE {
      * Methode permettant de fixer le coefficient energetique.
      * @param coefCE
      */
+
     //Setter :
     public void setCoefCE(double coefCE) {
         this.coefCE = coefCE;
     }
 
 
-    //Methode qui permet de communiquer avec l'utilisateur
-    //Il va mettre A B C D E ou F sur la console et la methode renvoie la classe
-
+    /**
+     * Methode qui permet de communiquer avec l'utilisateur.
+     * L'utilisateur rentrera A, B, C, D, E ou F sur la console.
+     * @return  Le coefficient associe a la classe energetique entree par l'utilisateur.
+     */
     public CE StringToCE(){
         boolean fin = false;
         CE resultat = CE.A;
         do{
-            System.out.println("Entrer la classe energetique de l'utilisatieur");
+            System.out.println("Entrez la classe energetique de l'utilisatieur :");
             String c = scan.next();
             switch(c) {
                 case ("A"):
