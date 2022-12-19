@@ -1,12 +1,19 @@
 import consoCarbonne.*;
 import Utilisateur.*;
-
-
+import java.io.IOException;
+import Erreurs.*;
 import java.util.ArrayList;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, ErrValNeg {
 
+        BienConso b = new BienConso(1750);
+        System.out.println(b.toString());
+
+        Avion a = new Avion(5);
+        System.out.println(a.toString());
+
+        /*
         //Tests sur Logement
         Logement l = new Logement(140, CE.A);
         System.out.println(l.toString());
@@ -59,7 +66,10 @@ public class Main {
         Population p = new Population(liste_utilisateurs);
         System.out.println(p.toString());
 
+        */
 
+        EntreeSortie test = new EntreeSortie();
+        test.AffichageUtilisateur();
 
 
 

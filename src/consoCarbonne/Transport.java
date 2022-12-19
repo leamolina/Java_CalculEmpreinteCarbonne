@@ -1,5 +1,5 @@
 package consoCarbonne;
-
+import Erreurs.*;
 /**
  * La classe Transport represente l'empreinte carbonne moyenne d'un francais au niveau des transports.
  * Elle est la classe mere des classes Avion, Bus,TGV et Voiture.
@@ -7,7 +7,7 @@ package consoCarbonne;
 
 public class Transport extends ConsoCarbonne{
 
-    //Constructeur :
+    //Constructeur (par défaut d'abbord)
 
     public Transport(){
 
@@ -16,8 +16,10 @@ public class Transport extends ConsoCarbonne{
     /**
      * @param kilomAnnee
      */
-    public Transport(int kilomAnnee){
+    public Transport(int kilomAnnee) throws ErrValNeg {
+
         setKilomAnnee(kilomAnnee);
+        setCalculImpact();
     }
 
     private int kilomAnnee = 0;
@@ -26,9 +28,9 @@ public class Transport extends ConsoCarbonne{
      * @param kilomAnnee
      */
     //Setter :
-    public void setKilomAnnee(int kilomAnnee) {
+    public void setKilomAnnee(int kilomAnnee) throws ErrValNeg {
         if (kilomAnnee < 0) {
-            System.out.println("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
+            throw new ErrValNeg ("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
         }
         else {
             this.kilomAnnee = kilomAnnee;

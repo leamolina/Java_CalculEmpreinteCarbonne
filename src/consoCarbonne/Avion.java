@@ -1,18 +1,20 @@
 package consoCarbonne;
+import Erreurs.*;
 
 /**
  * La classe Avion permet de connaitre l'impact d'un trajet en avion d'un francais en fonction des kilometres parcourus par an.
  */
 public class Avion extends Transport{
 
-    //Constructeurs
+
+    //Constructeurs (par défaut)
     public Avion(){
     }
 
     /**
      * @param kilomAnnee
      */
-    public Avion(int kilomAnnee) {
+    public Avion(int kilomAnnee) throws ErrValNeg {
         super(kilomAnnee);
         setCalculImpact();
     }

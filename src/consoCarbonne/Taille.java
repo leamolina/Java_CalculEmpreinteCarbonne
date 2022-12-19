@@ -10,6 +10,8 @@ import java.io.*;
 public enum Taille {
     P(4.2),G(19);
     private static Scanner scan = new Scanner(System.in);
+    //Constructeur par défaut
+    Taille(){}
 
     /**
      * @param fabrication
@@ -58,7 +60,7 @@ public enum Taille {
                 System.out.println("La taille indiquée n'existe pas ");
             }
 
-        }while(fin == false);
+        }while(!fin);
         return(resultat);
     }
 }

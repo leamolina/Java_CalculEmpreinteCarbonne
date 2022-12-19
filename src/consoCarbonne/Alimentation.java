@@ -1,4 +1,5 @@
 package consoCarbonne;
+import Erreurs.*;
 
 /**
  * La classe Alimentation represente l'empreinte carbonne moyenne de l'alimentation d'un francais en fonction du taux de repas a base de boeuf, et le taux de repas vegetariens.
@@ -6,7 +7,7 @@ package consoCarbonne;
  */
 public class Alimentation extends ConsoCarbonne {
 
-    //Constructeur
+    //Constructeur par défaut
     public Alimentation(){
     }
 
@@ -14,7 +15,7 @@ public class Alimentation extends ConsoCarbonne {
      * @param txBoeuf
      * @param txVege
      */
-    public Alimentation(double txBoeuf, double txVege) {
+    public Alimentation(double txBoeuf, double txVege) throws ErrTx {
         setTxBoeuf(txBoeuf);
         setTxVege(txVege);
         setTxVolaille(txBoeuf, txVege);
@@ -32,12 +33,13 @@ public class Alimentation extends ConsoCarbonne {
      * @param tb
      */
     //Setters
-    public void setTxBoeuf (double tb){
+    public void setTxBoeuf (double tb) throws ErrTx{
         if(tb >=0 && tb <=1) {
             this.txBoeuf = tb;
+            setTxVolaille(tb, this.txVege);
             setCalculImpact();
         }
-        else System.out.println("Erreur : le taux de repas a base de boeuf doit etre compris entre 0 et 1");
+        else throw new ErrTx("Erreur : le taux de repas a base de boeuf doit etre compris entre 0 et 1");
     }
 
     /**
@@ -47,6 +49,7 @@ public class Alimentation extends ConsoCarbonne {
     public void setTxVege (double tv){
         if(tv >=0 && tv <=1) {
             this.txVege = tv;
+            setTxVolaille(this.txBoeuf, tv);
             setCalculImpact();
         }
         else System.out.println("Erreur : le taux de repas vegetarien doit etre compris entre 0 et 1");

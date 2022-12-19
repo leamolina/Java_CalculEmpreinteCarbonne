@@ -11,9 +11,15 @@ public enum CE {
     private static Scanner scan = new Scanner(System.in);
 
     /**
+     * Constructeur par défaut
+     */
+    CE(){}
+
+    /**
      * @param coefCE
      */
     //Constructeur :
+
     CE(double coefCE) {
         this.coefCE = coefCE;
     }
@@ -85,6 +91,9 @@ public enum CE {
     scan.close();
     return (resultat);
     }
+
+
+    //Methoe qui passe d'un string a un type (pour de vrai ce
 
 }
 

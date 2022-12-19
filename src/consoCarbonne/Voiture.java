@@ -1,6 +1,7 @@
 package consoCarbonne;
 import java.util.*;
 import java.io.*;
+import Erreurs.*;
 
 /**
  * La classe Voiture est une classe fille de la classe transport dans laquelle nous nous sommes interessees plus particulerement aux voitures en fonction des criteres suivant:
@@ -21,7 +22,7 @@ public class Voiture extends Transport{
      * @param amortissement
      */
     //Constructeur :
-    public Voiture(Taille taille, boolean possede, int kilomAnnee, int amortissement){
+    public Voiture(Taille taille, boolean possede, int kilomAnnee, int amortissement) throws ErrValNeg{
         super(kilomAnnee);
         setTaille(taille);
         setPossede(possede);
@@ -94,12 +95,13 @@ public class Voiture extends Transport{
      * Si le nombre de kilometres parcourus par an est negativf nous generons une erreur car cela est impossssible puisque c'est une distance
      * @param kilomAnnee
      */
-    public void setKilomAnnee(int kilomAnnee) {
+    public void setKilomAnnee(int kilomAnnee) throws ErrValNeg {
         if (kilomAnnee < 0) {
-            System.out.println("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
+            throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
         }
         else {
             super.setKilomAnnee(kilomAnnee);
+            setCalculImpact();
         }
     }
 
@@ -107,12 +109,13 @@ public class Voiture extends Transport{
      * Si la valeur d'amortissement est negatives nous generons une erreur car cela est impossssible puisque c'est une duree
      * @param amortissement
      */
-    public void setAmortissement(int amortissement) {
+    public void setAmortissement(int amortissement) throws ErrValNeg {
         if (amortissement < 0){
-            System.out.println("Erreur : impossible d'avoir des valeurs négatives pour la durée de conservation d'un véhicule. ");
+            throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour la durée de conservation d'un véhicule. ");
         }
         else{
             this.amortissement = amortissement;
+            setCalculImpact();
         }
     }
 

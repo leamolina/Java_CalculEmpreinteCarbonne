@@ -4,6 +4,9 @@ import java.util.*;
 
 public class Population {
 
+    //Constructeur par défaut :
+    public Population (){}
+
     //Constructeur :
     public Population(Collection<Utilisateur> collection_utilisateur) {
         this.collection_utilisateur = collection_utilisateur;

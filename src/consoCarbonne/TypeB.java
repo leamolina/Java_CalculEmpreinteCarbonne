@@ -8,6 +8,8 @@ import java.io.*;
 public enum TypeB {
     E(0.00002), M(0.0001);
     private static Scanner scan = new Scanner(System.in);
+    //Constructeur par défaut
+    TypeB(){}
 
     /**
      * @param coef

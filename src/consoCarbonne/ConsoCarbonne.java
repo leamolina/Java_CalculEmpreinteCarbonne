@@ -8,6 +8,7 @@ package consoCarbonne;
 public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
 
 
+
     //Constructeur
     public ConsoCarbonne() {
         ConsoCarbonne.counter += 1;

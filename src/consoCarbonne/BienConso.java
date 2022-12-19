@@ -1,4 +1,5 @@
 package consoCarbonne;
+import Erreurs.*;
 
 /**
  * La classe BienConso represente l'impact de chaque depenses en fonction du montant des depenses annuelles de l'utilisateur-rice.
@@ -12,7 +13,7 @@ public class BienConso extends ConsoCarbonne{
     /**
      * @param montant
      */
-    public BienConso(double montant){
+    public BienConso(double montant) throws ErrValNeg {
         setMontant(montant);
         setCalculImpact();
     }

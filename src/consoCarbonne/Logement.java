@@ -1,4 +1,5 @@
 package consoCarbonne;
+import Erreurs.*;
 
 /**
  * La classe Logement permet de representer l'empreinte carbonne moyenne du logement d'un francais en fonction de sa classe enrgetique et sa superficie .
@@ -12,7 +13,7 @@ public class Logement extends ConsoCarbonne {
      * @param ce
      */
     //Constructeur
-    public Logement (int superficie, CE ce){
+    public Logement (int superficie, CE ce) throws ErrValNeg {
         setSuperficie(superficie);
         setCe(ce);
         setCalculImpact();

@@ -1,11 +1,14 @@
 package Utilisateur;
 import consoCarbonne.*;
-
+//import java.io.IOException;
+//import java.lang.invoke.*;
 import java.util.*;
 import java.io.*;
 
 
-public class EntreeSortie {
+
+
+public class EntreeSortie implements Serializable{
     private static Scanner scan = new Scanner(System.in);
 
     //Constructeur par défaut
@@ -23,27 +26,33 @@ public class EntreeSortie {
     }
 
     public Utilisateur AffichageUtilisateur() {
+        System.out.println("Appel de la fonction 1");
         Utilisateur u = new Utilisateur();
         boolean fin = false;
         do {
             printMenu();
+            //System.out.println("Appel de la fonction 2");
             int choixUtiliateur = scan.nextInt();
+            scan.nextLine();
+            //System.out.println("Appel de la fonction 3");
             switch (choixUtiliateur) {
                 case (0):
                     fin = true;
                     break;
                 case (1):
                     u = initialisation_fichier();
+                    fin = true;
                     break;
 
                 case (2):
-                    u = initialisation_manuelle();
+                    //u = initialisation_manuelle();
                     break;
                 default:
                     System.out.println("Cette valeur ne fait pas partie des possibilités.");
             }
-        } while (fin == false);
+        } while (!fin);
         scan.close();
+        System.out.println(u.toString());
         return (u);
     }
 
@@ -51,49 +60,100 @@ public class EntreeSortie {
 
     //On considère qu'une
 
-    private Utilisateur initialisation_fichier(){
+
+
+    private static Utilisateur initialisation_fichier() {
+        Utilisateur u = new Utilisateur();
+
+        try {
+            System.out.println("Entrez le nom du fichier  :");
+            String nom_fichier = scan.nextLine();
+            ObjectOutputStream oos = new ObjectOutputStream( new FileOutputStream(new File(nom_fichier))) ;
+            oos.writeObject(u) ;
+            oos.close() ;
+
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(nom_fichier))) ;
+            Utilisateur copy =
+                    (Utilisateur) ois.readObject() ;
+            //u = (Utilisateur) ois.readObject();
+
+            ois.close();
+
+
+            return (copy);
+        }
+
+        catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /*
+
+
+    private static Utilisateur initialisation_fichier(){
+
         Utilisateur u = new Utilisateur();
         try {
-            System.out.println("Entrer le nom du fichier  :");
-            String NomFichierALire = scan.nextLine();
-            BufferedReader LireLeFichier = new BufferedReader(new FileReader(new File(NomFichierALire)));
-            String ligne = LireLeFichier.readLine();
+            System.out.println("Entrez le nom du fichier  :");
+            String nom_fichier = scan.nextLine();
+            BufferedReader reader = new BufferedReader(new FileReader(nom_fichier));
+            String ligne = reader.readLine();
 
             //Premiere ligne : Alimentation
             if (ligne != null) {
                 Alimentation a = initialisation_fichier_alimentation(ligne);
                 u.setAlimentation(a);
-                ligne = LireLeFichier.readLine();
+                ligne = reader.readLine();
 
                 //Deuxieme ligne : BienConso
                 if (ligne != null) {
                     BienConso b = initialisation_fichier_bienConso(ligne);
                     u.setBienConso(b);
-                    ligne = LireLeFichier.readLine();
+                    ligne = reader.readLine();
 
                     //Troisieme ligne : ListeLogement
                     if (ligne != null) {
                         ArrayList<Logement> liste_logement = initialisation_fichier_listeLogement(ligne);
                         u.setCollection_logement(liste_logement);
-                        ligne = LireLeFichier.readLine();
+                        ligne = reader.readLine();
 
-                        //Quatrieme ligne : ListeTransport
+                        //Quatrieme ligne : ListeVoiture
                         if (ligne != null) {
-                            ArrayList<Transport> liste_transport = initialisation_fichier_listeTransport(ligne);
-                            u.setCollection_transport(liste_transport);
-                            ligne = LireLeFichier.readLine();
+                            ArrayList<Voiture> liste_voiture = initialisation_fichier_listeVoiture(ligne);
+                            u.setCollection_voiture(liste_voiture);
+                            ligne = reader.readLine();
 
-                            //Cinquieme ligne : on vérifie qu'il n'y a plus rien
-                            if(ligne !=null) System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible ( il y en a en trop) ");
+                            //Cinquieme ligne : ListeAvion
+                            if(ligne!= null){
+                                ArrayList<Avion> liste_avion = initialisation_fichier_listeAvion(ligne);
+                                u.setCollection_avion(liste_avion);
+                                ligne = reader.readLine();
+
+                                //Sixieme ligne : Liste Bus
+                                if(ligne!= null){
+                                    ArrayList<Bus> liste_bus = initialisation_fichier_listeBus(ligne);
+                                    u.setCollection_bus(liste_bus);
+                                    ligne = reader.readLine();
+
+                                    //Septieme ligne : ListeTGV
+                                    if (ligne != null){
+                                        ArrayList<TGV> liste_tgv = initialisation_fichier_listeTgv(ligne);
+                                        u.setCollection_tgv(liste_tgv);
+                                        ligne = reader.readLine();
+
+                                        //Huitieme ligne : on vérifie qu'il n'y a plus rien
+                                        if(ligne !=null) System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible ( il y en a en trop) ");
+
+                                    } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
+                                } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
+                            } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
                         } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-
-
                     } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-
-
                 } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-            }
-            LireLeFichier.close();
+            } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
+
+            reader.close();
         }
         catch(Exception e){
             e.printStackTrace();
@@ -102,11 +162,13 @@ public class EntreeSortie {
      }
 
 
-     private Alimentation initialisation_fichier_alimentation(String ligne){
+    private static Alimentation initialisation_fichier_alimentation(String ligne){
         Alimentation a = new Alimentation();
+        System.out.println("La ligne d'alimentation est : " + ligne);
          String[] mots = ligne.split(" ");
+         System.out.println("nb de mots : " + mots.length);
          //On verifie qu'il y a bien deux mots differents
-         if (mots.length !=0) {
+         if (mots.length !=2) {
              System.out.println("Erreur de mise en page");
              System.exit(0);
          }
@@ -118,7 +180,8 @@ public class EntreeSortie {
          }
          //Si c'est bon on peut lire les infos de l'alimentation
          //Le deuxieme mot est du type{txBoeuf,txVege,...} et contient tous les attributs d'une alimentation
-         mots[1] = mots[1].replaceAll("{}", "");
+
+        mots[1] = mots[1].replaceAll("\\{", "").replaceAll("\\}","");
          String[] liste_attributs = mots[1].split(";");
 
          //On verifie qu'il y a bien deux attributs
@@ -132,16 +195,67 @@ public class EntreeSortie {
          a.setTxBoeuf(txBoeuf);
          double txVege = Double.parseDouble(liste_attributs[1]);
          a.setTxVege(txVege);
-
+         //System.out.println("To string d alilentation");
+         //System.out.println(a.toString());
          return(a);
      }
 
 
-    private BienConso initialisation_fichier_bienConso(String ligne){
+
+    private static ArrayList<Logement> initialisation_fichier_listeLogement(String ligne){
+        ArrayList liste_logement = new ArrayList();
+        System.out.println("La ligne de Logements est : " + ligne);
+        String[] mots = ligne.split(" ");
+        System.out.println("nb de mots : " + mots.length);
+        if (mots.length <2) {
+            System.out.println("Erreur de mise en page");
+            System.exit(0);
+        }
+
+        //Normalement les premier mot est "ListeLogement"
+        if(!mots[0].equals("ListeLogement")){
+            System.out.println("Erreur : le premier mot est censé etre le nom de la catégorie (ici ListeLogement).");
+            System.exit(0);
+        }
+
+        //Si c est bon on peut lire les infos des Logements
+        //On recupere les prochains mots un à un
+        //Chaque mot est la liste des attributs d'un logement
+
+        for (int i=1; i<mots.length; i++){
+            Logement l = new Logement();
+            mots[i] = mots[i].replaceAll("\\{", "").replaceAll("\\}","");
+            String[] liste_attributs = mots[i].split(";");
+
+            //On verifie qu'il y a bien deux attributs
+            if(liste_attributs.length !=2){
+                System.out.println("Erreur : pas le bon nombre d'attributs. Il y en a" + liste_attributs.length + " et 2 sont attendus.");
+                System.exit(0);
+            }
+
+            //On lit les deux attributs sans rien vérifier (les setters feront les verifications necessaires)
+            int superficie = Integer.parseInt(liste_attributs[0]);
+            l.setSuperficie(superficie);
+
+        }
+
+
+        return(liste_logement);
+    }
+
+    private static Logement initialisation_fichier_logement(String ligne){
+        Logement l = new Logement();
+        return(l);
+    }
+
+
+
+
+    private static BienConso initialisation_fichier_bienConso(String ligne){
         BienConso b = new BienConso();
         String[] mots = ligne.split(" ");
         //On verifie qu'il y a bien deux mots differents
-        if (mots.length !=0) {
+        if (mots.length !=2) {
             System.out.println("Erreur de mise en page");
             System.exit(0);
         }
@@ -153,7 +267,7 @@ public class EntreeSortie {
         }
         //Si c'est bon on peut lire les infos de l'alimentation
         //Le deuxieme mot est du type{txBoeuf,txVege,...} et contient tous les attributs d'une alimentation
-        mots[1] = mots[1].replaceAll("}{" , "");
+        mots[1] = mots[1].replaceAll("\\{", "").replaceAll("\\}","");
         String[] liste_attributs = mots[1].split(";");
 
         //On verifie qu'il y a bien un attribut
@@ -169,12 +283,12 @@ public class EntreeSortie {
         return(b);
     }
 
-    private ArrayList<Transport> initialisation_fichier_listeTransport(String ligne){
+    private static ArrayList<Transport> initialisation_fichier_listeTransport(String ligne){
         ArrayList liste_transport = new ArrayList();
         return(liste_transport);
     }
 
-    private Voiture initialisation_fichier_Voiture(String ligne){
+    private static Voiture initialisation_fichier_Voiture(String ligne){
         Voiture v = new Voiture();
         String[] mots = ligne.split(" ");
         //On verifie qu'il y a bien deux mots differents
@@ -223,33 +337,40 @@ public class EntreeSortie {
         return(v);
     }
 
-    private Avion initialisation_fichier_Avion(String ligne){
+    private static Avion initialisation_fichier_Avion(String ligne){
         Avion a = new Avion();
         return(a);
     }
 
 
-    private TGV initialisation_fichier_TGV(String ligne){
+    private static TGV initialisation_fichier_TGV(String ligne){
         TGV t = new TGV();
         return(t);
     }
 
-    private Bus initialisation_fichier_Bus(String ligne){
+    private static Bus initialisation_fichier_Bus(String ligne){
         Bus b = new Bus();
         return(b);
     }
 
 
 
-    private ArrayList<Logement> initialisation_fichier_listeLogement(String ligne){
-        ArrayList liste_logement = new ArrayList();
-        return(liste_logement);
-    }
 
-    private Logement initialisation_fichier_logement(String ligne){
-        Logement l = new Logement();
-        return(l);
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -398,6 +519,8 @@ public class EntreeSortie {
         scan.close();
         return(t);
     }
+
+     */
 
 
 }
