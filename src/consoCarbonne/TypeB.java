@@ -42,7 +42,7 @@ public enum TypeB {
      * Methode qui demande à l'utilisateur si le bus est à moteur ou electrique.
      * @return la reponse de l'utilisateur concernant le type de bus en la convertissant en TypeB.
      */
-    public TypeB StringToTypeB(){
+    public TypeB StringToTypeBBis(){
         boolean fin = false;
         TypeB resultat = TypeB.M;
         do{
@@ -66,6 +66,27 @@ public enum TypeB {
         return(resultat);
     }
 
+    public TypeB StringToTypeB(String taille){
+        boolean fin = false;
+        TypeB resultat = TypeB.M;
+        do{
+            if (taille.equals("M")){
+                resultat = TypeB.M;
+                fin = true;
+                break;
+            }
+            else if (taille.equals("E")){
+                resultat = TypeB.E;
+                fin = true;
+                break;
+            }
+            else {
+                System.out.println("Le type indiqué n'existe pas ");
+            }
+
+        }while(!fin);
+        return(resultat);
+    }
 
 
 }

@@ -1,19 +1,31 @@
 package Utilisateur;
+
+import Erreurs.ErrSommeTx;
+import Erreurs.ErrTx;
+import Erreurs.ErrValNeg;
 import consoCarbonne.*;
-//import java.io.IOException;
-//import java.lang.invoke.*;
-import java.util.*;
-import java.io.*;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Scanner;
+import java.lang.*;
 
-public class EntreeSortie implements Serializable{
+
+public class EntreeSortie{
     private static Scanner scan = new Scanner(System.in);
 
     //Constructeur par défaut
-    public EntreeSortie() {
-    }
+    public EntreeSortie(){}
 
 
     public static void printMenu() {
@@ -22,10 +34,10 @@ public class EntreeSortie implements Serializable{
         System.out.println("--------------");
         System.out.println("Tapez 0 pour sortir du menu.");
         System.out.println("Tapez 1 pour initialiser un utilisateur à partir d'un fichier texte.");
-        System.out.println("Tapez 2 pour initialiser un utilisateur manuellement.");
+        System.out.println("Tapez 2 pour initialiser un utilisateur manuellement (en répondant à une suite de questions).");
     }
 
-    public Utilisateur AffichageUtilisateur() {
+    public Utilisateur AffichageUtilisateur() throws ErrTx, ErrValNeg {
         System.out.println("Appel de la fonction 1");
         Utilisateur u = new Utilisateur();
         boolean fin = false;
@@ -40,397 +52,253 @@ public class EntreeSortie implements Serializable{
                     fin = true;
                     break;
                 case (1):
-                    u = initialisation_fichier();
+                    System.out.println("Entrez le nom du fichier  :");
+                    String nom_fichier = scan.nextLine();
+                    u = new Utilisateur(nom_fichier);
                     fin = true;
                     break;
 
                 case (2):
-                    //u = initialisation_manuelle();
+                    u = new Utilisateur(0);
+                    fin = true;
+
                     break;
                 default:
                     System.out.println("Cette valeur ne fait pas partie des possibilités.");
             }
         } while (!fin);
-        scan.close();
-        System.out.println(u.toString());
         return (u);
     }
 
-    //On travaillera sur cette methode a la fin ( cest la plus dure)
 
-    //On considère qu'une
-
-
-
-    private static Utilisateur initialisation_fichier() {
+    protected Utilisateur initialisation_fichier(String nom_fichier) throws ErrTx, ErrValNeg {
         Utilisateur u = new Utilisateur();
 
+
+            JSONParser jsonParser = new JSONParser();
+
+
         try {
-            System.out.println("Entrez le nom du fichier  :");
-            String nom_fichier = scan.nextLine();
-            ObjectOutputStream oos = new ObjectOutputStream( new FileOutputStream(new File(nom_fichier))) ;
-            oos.writeObject(u) ;
-            oos.close() ;
+                FileReader reader = new FileReader(nom_fichier);
+                //Lecture du fichier JSON :
+                Object obj = jsonParser.parse(reader);
 
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(nom_fichier))) ;
-            Utilisateur copy =
-                    (Utilisateur) ois.readObject() ;
-            //u = (Utilisateur) ois.readObject();
+                JSONObject objet = (JSONObject) obj;
+                JSONObject utilisateurObject = (JSONObject) objet.get("Utilisateur");
 
-            ois.close();
+                Alimentation alimentation = lecture_fichier_alimentation(utilisateurObject);
+                BienConso bienConso = lecture_fichier_bienConso(utilisateurObject);
+                Collection<Logement> liste_logement = lecture_fichier_listeLogement(utilisateurObject);
+                Collection<Voiture> liste_voiture = lecture_fichier_listeVoiture(utilisateurObject);
+                Collection <Avion> liste_avion = lecture_fichier_listeAvion(utilisateurObject);
+                Collection <Bus> liste_Bus = lecture_fichier_listeBus(utilisateurObject);
+                Collection <TGV> liste_tgv = lecture_fichier_listeTgv(utilisateurObject);
+                ServicesPublic s = ServicesPublic.getInstance();
+
+                u = new Utilisateur(alimentation, bienConso, liste_logement, liste_voiture, liste_avion, liste_Bus, liste_tgv,s);
 
 
-            return (copy);
-        }
 
-        catch (IOException | ClassNotFoundException e) {
+            } catch (FileNotFoundException e) {
+                System.err.println("Erreur : fichier non trouvé.");
+                System.exit(1);
+            } catch (IOException e) {
+                System.err.println("Erreur : IOException.");
+                System.exit(1);
+                //e.printStackTrace();
+            } catch (ParseException e) {
+                System.err.println("Erreur dans l'utilisation du Parse");
+                //System.exit(1);
+                e.printStackTrace();
+            } catch (ErrTx e) {
+                throw new RuntimeException(e);
+            } catch (ErrValNeg e) {
+                throw new RuntimeException(e);
+            } catch (ErrSommeTx e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /*
-
-
-    private static Utilisateur initialisation_fichier(){
-
-        Utilisateur u = new Utilisateur();
-        try {
-            System.out.println("Entrez le nom du fichier  :");
-            String nom_fichier = scan.nextLine();
-            BufferedReader reader = new BufferedReader(new FileReader(nom_fichier));
-            String ligne = reader.readLine();
-
-            //Premiere ligne : Alimentation
-            if (ligne != null) {
-                Alimentation a = initialisation_fichier_alimentation(ligne);
-                u.setAlimentation(a);
-                ligne = reader.readLine();
-
-                //Deuxieme ligne : BienConso
-                if (ligne != null) {
-                    BienConso b = initialisation_fichier_bienConso(ligne);
-                    u.setBienConso(b);
-                    ligne = reader.readLine();
-
-                    //Troisieme ligne : ListeLogement
-                    if (ligne != null) {
-                        ArrayList<Logement> liste_logement = initialisation_fichier_listeLogement(ligne);
-                        u.setCollection_logement(liste_logement);
-                        ligne = reader.readLine();
-
-                        //Quatrieme ligne : ListeVoiture
-                        if (ligne != null) {
-                            ArrayList<Voiture> liste_voiture = initialisation_fichier_listeVoiture(ligne);
-                            u.setCollection_voiture(liste_voiture);
-                            ligne = reader.readLine();
-
-                            //Cinquieme ligne : ListeAvion
-                            if(ligne!= null){
-                                ArrayList<Avion> liste_avion = initialisation_fichier_listeAvion(ligne);
-                                u.setCollection_avion(liste_avion);
-                                ligne = reader.readLine();
-
-                                //Sixieme ligne : Liste Bus
-                                if(ligne!= null){
-                                    ArrayList<Bus> liste_bus = initialisation_fichier_listeBus(ligne);
-                                    u.setCollection_bus(liste_bus);
-                                    ligne = reader.readLine();
-
-                                    //Septieme ligne : ListeTGV
-                                    if (ligne != null){
-                                        ArrayList<TGV> liste_tgv = initialisation_fichier_listeTgv(ligne);
-                                        u.setCollection_tgv(liste_tgv);
-                                        ligne = reader.readLine();
-
-                                        //Huitieme ligne : on vérifie qu'il n'y a plus rien
-                                        if(ligne !=null) System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible ( il y en a en trop) ");
-
-                                    } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-                                } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-                            } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-                        } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-                    } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-                } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-            } else System.out.println("Erreur : le nombre de lignes du fichier n'est pas compatible (il en manque)");
-
-            reader.close();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-    return(u);
-     }
-
-
-    private static Alimentation initialisation_fichier_alimentation(String ligne){
-        Alimentation a = new Alimentation();
-        System.out.println("La ligne d'alimentation est : " + ligne);
-         String[] mots = ligne.split(" ");
-         System.out.println("nb de mots : " + mots.length);
-         //On verifie qu'il y a bien deux mots differents
-         if (mots.length !=2) {
-             System.out.println("Erreur de mise en page");
-             System.exit(0);
-         }
-
-         //Normalement le premier mot c'est "Alimentation" ;
-         if(!mots[0].equals("Alimentation")){
-             System.out.println("Erreur : le premier mot est censé etre le nom de la catégorie (ici Alimentation).");
-             System.exit(0);
-         }
-         //Si c'est bon on peut lire les infos de l'alimentation
-         //Le deuxieme mot est du type{txBoeuf,txVege,...} et contient tous les attributs d'une alimentation
-
-        mots[1] = mots[1].replaceAll("\\{", "").replaceAll("\\}","");
-         String[] liste_attributs = mots[1].split(";");
-
-         //On verifie qu'il y a bien deux attributs
-         if(liste_attributs.length !=2){
-             System.out.println("Erreur : pas le bon nombre d'attributs. Il y en a" + liste_attributs.length + " et 2 sont attendus.");
-             System.exit(0);
-         }
-
-         //On lit les deux attributs (les setters feront les tests necessaires)
-         double txBoeuf = Double.parseDouble(liste_attributs[0]);
-         a.setTxBoeuf(txBoeuf);
-         double txVege = Double.parseDouble(liste_attributs[1]);
-         a.setTxVege(txVege);
-         //System.out.println("To string d alilentation");
-         //System.out.println(a.toString());
-         return(a);
-     }
-
-
-
-    private static ArrayList<Logement> initialisation_fichier_listeLogement(String ligne){
-        ArrayList liste_logement = new ArrayList();
-        System.out.println("La ligne de Logements est : " + ligne);
-        String[] mots = ligne.split(" ");
-        System.out.println("nb de mots : " + mots.length);
-        if (mots.length <2) {
-            System.out.println("Erreur de mise en page");
-            System.exit(0);
-        }
-
-        //Normalement les premier mot est "ListeLogement"
-        if(!mots[0].equals("ListeLogement")){
-            System.out.println("Erreur : le premier mot est censé etre le nom de la catégorie (ici ListeLogement).");
-            System.exit(0);
-        }
-
-        //Si c est bon on peut lire les infos des Logements
-        //On recupere les prochains mots un à un
-        //Chaque mot est la liste des attributs d'un logement
-
-        for (int i=1; i<mots.length; i++){
-            Logement l = new Logement();
-            mots[i] = mots[i].replaceAll("\\{", "").replaceAll("\\}","");
-            String[] liste_attributs = mots[i].split(";");
-
-            //On verifie qu'il y a bien deux attributs
-            if(liste_attributs.length !=2){
-                System.out.println("Erreur : pas le bon nombre d'attributs. Il y en a" + liste_attributs.length + " et 2 sont attendus.");
-                System.exit(0);
-            }
-
-            //On lit les deux attributs sans rien vérifier (les setters feront les verifications necessaires)
-            int superficie = Integer.parseInt(liste_attributs[0]);
-            l.setSuperficie(superficie);
-
-        }
-
-
-        return(liste_logement);
-    }
-
-    private static Logement initialisation_fichier_logement(String ligne){
-        Logement l = new Logement();
-        return(l);
+        //scan.close();
+        return u;
     }
 
 
 
 
-    private static BienConso initialisation_fichier_bienConso(String ligne){
-        BienConso b = new BienConso();
-        String[] mots = ligne.split(" ");
-        //On verifie qu'il y a bien deux mots differents
-        if (mots.length !=2) {
-            System.out.println("Erreur de mise en page");
-            System.exit(0);
-        }
-
-        //Normalement le premier mot c'est "BienConso" ;
-        if(!mots[0].equals("BienConso")){
-            System.out.println("Erreur : le premier mot est censé etre le nom de la catégorie (ici BienConso).");
-            System.exit(0);
-        }
-        //Si c'est bon on peut lire les infos de l'alimentation
-        //Le deuxieme mot est du type{txBoeuf,txVege,...} et contient tous les attributs d'une alimentation
-        mots[1] = mots[1].replaceAll("\\{", "").replaceAll("\\}","");
-        String[] liste_attributs = mots[1].split(";");
-
-        //On verifie qu'il y a bien un attribut
-        if(liste_attributs.length !=1){
-            System.out.println("Erreur : pas le bon nombre d'attributs. Il y en a" + liste_attributs.length + " et 1 seul est attendu.");
-            System.exit(0);
-        }
-
-        //On lit l'attribut (les setters feront les tests necessaires)
-        double montant = Double.parseDouble(liste_attributs[0]);
-        b.setMontant(montant);
-
-        return(b);
+    private Alimentation lecture_fichier_alimentation(JSONObject utilisateurObject) throws ErrTx, ErrSommeTx {
+        JSONObject alimentationObject = (JSONObject) utilisateurObject.get("alimentation");
+        double txBoeuf = (double) alimentationObject.get("txBoeuf");
+        double txVege = (double) alimentationObject.get("txVege");
+        Alimentation alimentation = new Alimentation(txBoeuf, txVege);
+        return (alimentation);
     }
 
-    private static ArrayList<Transport> initialisation_fichier_listeTransport(String ligne){
-        ArrayList liste_transport = new ArrayList();
-        return(liste_transport);
+    private BienConso lecture_fichier_bienConso(JSONObject utilisateurObject) throws ErrValNeg {
+        JSONObject bienConsoObject = (JSONObject) utilisateurObject.get("bienconso");
+        double montant = (double) bienConsoObject.get("montant");
+        System.out.println("montant : " + montant);
+        BienConso bienConso = new BienConso(montant);
+        //BienConso bienConso = new BienConso(montant);
+        return (bienConso);
     }
 
-    private static Voiture initialisation_fichier_Voiture(String ligne){
-        Voiture v = new Voiture();
-        String[] mots = ligne.split(" ");
-        //On verifie qu'il y a bien deux mots differents
-        if (mots.length !=0) {
-            System.out.println("Erreur de mise en page");
-            System.exit(0);
+    private Collection <Logement> lecture_fichier_listeLogement(JSONObject utilisateurObject) throws ErrValNeg {
+        JSONArray listelogmentArray = (JSONArray) utilisateurObject.get("listelogement");
+        Collection<Logement> liste_logement = new ArrayList<>();
+        //Collection <Logement> liste_logement = Collection;
+        for (int i = 0; i < listelogmentArray.size() ; i++) {
+            JSONObject t = (JSONObject) listelogmentArray.get(i);
+            long superficie = (Long) t.get("superficie");
+            String classe = (String) t.get("classe");
+            Logement logement = new Logement((int) superficie, CE.StringToCE(classe));
+            liste_logement.add(logement);
         }
-
-        //Normalement le premier mot c'est "Voiture" ;
-        if(!mots[0].equals("Voiture")){
-            System.out.println("Erreur : le premier mot est censé etre le nom de la catégorie (ici Voiture).");
-            System.exit(0);
-        }
-        //Si c'est bon on peut lire les infos de la voiture
-        //Le deuxieme mot est du type{att1, att2,...} et contient tous les attributs d'une voiture
-        mots[1] = mots[1].replaceAll("{}", "");
-        String[] liste_attributs = mots[1].split(";");
-
-        //On verifie qu'il y a bien un attribut
-        if(liste_attributs.length !=4){
-            System.out.println("Erreur : pas le bon nombre d'attributs. Il y en a" + liste_attributs.length + " et 4 sont attendus.");
-            System.exit(0);
-        }
-
-        //On lit les attributs (les setters feront les tests necessaires)
-
-        //Taille :
-        if(liste_attributs[0].equals("P")) v.setTaille(Taille.P);
-        else if (liste_attributs[0].equals("G")) v.setTaille(Taille.G);
-        else {
-            System.out.println("Erreur : la taille de la voiture n'est pas compatible.");
-            System.exit(0);
-        }
-        //Possede :
-        if(liste_attributs[1].equals("true")) v.setPossede(true);
-        else if (liste_attributs[1].equals("false")) v.setPossede(false);
-        else {
-            System.out.println("Erreur : l'attribut Possede de la voiture n'est pas compatible.");
-            System.exit(0);
-        }
-        int kilomAnnee = Integer.parseInt(liste_attributs[2]);
-        v.setKilomAnnee(kilomAnnee);
-        int amortissement = Integer.parseInt(liste_attributs[3]);
-        v.setAmortissement(amortissement);
-
-        return(v);
-    }
-
-    private static Avion initialisation_fichier_Avion(String ligne){
-        Avion a = new Avion();
-        return(a);
+        return (liste_logement);
     }
 
 
-    private static TGV initialisation_fichier_TGV(String ligne){
-        TGV t = new TGV();
-        return(t);
+    private Collection<Voiture> lecture_fichier_listeVoiture(JSONObject utilisateurObject) throws ErrValNeg {
+        JSONArray listevoitureArray = (JSONArray) utilisateurObject.get("listeVoiture");
+        Collection<Voiture> liste_voiture = new ArrayList<>();
+        for (int i = 0; i < listevoitureArray.size() ; i++) {
+            JSONObject v = (JSONObject) listevoitureArray.get(i);
+            String taille = (String) v.get("taille");
+            Boolean possede = (Boolean) v.get("possede");
+            long kilomAnnee = (long) v.get("kilomAnnee");
+            long amortissement = (long) v.get("amortissement");
+            Voiture voiture = new Voiture(Taille.StringToTaille(taille),possede, (int) kilomAnnee, (int) amortissement);
+            liste_voiture.add(voiture);
+        }
+        return (liste_voiture);
     }
 
-    private static Bus initialisation_fichier_Bus(String ligne){
-        Bus b = new Bus();
-        return(b);
+    private Collection <Avion> lecture_fichier_listeAvion(JSONObject utilisateurObject) throws ErrValNeg {
+        JSONArray listeAvionArray = (JSONArray) utilisateurObject.get("listeAvion");
+        Collection<Avion> liste_avion = new ArrayList<>();
+        for (int i = 0; i < listeAvionArray.size() ; i++) {
+            JSONObject a = (JSONObject) listeAvionArray.get(i);
+            long kilomAnnee = (long) a.get("kilomAnnee");
+            Avion avion = new Avion((int) kilomAnnee);
+            liste_avion.add(avion);
+        }
+        return(liste_avion);
+    }
+
+
+    private Collection <Bus> lecture_fichier_listeBus(JSONObject utilisateurObject) throws ErrValNeg {
+        JSONArray listeBusArray = (JSONArray) utilisateurObject.get("listeBus");
+        ArrayList<Bus> liste_bus = new ArrayList<>();
+        for (int i = 0; i < listeBusArray.size() ; i++) {
+            JSONObject b = (JSONObject) listeBusArray.get(i);
+            long kilomAnnee = (long) b.get("kilomAnnee");
+            String type = (String) b.get("type");
+            System.out.println(type);
+            TypeB typeB = TypeB.E.StringToTypeB(type);
+            System.out.println(typeB.getCoef());
+            Bus bus = new Bus((int)kilomAnnee, typeB);
+            System.out.println("tot");
+            liste_bus.add(bus);
+        }
+        return(liste_bus);
+    }
+
+    private Collection <TGV> lecture_fichier_listeTgv(JSONObject utilisateurObject) throws ErrValNeg {
+        JSONArray listeTgvArray = (JSONArray) utilisateurObject.get("listeTGV");
+        ArrayList<TGV> liste_tgv = new ArrayList<>();
+        for (int i = 0; i < listeTgvArray.size() ; i++) {
+            JSONObject a = (JSONObject) listeTgvArray.get(i);
+            long kilomAnnee = (long) a.get("kilomAnnee");
+            TGV tgv = new TGV((int)kilomAnnee);
+            liste_tgv.add(tgv);
+        }
+        return(liste_tgv);
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private Utilisateur initialisation_manuelle(){
+    Utilisateur initialisation_manuelle() throws ErrValNeg, ErrTx {
         //Etape 1 : alimentation :
-        System.out.println("Initialisation de l'Alimentation ");
+        System.out.println("Initialisation de la catégorie Alimentation ");
         Alimentation a = initialisation_manuelle_alimentation();
 
         //Etape 2 : BienConso :
-        System.out.println("Initialisation de BienConso :");
+        System.out.println("Initialisation de la catégorie BienConso :");
         BienConso c = initialisation_manuelle_bienConso();
 
-        //Etape 3 : Logement :
-        System.out.println("Initialisation des logements : ");
-        System.out.println("Combien de logement souhaitez vous ajouter ?");
+        //Etape 3 : Liste Logement :
+        System.out.println("Initialisation de la catégorie Logements : ");
+        System.out.println("Combien de logements possedez-vous ?");
         int nb = scan.nextInt();
-        ArrayList<Logement> liste_logement = initialisation_manuelle_logement(nb);
 
-        //Etape 4 : Transport :
-        System.out.println("Initialisation des transport");
-        System.out.println("Combien de transport souhaitez vous ajouter ?");
+        Collection<Logement> liste_logement = initialisation_manuelle_listeLogement(nb);
+
+        //Etape 4 : Voiture :
+        System.out.println("Initialisation de la catégorie Voitures");
+        System.out.println("Combien de voitures possédez-vous ?");
         nb = scan.nextInt();
-        ArrayList<Transport> liste_transport = initialisation_manuelle_transport(nb);
 
-        //Etape 5 : Services Public:
+        Collection<Voiture> liste_voiture = initialisation_manuelle_listeVoiture(nb);
+
+
+        //Etape 5 : Avion :
+        System.out.println("Initialisation de la catégorie Trajets en Avion");
+        System.out.println("Combien de trajets en avion souhaitez-vous ajouter ? (1 aller = 1 trajet)");
+        nb = scan.nextInt();
+
+        Collection<Avion> liste_avion = initialisation_manuelle_listeAvion(nb);
+
+
+        //Etape 6 : Bus :
+        System.out.println("Initialisation de la catégorie Bus");
+        System.out.println("Combien de trajets en Bus souhaitez-vous ajouter ?");
+        nb = scan.nextInt();
+
+        Collection<Bus> liste_bus = initialisation_manuelle_listeBus(nb);
+
+        //Etape 7 : TGV
+        System.out.println("Initialisation de la catégorie TGV");
+        System.out.println("Combien de trajets en TGV souhaitez-vous ajouter ?");
+        nb = scan.nextInt();
+
+        Collection<TGV> liste_tgv = initialisation_manuelle_listeTgv(nb);
+
+
+        //Etape 8 : Services Public:
         ServicesPublic s = ServicesPublic.getInstance();
 
         //Etape finale :
-        Utilisateur u = new Utilisateur(a, c, liste_logement, liste_transport, s);
+        Utilisateur u = new Utilisateur(a, c, liste_logement, liste_voiture, liste_avion,  liste_bus, liste_tgv, s);
         return (u);
 
     }
 
-    private Alimentation initialisation_manuelle_alimentation(){
+    private Alimentation initialisation_manuelle_alimentation() throws ErrTx {
         Alimentation a = new Alimentation();
-        System.out.println("Entrer le taux de Boeuf : ");
-        int txBoeuf = scan.nextInt();
+        System.out.println("Entrez le taux de consommation moyen de Boeuf par repas (un nombre compris entre 0 et 1) : ");
+        double txBoeuf = scan.nextDouble();
         a.setTxBoeuf(txBoeuf);
-        System.out.println("Entre le taux de legume ");
-        int txVege = scan.nextInt();
+        System.out.println("Entrez le taux de consomation moyen de légumes par repas (un nombre compris entre 0 et 1 ) : ");
+        double txVege = scan.nextDouble();
         a.setTxVege(txVege);
         return (a);
     }
 
-    private BienConso initialisation_manuelle_bienConso(){
+    private BienConso initialisation_manuelle_bienConso() throws ErrValNeg {
         BienConso b = new BienConso();
-        System.out.println("Entre le montant des depenses anuelles");
+        System.out.println("Entrez le montant de vos dépenses anuelles");
         int montant = scan.nextInt();
         b.setMontant(montant);
         return (b);
     }
 
-    private ArrayList<Logement> initialisation_manuelle_logement(int nb){
-        ArrayList liste_logement = new ArrayList();
+    private Collection<Logement> initialisation_manuelle_listeLogement(int nb) throws ErrValNeg {
+        //Logement l = new Logement;
+        ArrayList<Logement> liste_logement = new ArrayList<>();
         for (int i=0; i<nb;i++) {
-            System.out.println("Creation d'un logement");
+            System.out.println("Initialisation du logement numéro " + (i+1) + ":");
             Logement l = new Logement();
             CE ce = CE.A;
-            l.setCe(ce.StringToCE());
-            System.out.println("Entrer la superficie du logement : ");
+            l.setCe(ce.StringToCEBis());
+            System.out.println("Entrez la superficie du logement numéro " + (i+1) +":");
             int superficie = scan.nextInt();
             l.setSuperficie(superficie);
             liste_logement.add(l);
@@ -440,87 +308,66 @@ public class EntreeSortie implements Serializable{
 
 
 
-    private ArrayList<Transport> initialisation_manuelle_transport(int nb){
-        ArrayList liste_transport = new ArrayList();
+    private Collection<Voiture> initialisation_manuelle_listeVoiture(int nb) throws ErrValNeg {
+        ArrayList<Voiture> liste_voiture = new ArrayList<>();
         for (int i=0 ; i<nb; i++){
-            Transport t =  creation_transport();
-            liste_transport.add(t);
+            System.out.println("Initialisation de la voiture numéro " + (i+1) + ":");
+            Voiture v = new Voiture();
+            v.setTaille(Taille.StringToTailleBis());
+            System.out.println("Entrez \"true\" vous possédez la voiture numéro " + (i+1) + ", \"false\" sinon");
+            boolean possede = scan.nextBoolean();
+            v.setPossede(possede);
+            System.out.println("Entrez le nombre de kilomètres parcourus en moyenne en un an avec la voiture numéro " + (i+1) + ":");
+            int kilomAnnee = scan.nextInt();
+            v.setKilomAnnee(kilomAnnee);
+            System.out.println("Entrez l'amortissement de la voiture numéro "+ (i+1) +":");
+            int amortissement = scan.nextInt();
+            v.setAmortissement(amortissement);
+            liste_voiture.add(v);
         }
-        return (liste_transport);
+        return (liste_voiture);
     }
 
-    private Transport creation_transport(){
-        System.out.println("Creation d'un transport");
-        System.out.println("Entrez 0 si vous voulez ajouter un Avion");
-        System.out.println("Entrez 1 si vous voulez ajouter une Voiture");
-        System.out.println("Entrez 2 si vous voulez ajouter un Bus ");
-        System.out.println("Entrez 3 si vous voulez ajouter un TGV");
-        boolean fin = false;
-        Transport t = new Transport();
-        do{
-            int type_logement = scan.nextInt();
-            int nbKm = 0;
-            switch(type_logement){
-                case(0):
-                    //creation d'un Avion
-                    System.out.println("Entrez le nombre de kilometres :");
-                    nbKm = scan.nextInt();
-                    t = new Avion(nbKm);
-                    fin = true;
-                    break;
-                case(1):
-                    //creation d'une voiture
-                    System.out.println("Entrez le nombre de kilometres :");
-                    nbKm = scan.nextInt();
-                    Voiture v = new Voiture();
-                    boolean fin_v = false;
-                    System.out.println("Entrez 1 si l'utilisateur possede une voiture, 0 sinon ");
-                    int x = scan.nextInt();
-                    do {
-                        if (x == 0) {
-                            v.setPossede(false);
-                            v.setKilomAnnee(0);
-                            v.setAmortissement(0);
-                        } else if (x == 1) {
-                            v.setPossede(true);
-                            System.out.println("Entrez l'amortissement.");
-                            int amortissement = scan.nextInt();
-                            v.setAmortissement(amortissement);
-                            Taille taille = Taille.P;
-                            v.setTaille(taille.StringToTaille());
-                        }
-                    }while(fin_v == false);
-                    t = v;
-                    break;
-                case(2):
-                    //creation d'un Bus
-                    Bus b = new Bus();
-                    System.out.println("Entrez le nombre de kilometres :");
-                    nbKm = scan.nextInt();
-                    TypeB type = TypeB.M;
-                    b.setType(type);
-                    b.setKilomAnnee(nbKm);
-                    t = b;
-                    fin = true;
-                    break;
-                case(3):
-                    //creation d'un TGV
-                    TGV tgv = new TGV();
-                    System.out.println("Entrez le nombre de kilometres :");
-                    nbKm = scan.nextInt();
-                    tgv.setKilomAnnee(nbKm);
-                    t = tgv;
-                    fin = true;
-                    break;
-                default :
-                    System.out.println("Cette valeur ne fait pas partie des possibilités.");
-            }
-        }while(!fin);
-        scan.close();
-        return(t);
+
+
+    private Collection<Avion> initialisation_manuelle_listeAvion(int nb) throws ErrValNeg {
+        ArrayList<Avion> liste_avion = new ArrayList<>();
+        for (int i=0 ; i<nb; i++){
+            System.out.println("Initialisation du trajet en avion numéro " + (i+1) + ":");
+            Avion a = new Avion();
+            System.out.println("Entrez le nombre de kilomètres parcourus durant le trajet numéro " + (i+1) + " :");
+            int kilomAnnee = scan.nextInt();
+            a.setKilomAnnee(kilomAnnee);
+            liste_avion.add(a);
+        }
+        return (liste_avion);
     }
 
-     */
+    private Collection<Bus> initialisation_manuelle_listeBus(int nb) throws ErrValNeg {
+        ArrayList<Bus> liste_bus = new ArrayList<>();
+        for (int i=0 ; i<nb; i++){
+            System.out.println("Initialisation du trajet en bus numéro " + (i+1) + ":");
+            Bus b = new Bus();
+            System.out.println("Entrez le nombre de kilomètres parcourus durant le trajet numéro " + (i+1) + " :");
+            int kilomAnnee = scan.nextInt();
+            b.setKilomAnnee(kilomAnnee);
+            liste_bus.add(b);
+        }
+        return (liste_bus);
+    }
+
+    private Collection<TGV> initialisation_manuelle_listeTgv(int nb) throws ErrValNeg {
+        ArrayList<TGV> liste_tgv = new ArrayList<>();
+        for (int i=0 ; i<nb; i++){
+            System.out.println("Initialisation du trajet en TGV numéro " + (i+1) + ":");
+            TGV t = new TGV();
+            System.out.println("Entrez le nombre de kilomètres parcourus durant le trajet numéro " + (i+1) + " :");
+            int kilomAnnee = scan.nextInt();
+            t.setKilomAnnee(kilomAnnee);
+            liste_tgv.add(t);
+        }
+        return (liste_tgv);
+    }
 
 
 }

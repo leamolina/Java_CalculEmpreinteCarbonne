@@ -10,6 +10,7 @@ public enum CE {
     A(0.005), B(0.01), C(0.02), D(0.035), E( 0.055), F( 0.08), G(0.1);
     private static Scanner scan = new Scanner(System.in);
 
+
     /**
      * Constructeur par défaut
      */
@@ -52,11 +53,11 @@ public enum CE {
      * L'utilisateur rentrera A, B, C, D, E ou F sur la console.
      * @return  Le coefficient associe a la classe energetique entree par l'utilisateur.
      */
-    public CE StringToCE(){
+    public CE StringToCEBis(){
         boolean fin = false;
         CE resultat = CE.A;
         do{
-            System.out.println("Entrez la classe energetique de l'utilisatieur :");
+            System.out.println("Entrez la classe energetique du logement (une lettre comprise entre A et G) :");
             String c = scan.next();
             switch(c) {
                 case ("A"):
@@ -88,11 +89,51 @@ public enum CE {
                     fin = true;
                     break;
                 default:
-                    System.out.println("La classe energetique indiquée n'existe pas. ");
+                    System.out.println("La classe énergétique indiquée n'existe pas. Veuillez réésayer.");
             }
         } while(fin==false);
-    scan.close();
     return (resultat);
+    }
+
+
+
+    public static CE StringToCE(String c){
+        boolean fin = false;
+        CE resultat = CE.A;
+        do{
+            switch (c) {
+                case ("A") -> {
+                    resultat = CE.A;
+                    fin = true;
+                }
+                case ("B") -> {
+                    resultat = CE.B;
+                    fin = true;
+                }
+                case ("C") -> {
+                    resultat = CE.C;
+                    fin = true;
+                }
+                case ("D") -> {
+                    resultat = CE.D;
+                    fin = true;
+                }
+                case ("E") -> {
+                    resultat = CE.E;
+                    fin = true;
+                }
+                case ("F") -> {
+                    resultat = CE.F;
+                    fin = true;
+                }
+                case ("G") -> {
+                    resultat = CE.G;
+                    fin = true;
+                }
+                default -> System.out.println("La classe energetique indiquée n'existe pas. ");
+            }
+        } while(fin==false);
+        return (resultat);
     }
 
 

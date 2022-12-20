@@ -43,7 +43,7 @@ public enum Taille {
      * Methode qui permet d'interagir avec l'utilisateur et qui renvoie la taille correspondante de la voiture.
      * @return la reponse de l'utilisateur concernant la taille de la voiture et convertit cette reponse en type Taille.
      */
-    public Taille StringToTaille(){
+    public static Taille StringToTailleBis(){
         boolean fin = false;
         Taille resultat = Taille.P;
         do{
@@ -55,6 +55,30 @@ public enum Taille {
                 break;
             }
             else if (t == 1){
+                resultat = Taille.G;
+                fin = true;
+                break;
+            }
+            else {
+                System.out.println("La taille indiquée n'existe pas ");
+            }
+
+        }while(!fin);
+        return(resultat);
+    }
+
+
+    public static Taille StringToTaille(String taille){
+        boolean fin = false;
+        Taille resultat = Taille.P;
+        do{
+
+            if (taille.equals("P")){
+                resultat = Taille.P;
+                fin = true;
+                break;
+            }
+            else if (taille.equals("G")){
                 resultat = Taille.G;
                 fin = true;
                 break;

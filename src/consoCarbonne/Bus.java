@@ -18,6 +18,7 @@ public class Bus extends Transport{
         super(kilomAnnee);
         this.type = type;
         setCalculImpact();
+
     }
 
     //Setters :

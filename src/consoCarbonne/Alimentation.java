@@ -15,11 +15,14 @@ public class Alimentation extends ConsoCarbonne {
      * @param txBoeuf
      * @param txVege
      */
-    public Alimentation(double txBoeuf, double txVege) throws ErrTx {
-        setTxBoeuf(txBoeuf);
-        setTxVege(txVege);
-        setTxVolaille(txBoeuf, txVege);
-        setCalculImpact();
+    public Alimentation(double txBoeuf, double txVege) throws ErrTx, ErrSommeTx {
+        if(txBoeuf + txVege <1) {
+            setTxBoeuf(txBoeuf);
+            setTxVege(txVege);
+            setTxVolaille(txBoeuf, txVege);
+            setCalculImpact();
+        }
+        else throw new ErrSommeTx("Erreur : la somme des taux doit être comprise entre 0 et 1 ");
     }
     private double txBoeuf = 0.0;
     private double txVege = 0.0;

@@ -1,12 +1,14 @@
 package Utilisateur;
+import Erreurs.ErrTx;
+import Erreurs.ErrValNeg;
 import consoCarbonne.*;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class Utilisateur implements Serializable {
+public class Utilisateur {
 
-    public Utilisateur(){}
+    public Utilisateur() throws ErrTx, ErrValNeg {}
 
     /**
      * @param alimentation 
@@ -20,7 +22,7 @@ public class Utilisateur implements Serializable {
      */
 
     //Constructeur :
-    public Utilisateur(Alimentation alimentation, BienConso bienConso, Collection<Logement> collection_logement, Collection<Voiture> collection_voiture,Collection<Avion> collection_avion, Collection<Bus> collection_bus, Collection<TGV> collection_tgv, ServicesPublic service) {
+    public Utilisateur(Alimentation alimentation, BienConso bienConso, Collection<Logement> collection_logement, Collection<Voiture> collection_voiture,Collection<Avion> collection_avion, Collection<Bus> collection_bus, Collection<TGV> collection_tgv, ServicesPublic service) throws ErrTx, ErrValNeg {
         setAlimentation(alimentation);
         setBienConso(bienConso);
         setCollection_logement(collection_logement);
@@ -30,6 +32,40 @@ public class Utilisateur implements Serializable {
         setCollection_tgv(collection_tgv);
         setService(service);
     }
+
+    //Nouveau Constructeur : à l'aide de la classe Entree Sortie
+    public Utilisateur(String nom_fichier) throws ErrTx, ErrValNeg {
+        EntreeSortie e = new EntreeSortie();
+        Utilisateur u = e.initialisation_fichier(nom_fichier);
+        setAlimentation(u.alimentation);
+        setBienConso(u.bienConso);
+        setCollection_logement(u.collection_logement);
+        setCollection_voiture(u.collection_voiture);
+        setCollection_avion(u.collection_avion);
+        setCollection_bus(u.collection_bus);
+        setCollection_tgv(u.collection_tgv);
+        setService(u.service);
+
+    }
+
+    // Troisième Constructeur qui permet cette fois de créer un Utilisateur à partir d'interactions
+    //Le int entré en argument ne sera jamais utilisé, il permet juste de distinguer les trois constructeurs diférents
+    // Le premier est par défaut
+    // Le deuxieme utilise un fichier
+    // Le dernier (celui-ci) utilise les entrées/sorties
+    public Utilisateur(int b) throws ErrTx, ErrValNeg {
+        EntreeSortie e = new EntreeSortie();
+        Utilisateur u = e.initialisation_manuelle();
+        setAlimentation(u.alimentation);
+        setBienConso(u.bienConso);
+        setCollection_logement(u.collection_logement);
+        setCollection_voiture(u.collection_voiture);
+        setCollection_avion(u.collection_avion);
+        setCollection_bus(u.collection_bus);
+        setCollection_tgv(u.collection_tgv);
+        setService(u.service);
+    }
+
 
     private Alimentation alimentation;
     private BienConso bienConso;
@@ -328,38 +364,38 @@ public class Utilisateur implements Serializable {
      */
     public void detaillerEmpreinte(){
         System.out.println("Impact de l'alimentation : "+ this.alimentation.getImpact() );
-        CompareAlimentation();
+        //CompareAlimentation();
 
         System.out.println("Impact de bienConso : "+ this.bienConso.getImpact() );
-        CompareBienConso();
+        //CompareBienConso();
 
         System.out.println("Impact du logement : "+ calculImpactLogement(this.collection_logement) );
-        CompareLogement();
+        //CompareLogement();
 
         System.out.println("Impact de la voiture : "+ calculImpactVoiture(this.collection_voiture));
-        CompareVoiture();
+        //CompareVoiture();
 
         System.out.println("Impact de l'avion : "+ calculImpactAvion(this.collection_avion));
-        CompareAvion();
+        //CompareAvion();
 
         System.out.println("Impact du bus : "+ calculImpactBus(this.collection_bus));
-        CompareBus();
+        //CompareBus();
 
         System.out.println("Impact du tgv : "+ calculImpactTgv(this.collection_tgv));
-        CompareVoiture();
+        //CompareVoiture();
 
         System.out.println("Impact du service publique : "+ this.service.getImpact() );
-        CompareService();
+        //CompareService();
 
     }
 
 
     /**
-     * Cette methode ordonne les consommations carbone de l’utilisateur.rice dans une liste, présente l’information obtenue à ce.tte dernier.e.
+     * Cette methode ordonne les consommations carbone de l’utilisateur.rice dans une liste, presente l’information obtenue à ce.tte dernier.e.
      * Et fait des recommendations pour obtenir un mode de vie plus durable.
      * Nous avons fait une methode qui, lorsqu'on lui donne un double, retourne le type.
      * Nous avons décide de ne pas donner de recommandation sur les services publiques, sachant que la valeur est unique, et qu'aucun parametre ne pourra modifier cet impact.
-     * En d'autres termes, l'utilisateur ne peut rien faire pour diminuer l'impact de cette catégorie.
+     * En d'autres termes, l'utilisateur ne peut rien faire pour diminuer l'impact de cette categorie.
      * si celui ci est plus eleve que la moyenne, nous affichons une recommandation.
      * @param i
      */
@@ -426,7 +462,7 @@ public class Utilisateur implements Serializable {
     }
 
     /**
-     * @return une chaîne contenant les informations relatives a la classe Utilisateur.
+     * @return une chaine contenant les informations relatives a la classe Utilisateur.
      */
     @Override
     public String toString() {

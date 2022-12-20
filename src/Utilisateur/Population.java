@@ -1,4 +1,5 @@
 package Utilisateur;
+import Erreurs.ErrValNeg;
 import consoCarbonne.*;
 import java.util.*;
 
@@ -10,31 +11,35 @@ public class Population {
     //Constructeur :
     public Population(Collection<Utilisateur> collection_utilisateur) {
         this.collection_utilisateur = collection_utilisateur;
+        CalculEmpreinte();
     }
 
     //Attributs :
     private Collection<Utilisateur> collection_utilisateur;
+    private double impactTotal;
 
     //Setters :
     public void setCollection_utilisateur(Collection<Utilisateur> collection_utilisateur) {
         this.collection_utilisateur = collection_utilisateur;
+        CalculEmpreinte();
     }
 
     //Getters :
     public Collection<Utilisateur> getCollection_utilisateur() {
         return this.collection_utilisateur;
     }
+    public double getImpactTotal(){return this.impactTotal;}
 
     /**
      * Methode qui calcule l'empreinte totale d'une population
      * @return L'empreinte totale d'une population
      */
-    public double CalculEmpreinte(){
+    public void CalculEmpreinte(){
         double somme = 0.0;
         for(Utilisateur u : this.collection_utilisateur){
             somme += u.calculerEmpreinte();
         }
-        return (somme);
+        this.impactTotal = somme;
     }
 
     /**
@@ -43,7 +48,7 @@ public class Population {
      */
     public double MoyenneEmpreinte(){
         double n = this.collection_utilisateur.size();
-        return (this.CalculEmpreinte()/n);
+        return (this.impactTotal/n);
     }
 
     //Methodes à rajouter (si possible) :
@@ -53,15 +58,38 @@ public class Population {
     //Comment utiliser la classe Population :
     // * Creer une methode qui porte le nom d'une mesure politique
     //   Exemple de mesure : reduire 10 min le temps d'eclairage de lumiere d'
+
+
     /*
     Exemple de mesure : Une mesure datant de 2020 interdisant les trajets en avion qui peuvent se faire en moins de 2h30 en TGV
     #Les trajets en avion qui depassent 600km par trajet sont refuse
     On a calcule la distance (de maniere approximative) d'un trajet de 2h30 de TGV :  600 km
-    Pour chaque utilisateur, si sa
-    Limite de la methode : Si l'utilisateur decide de faire un trajet de 400km, et un autre de 500km, sa distance totale sera de 900km.
-    Et la mesure ne sera pas applliquable pour lui (c'est pas ce que je veux)
     */
 
+    public void Article145() throws ErrValNeg {
+        double impact_total_avant = this.impactTotal;
+        for (Utilisateur u : this.collection_utilisateur){
+            Collection<Avion> collection_avion_new = null;
+            Collection<TGV> collection_tgv = u.getCollection_tgv();
+            //Pour chaque utilisateur, on parcourt la liste de ses transports en avion
+            for (Avion a: u.getCollection_avion()){
+                //Si le transport est au dessus de 600km, on le laisse dans la collection d'avions
+                if (a.getKilomAnnee()>600){
+                    collection_avion_new.add(a);
+                }
+                //Si le transport est en dessous de 600km, on le tranforme en trajet en tgv
+                else{
+                    TGV tgv = new TGV(a.getKilomAnnee());
+                    collection_tgv.add(tgv);
+                }
+            }
+            u.setCollection_tgv(collection_tgv);
+            u.setCollection_avion(collection_avion_new);
+        }
+        double impact_total_apres = this.impactTotal;
+        double diff = impact_total_avant - impact_total_apres;
+        System.out.println("L'impact total de la population est passé de " + impact_total_avant + " à " + impact_total_apres + ", soit une difference de :" + diff);
+    }
 
     /*
     Autre exemple de mesure : considerer qu'avec l'aide de l'Etat sur l'isolation (pompe a chaleur, etc...), la classe
