@@ -154,7 +154,7 @@ public class EntreeSortie{
             JSONObject v = (JSONObject) listevoitureArray.get(i);
             String taille = (String) v.get("taille");
             Boolean possede = (Boolean) v.get("possede");
-            long kilomAnnee = (long) v.get("kilomAnnee");
+            long kilomAnnee = (long) v.get("km");
             long amortissement = (long) v.get("amortissement");
             Voiture voiture = new Voiture(Taille.StringToTaille(taille),possede, (int) kilomAnnee, (int) amortissement);
             liste_voiture.add(voiture);
@@ -167,7 +167,7 @@ public class EntreeSortie{
         Collection<Avion> liste_avion = new ArrayList<>();
         for (int i = 0; i < listeAvionArray.size() ; i++) {
             JSONObject a = (JSONObject) listeAvionArray.get(i);
-            long kilomAnnee = (long) a.get("kilomAnnee");
+            long kilomAnnee = (long) a.get("km");
             Avion avion = new Avion((int) kilomAnnee);
             liste_avion.add(avion);
         }
@@ -180,7 +180,7 @@ public class EntreeSortie{
         ArrayList<Bus> liste_bus = new ArrayList<>();
         for (int i = 0; i < listeBusArray.size() ; i++) {
             JSONObject b = (JSONObject) listeBusArray.get(i);
-            long kilomAnnee = (long) b.get("kilomAnnee");
+            long kilomAnnee = (long) b.get("km");
             String type = (String) b.get("type");
             TypeB typeB = TypeB.E.StringToTypeB(type);
             Bus bus = new Bus((int)kilomAnnee, typeB);
@@ -194,7 +194,7 @@ public class EntreeSortie{
         ArrayList<TGV> liste_tgv = new ArrayList<>();
         for (int i = 0; i < listeTgvArray.size() ; i++) {
             JSONObject a = (JSONObject) listeTgvArray.get(i);
-            long kilomAnnee = (long) a.get("kilomAnnee");
+            long kilomAnnee = (long) a.get("km");
             TGV tgv = new TGV((int)kilomAnnee);
             liste_tgv.add(tgv);
         }
@@ -308,8 +308,8 @@ public class EntreeSortie{
             boolean possede = scan.nextBoolean();
             v.setPossede(possede);
             System.out.println("Entrez le nombre de kilomètres parcourus en moyenne en un an avec la voiture numéro " + (i+1) + ":");
-            int kilomAnnee = scan.nextInt();
-            v.setKilomAnnee(kilomAnnee);
+            int km = scan.nextInt();
+            v.setKm(km);
             System.out.println("Entrez l'amortissement de la voiture numéro "+ (i+1) +":");
             int amortissement = scan.nextInt();
             v.setAmortissement(amortissement);
@@ -326,8 +326,8 @@ public class EntreeSortie{
             System.out.println("Initialisation du trajet en avion numéro " + (i+1) + ":");
             Avion a = new Avion();
             System.out.println("Entrez le nombre de kilomètres parcourus durant le trajet numéro " + (i+1) + " :");
-            int kilomAnnee = scan.nextInt();
-            a.setKilomAnnee(kilomAnnee);
+            int km = scan.nextInt();
+            a.setKm(km);
             liste_avion.add(a);
         }
         return (liste_avion);
@@ -339,8 +339,8 @@ public class EntreeSortie{
             System.out.println("Initialisation du trajet en bus numéro " + (i+1) + ":");
             Bus b = new Bus();
             System.out.println("Entrez le nombre de kilomètres parcourus durant le trajet numéro " + (i+1) + " :");
-            int kilomAnnee = scan.nextInt();
-            b.setKilomAnnee(kilomAnnee);
+            int km = scan.nextInt();
+            b.setKm(km);
             liste_bus.add(b);
         }
         return (liste_bus);
@@ -352,8 +352,8 @@ public class EntreeSortie{
             System.out.println("Initialisation du trajet en TGV numéro " + (i+1) + ":");
             TGV t = new TGV();
             System.out.println("Entrez le nombre de kilomètres parcourus durant le trajet numéro " + (i+1) + " :");
-            int kilomAnnee = scan.nextInt();
-            t.setKilomAnnee(kilomAnnee);
+            int km = scan.nextInt();
+            t.setKm(km);
             liste_tgv.add(t);
         }
         return (liste_tgv);

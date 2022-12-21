@@ -38,7 +38,7 @@ public class TestAvion {
      */
     @Test
     public void setCalculImpactTest() throws ErrValNeg {
-        avionTest.setKilomAnnee(5);
+        avionTest.setKm(5);
         double impact =avionTest.getImpact();
         double res = 0.00115;
         assertEquals(res,impact);
@@ -50,9 +50,9 @@ public class TestAvion {
      */
     @Test
     public void toStringTest() throws ErrValNeg {
-        avionTest.setKilomAnnee(5);
+        avionTest.setKm(5);
         String toString = avionTest.toString();
-        String res = "Avion{Transport{kilomAnnee=5ConsoCarbonne{id=1, impact=0.00115}}}";
+        String res = "Avion{Transport{km=5ConsoCarbonne{id=1, impact=0.00115}}}";
         assertEquals(res,toString);
     }
 

@@ -18,15 +18,15 @@ public class Voiture extends Transport{
      * Cette methode permet de creer l'objet voiture
      * @param taille
      * @param possede
-     * @param kilomAnnee
+     * @param km
      * @param amortissement
      */
     //Constructeur :
-    public Voiture(Taille taille, boolean possede, int kilomAnnee, int amortissement) throws ErrValNeg{
-        super(kilomAnnee);
+    public Voiture(Taille taille, boolean possede, int km, int amortissement) throws ErrValNeg{
+        super(km);
         setTaille(taille);
         setPossede(possede);
-        super.setKilomAnnee(kilomAnnee);
+        super.setKm(km);
         setAmortissement(amortissement);
         setCalculImpact();
     }
@@ -61,7 +61,7 @@ public class Voiture extends Transport{
      * @return le nombre de kilometres parcourus par an
      */
     public int getKilomAnnee() {
-        return super.getKilomAnnee();
+        return super.getKm();
     }
 
     /**
@@ -93,14 +93,14 @@ public class Voiture extends Transport{
 
     /**
      * Si le nombre de kilometres parcourus par an est negativf nous generons une erreur car cela est impossssible puisque c'est une distance
-     * @param kilomAnnee
+     * @param km
      */
-    public void setKilomAnnee(int kilomAnnee) throws ErrValNeg {
-        if (kilomAnnee < 0) {
+    public void setKm(int km) throws ErrValNeg {
+        if (km < 0) {
             throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
         }
         else {
-            super.setKilomAnnee(kilomAnnee);
+            super.setKm(km);
             setCalculImpact();
         }
     }
@@ -126,7 +126,7 @@ public class Voiture extends Transport{
      */
     public void setCalculImpact() {
         if (this.possede){
-            super.setImpact(super.getKilomAnnee()*1.93*(0.0001) +taille.getFabrication()/this.amortissement);
+            super.setImpact(super.getKm()*1.93*(0.0001) +taille.getFabrication()/this.amortissement);
         }
         else super.setImpact(0.0);
     }

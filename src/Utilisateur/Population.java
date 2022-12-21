@@ -123,8 +123,8 @@ public class Population {
         for (Utilisateur u : this.collection_utilisateur){
             Collection avion_new = new ArrayList()   ;
             for (Avion a : u.getCollection_avion()) {
-                if (a.getKilomAnnee() < 600){
-                    TGV t = new TGV(a.getKilomAnnee());
+                if (a.getKm() < 600){
+                    TGV t = new TGV(a.getKm());
                     t.setCalculImpact();
                     Collection <TGV> liste_tgv_actuelle = u.getCollection_tgv();
                     liste_tgv_actuelle.add(t);

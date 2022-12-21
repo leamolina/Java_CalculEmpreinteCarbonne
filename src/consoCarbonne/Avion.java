@@ -12,11 +12,23 @@ public class Avion extends Transport{
     }
 
     /**
-     * @param kilomAnnee km represente les kilometres parcourus par trajet
+     * @param km km represente les kilometres parcourus par trajet
      */
-    public Avion(int kilomAnnee) throws ErrValNeg {
-        super(kilomAnnee);
+    public Avion(int km) throws ErrValNeg {
+        super(km);
         setCalculImpact();
+    }
+
+
+    //Setters
+    public void setKm(int km) throws ErrValNeg {
+        if (km < 0) {
+            throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus par trajet. ");
+        }
+        else {
+            super.setKm(km);
+            setCalculImpact();
+        }
     }
 
     /**
@@ -24,14 +36,14 @@ public class Avion extends Transport{
      * NB: Nous avons inclus les trainees dans le calcul des differents impacts
      */
     public void setCalculImpact (){
-       if (super.getKilomAnnee() < 1000){
-           super.setImpact(0.00023*getKilomAnnee());
+       if (super.getKm() < 1000){
+           super.setImpact(0.00023*getKm());
        }
-       else if (super.getKilomAnnee() >= 1000 && super.getKilomAnnee() <= 3500) {
-           super.setImpact(0.0001784*getKilomAnnee());
+       else if (super.getKm() >= 1000 && super.getKm() <= 3500) {
+           super.setImpact(0.0001784*getKm());
        }
        else {
-           super.setImpact(0.00015166*getKilomAnnee());
+           super.setImpact(0.00015166*getKm());
        }
 
     }

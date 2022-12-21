@@ -14,27 +14,27 @@ public class Transport extends ConsoCarbonne{
     }
 
     /**
-     * @param kilomAnnee
+     * @param km
      */
-    public Transport(int kilomAnnee) throws ErrValNeg {
+    public Transport(int km) throws ErrValNeg {
 
-        setKilomAnnee(kilomAnnee);
+        setKm(km);
         //this.setCalculImpact();
     }
 
-    private int kilomAnnee = 0;
+    private int km = 0;
 
     /**
      *Methode permettant de verifier que le nombre de kilometres par an est bien positif et de le fixer.
-     * @param kilomAnnee
+     * @param km
      */
     //Setter :
-    public void setKilomAnnee(int kilomAnnee) throws ErrValNeg {
-        if (kilomAnnee < 0) {
+    public void setKm(int km) throws ErrValNeg {
+        if (km < 0) {
             throw new ErrValNeg ("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
         }
         else {
-            this.kilomAnnee = kilomAnnee;
+            this.km = km;
             //setCalculImpact(); //Dès qu'on met à jour le nb de km, on recalcule l'impact
 
         }
@@ -50,8 +50,8 @@ public class Transport extends ConsoCarbonne{
      * @return le nombre de kilometres parcourus par an
      */
     //Getter :
-    public int getKilomAnnee() {
-        return kilomAnnee;
+    public int getKm() {
+        return km;
     }
 
     /**
@@ -77,7 +77,7 @@ public class Transport extends ConsoCarbonne{
     @Override
     public String toString() {
         return "Transport{" +
-                "kilomAnnee=" + kilomAnnee + super.toString() +
+                "km=" + km + super.toString() +
                 '}';
     }
 

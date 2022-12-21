@@ -11,11 +11,11 @@ public class Bus extends Transport{
     private TypeB type = TypeB.M;
 
     /**
-     * @param kilomAnnee km represente les kilometres parcourus en bus chaque annee
+     * @param km km represente les kilometres parcourus en bus chaque annee
      * @param type type represente le type du bus : electrique ou a moteur
      */
-    public Bus(int kilomAnnee, TypeB type) throws ErrValNeg {
-        super(kilomAnnee);
+    public Bus(int km, TypeB type) throws ErrValNeg {
+        super(km);
         this.type = type;
         setCalculImpact();
 
@@ -27,13 +27,24 @@ public class Bus extends Transport{
         setCalculImpact();
     }
 
+
+    public void setKm(int km) throws ErrValNeg {
+        if (km < 0) {
+            throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
+        }
+        else {
+            super.setKm(km);
+            setCalculImpact();
+        }
+    }
+
     /**
      * Calcul de l'impact selon le site : https://impactco2.fr/transport/bus
      * Nous avons séparé les deux cas suivant : bus electrique et bus a moteur
      * Nous avons represente ses deux cas a l'aide d'une enumeration
      */
     public void setCalculImpact (){
-        super.setImpact(type.getCoef()*getKilomAnnee());
+        super.setImpact(type.getCoef()*getKm());
     }
 
 

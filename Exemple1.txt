@@ -17,30 +17,30 @@
       {
         "taille": "P",
         "possede": true,
-        "kilomAnnee": 20000,
+        "km": 20000,
         "amortissement": 100
       }
     ],
     "listeAvion": [
       {
-        "kilomAnnee": 3500
+        "km": 3500
       },
       {
-        "kilomAnnee": 3500
+        "km": 3500
       },
       {
-        "kilomAnnee": 920
+        "km": 920
       },
       {
-        "kilomAnnee": 920
+        "km": 920
       }
     ],
     "listeTGV":[
       {
-        "kilomAnnee": 130
+        "km": 130
       },
       {
-        "kilomAnnee": 130
+        "km": 130
       }
     ],
     "listeBus": [
