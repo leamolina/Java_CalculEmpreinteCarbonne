@@ -1,6 +1,6 @@
 package consoCarbonne;
 import java.util.*;
-import java.io.*;
+//import java.io.*;
 import Erreurs.*;
 
 /**
@@ -151,7 +151,7 @@ public class Voiture extends Transport{
                 System.out.println("La taille indiquée n'existe pas ");
             }
 
-        }while(fin == false);
+        }while(!fin);
         return(resultat);
     }
 

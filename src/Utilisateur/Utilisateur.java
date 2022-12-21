@@ -129,6 +129,8 @@ public class Utilisateur {
      */
     public void setCollection_tgv(Collection<TGV> collection_tgv) {
         this.collection_tgv = collection_tgv;
+        //System.out.println("Collection de tgv dans le set " + collection_tgv);
+
 
     }
 
@@ -247,7 +249,8 @@ public class Utilisateur {
      */
     
     public double calculerEmpreinte(){
-        return(this.alimentation.getImpact() + this.bienConso.getImpact() + calculImpactLogement(this.collection_logement) + calculImpactVoiture(this.collection_voiture) + calculImpactBus(this.collection_bus) + calculImpactTgv(this.collection_tgv) + this.service.getImpact());
+        return(this.alimentation.getImpact() + this.bienConso.getImpact() + calculImpactLogement(this.collection_logement) + calculImpactVoiture(this.collection_voiture) + calculImpactBus(this.collection_bus) + calculImpactTgv(this.collection_tgv) + this.service.getImpact() + calculImpactAvion(this.collection_avion));
+
     }
 
 
@@ -457,7 +460,6 @@ public class Utilisateur {
         //Affichage de l'array :
         for (int i = 0; i < 8; i++) {
             recommandationImpact(impacts[i]);
-            System.out.println(impacts[i]);
         }
     }
 

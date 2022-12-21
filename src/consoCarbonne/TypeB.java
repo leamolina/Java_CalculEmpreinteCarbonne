@@ -49,7 +49,6 @@ public enum TypeB {
             System.out.println("Entrer 0 si le bus est à moteur, 1 s'il est electrique. ");
             int t = scan.nextInt();
             if (t == 0){
-                resultat = TypeB.M;
                 fin = true;
                 break;
             }
@@ -71,7 +70,6 @@ public enum TypeB {
         TypeB resultat = TypeB.M;
         do{
             if (taille.equals("M")){
-                resultat = TypeB.M;
                 fin = true;
                 break;
             }
@@ -81,7 +79,7 @@ public enum TypeB {
                 break;
             }
             else {
-                System.out.println("Le type indiqué n'existe pas ");
+                System.out.println("Le type indiqué n'existe pas. Veuillez réesayer ");
             }
 
         }while(!fin);

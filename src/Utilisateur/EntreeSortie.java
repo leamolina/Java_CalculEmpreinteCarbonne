@@ -29,16 +29,11 @@ public class EntreeSortie{
 
 
     public static void printMenu() {
-        System.out.println("--------------");
-        System.out.println("Voici le Menu");
-        System.out.println("--------------");
-        System.out.println("Tapez 0 pour sortir du menu.");
-        System.out.println("Tapez 1 pour initialiser un utilisateur à partir d'un fichier texte.");
-        System.out.println("Tapez 2 pour initialiser un utilisateur manuellement (en répondant à une suite de questions).");
+        System.out.println("Tapez 0 pour initialiser un utilisateur à partir d'un fichier texte.");
+        System.out.println("Tapez 1 pour initialiser un utilisateur manuellement (en répondant à une suite de questions).");
     }
 
     public Utilisateur AffichageUtilisateur() throws ErrTx, ErrValNeg {
-        System.out.println("Appel de la fonction 1");
         Utilisateur u = new Utilisateur();
         boolean fin = false;
         do {
@@ -49,16 +44,13 @@ public class EntreeSortie{
             //System.out.println("Appel de la fonction 3");
             switch (choixUtiliateur) {
                 case (0):
-                    fin = true;
-                    break;
-                case (1):
                     System.out.println("Entrez le nom du fichier  :");
                     String nom_fichier = scan.nextLine();
                     u = new Utilisateur(nom_fichier);
                     fin = true;
                     break;
 
-                case (2):
+                case (1):
                     u = new Utilisateur(0);
                     fin = true;
 
@@ -135,7 +127,6 @@ public class EntreeSortie{
     private BienConso lecture_fichier_bienConso(JSONObject utilisateurObject) throws ErrValNeg {
         JSONObject bienConsoObject = (JSONObject) utilisateurObject.get("bienconso");
         double montant = (double) bienConsoObject.get("montant");
-        System.out.println("montant : " + montant);
         BienConso bienConso = new BienConso(montant);
         //BienConso bienConso = new BienConso(montant);
         return (bienConso);
@@ -191,11 +182,8 @@ public class EntreeSortie{
             JSONObject b = (JSONObject) listeBusArray.get(i);
             long kilomAnnee = (long) b.get("kilomAnnee");
             String type = (String) b.get("type");
-            System.out.println(type);
             TypeB typeB = TypeB.E.StringToTypeB(type);
-            System.out.println(typeB.getCoef());
             Bus bus = new Bus((int)kilomAnnee, typeB);
-            System.out.println("tot");
             liste_bus.add(bus);
         }
         return(liste_bus);
@@ -274,9 +262,11 @@ public class EntreeSortie{
     private Alimentation initialisation_manuelle_alimentation() throws ErrTx {
         Alimentation a = new Alimentation();
         System.out.println("Entrez le taux de consommation moyen de Boeuf par repas (un nombre compris entre 0 et 1) : ");
+        System.out.println("Remarque : Pour les virgules, il faut écrire \",\" et non \".\" .");
         double txBoeuf = scan.nextDouble();
         a.setTxBoeuf(txBoeuf);
         System.out.println("Entrez le taux de consomation moyen de légumes par repas (un nombre compris entre 0 et 1 ) : ");
+        System.out.println("Remarque : Pour les virgules, il faut écrire \",\" et non \".\" .");
         double txVege = scan.nextDouble();
         a.setTxVege(txVege);
         return (a);

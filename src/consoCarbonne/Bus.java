@@ -11,8 +11,8 @@ public class Bus extends Transport{
     private TypeB type = TypeB.M;
 
     /**
-     * @param kilomAnnee
-     * @param type
+     * @param kilomAnnee km represente les kilometres parcourus en bus chaque annee
+     * @param type type represente le type du bus : electrique ou a moteur
      */
     public Bus(int kilomAnnee, TypeB type) throws ErrValNeg {
         super(kilomAnnee);

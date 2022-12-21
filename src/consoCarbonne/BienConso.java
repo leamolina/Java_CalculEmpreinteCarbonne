@@ -11,7 +11,7 @@ public class BienConso extends ConsoCarbonne{
     public BienConso(){}
 
     /**
-     * @param montant
+     * @param montant montant represente le montant des depenses annuelles
      */
     public BienConso(double montant) throws ErrValNeg {
         setMontant(montant);
@@ -31,7 +31,7 @@ public class BienConso extends ConsoCarbonne{
 
     /**
      * Methode permettant de verifier que le montant est bien compris positif et de le fixer.
-     * @param montant
+     * @param montant montant represente le montant annuel des depenses
      */
     public void setMontant(double montant) throws ErrValNeg {
         if( montant < 0) throw new ErrValNeg ("Le montant ne peut etre negatif ");

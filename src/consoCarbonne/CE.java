@@ -1,6 +1,6 @@
 package consoCarbonne;
 import java.util.*;
-import java.io.*;
+//import java.io.*;
 
 /**
  * L'enumeration CE contient les differentes classes energetiques de A a G associees a leurs coefficient energetique.
@@ -17,7 +17,7 @@ public enum CE {
     CE(){}
 
     /**
-     * @param coefCE
+     * @param coefCE coefCE represente le coefficient associe a chaque classe energetique. Il permettra de calculer l'impact d'un logement
      */
     //Constructeur :
 
@@ -39,7 +39,7 @@ public enum CE {
 
     /**
      * Methode permettant de fixer le coefficient energetique.
-     * @param coefCE
+     * @param coefCE coefCE de la classe energetique
      */
 
     //Setter :
@@ -59,39 +59,37 @@ public enum CE {
         do{
             System.out.println("Entrez la classe energetique du logement (une lettre comprise entre A et G) :");
             String c = scan.next();
-            switch(c) {
-                case ("A"):
-                    resultat = CE.A;
+            switch (c) {
+                case ("A") -> {
                     fin = true;
-                    break;
-                case ("B"):
+                }
+                case ("B") -> {
                     resultat = CE.B;
                     fin = true;
-                    break;
-                case ("C"):
+                }
+                case ("C") -> {
                     resultat = CE.C;
                     fin = true;
-                    break;
-                case ("D"):
+                }
+                case ("D") -> {
                     resultat = CE.D;
                     fin = true;
-                    break;
-                case ("E"):
+                }
+                case ("E") -> {
                     resultat = CE.E;
                     fin = true;
-                    break;
-                case ("F"):
+                }
+                case ("F") -> {
                     resultat = CE.F;
                     fin = true;
-                    break;
-                case ("G"):
+                }
+                case ("G") -> {
                     resultat = CE.G;
                     fin = true;
-                    break;
-                default:
-                    System.out.println("La classe énergétique indiquée n'existe pas. Veuillez réésayer.");
+                }
+                default -> System.out.println("La classe énergétique indiquée n'existe pas. Veuillez réésayer.");
             }
-        } while(fin==false);
+        } while(!fin);
     return (resultat);
     }
 
@@ -103,7 +101,6 @@ public enum CE {
         do{
             switch (c) {
                 case ("A") -> {
-                    resultat = CE.A;
                     fin = true;
                 }
                 case ("B") -> {
@@ -132,7 +129,7 @@ public enum CE {
                 }
                 default -> System.out.println("La classe energetique indiquée n'existe pas. ");
             }
-        } while(fin==false);
+        } while(!fin);
         return (resultat);
     }
 

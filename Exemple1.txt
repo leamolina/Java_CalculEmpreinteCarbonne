@@ -1,0 +1,50 @@
+{
+  "Utilisateur": {
+    "alimentation": {
+      "txBoeuf": 0.3,
+      "txVege": 0.4
+    },
+    "bienconso": {
+       "montant": 15000.0
+    },
+    "listelogement": [
+      {
+        "superficie": 140,
+        "classe": "B"
+      }
+    ],
+    "listeVoiture": [
+      {
+        "taille": "P",
+        "possede": true,
+        "kilomAnnee": 20000,
+        "amortissement": 100
+      }
+    ],
+    "listeAvion": [
+      {
+        "kilomAnnee": 3500
+      },
+      {
+        "kilomAnnee": 3500
+      },
+      {
+        "kilomAnnee": 920
+      },
+      {
+        "kilomAnnee": 920
+      }
+    ],
+    "listeTGV":[
+      {
+        "kilomAnnee": 130
+      },
+      {
+        "kilomAnnee": 130
+      }
+    ],
+    "listeBus": [
+
+    ]
+  }
+}

@@ -12,7 +12,7 @@ public class Avion extends Transport{
     }
 
     /**
-     * @param kilomAnnee
+     * @param kilomAnnee km represente les kilometres parcourus par trajet
      */
     public Avion(int kilomAnnee) throws ErrValNeg {
         super(kilomAnnee);

@@ -1,6 +1,6 @@
 package consoCarbonne;
 import java.util.*;
-import java.io.*;
+//import java.io.*;
 
 /**
  * La production d’une petite voiture émet 4.2tCO2eq et celle d’une grosse voiture 19tCO2eq.
@@ -50,7 +50,6 @@ public enum Taille {
             System.out.println("Entrer 0 si la voiture est petite, 1 si elle est grande");
             int t = scan.nextInt();
             if (t == 0){
-                resultat = Taille.P;
                 fin = true;
                 break;
             }

@@ -14,6 +14,7 @@ public class TGV extends Transport{
     //Constructeur
     public TGV(int kilomAnnee) throws ErrValNeg {
         super(kilomAnnee);
+        setCalculImpact();
     }
 
     /**

@@ -77,12 +77,6 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
      */
     @Override
     public int compareTo(ConsoCarbonne c) {
-        if (this.impact < c.impact) {
-            return -1;
-        }
-        if (this.impact == c.impact) {
-            return 0;
-        }
-        return 1;
+        return Double.compare(this.impact, c.impact);
     }
 }

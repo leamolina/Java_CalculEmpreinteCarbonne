@@ -12,8 +12,8 @@ public class Alimentation extends ConsoCarbonne {
     }
 
     /**
-     * @param txBoeuf
-     * @param txVege
+     * @param txBoeuf txBoeuf represente le taux de repas a base de boeuf par repas
+     * @param txVege txVege represente le taux de repas a base de legumes par repas
      */
     public Alimentation(double txBoeuf, double txVege) throws ErrTx, ErrSommeTx {
         if(txBoeuf + txVege <1) {
@@ -27,13 +27,10 @@ public class Alimentation extends ConsoCarbonne {
     private double txBoeuf = 0.0;
     private double txVege = 0.0;
     private double txVolaille = 0.0;
-    private final double cst1 = 8.0;
-    private final double cst2 = 1.6;
-    private final double cst3 = 0.9;
 
     /**
      * Methode permettant de verifier que le taux de repas a base de boeuf est bien compris entre 0 et 1 et de le fixer.
-     * @param tb
+     * @param tb tb represente le taux de repas a base de boeuf
      */
     //Setters
     public void setTxBoeuf (double tb) throws ErrTx{
@@ -47,7 +44,7 @@ public class Alimentation extends ConsoCarbonne {
 
     /**
      * Methode permettant de verifier que le taux de repas vegetariens est bien compris entre 0 et 1 et de le fixer.
-     * @param tv
+     * @param tv tv represente le taux de repas a base de volaille
      */
     public void setTxVege (double tv)throws ErrTx{
         if(tv >=0 && tv <=1) {
@@ -60,8 +57,8 @@ public class Alimentation extends ConsoCarbonne {
 
     /**
      * Methode permettant de calculer le taux de repas a base de volaille.
-     * @param tb
-     * @param tv
+     * @param tb tb represente le taux de repas a base de boeuf
+     * @param tv tv represente le taux de repas a base de legumes
      */
     public void setTxVolaille (double tb, double tv)throws ErrTx{
         double tVo = 1 - tb - tv;
@@ -76,7 +73,10 @@ public class Alimentation extends ConsoCarbonne {
      * Methode permettant de calculer l'impact avec la formule: 8 × txBoeuf + 1.6 × (1 − txVege − txBoeuf) + 0.9 × txVege
      */
     public void setCalculImpact (){
-        super.setImpact(this.cst1 * this.txBoeuf + this.cst2 * (1 - this.txVege - this.txBoeuf) + this.cst3 * this.txVege);
+        double cst1 = 8.0;
+        double cst2 = 1.6;
+        double cst3 = 0.9;
+        super.setImpact(cst1 * this.txBoeuf + cst2 * (1 - this.txVege - this.txBoeuf) + cst3 * this.txVege);
     }
 
     //Getters
