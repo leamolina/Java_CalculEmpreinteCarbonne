@@ -34,7 +34,7 @@ public class Bus extends Transport{
         }
         else {
             super.setKm(km);
-            setCalculImpact();
+            if(this.type != null) setCalculImpact();
         }
     }
 

@@ -1,6 +1,5 @@
 package consoCarbonne;
 import java.util.*;
-//import java.io.*;
 
 /**
  * L'enumeration CE contient les differentes classes energetiques de A a G associees a leurs coefficient energetique.

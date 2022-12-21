@@ -83,11 +83,11 @@ public class EntreeSortie{
                 Collection<Logement> liste_logement = lecture_fichier_listeLogement(utilisateurObject);
                 Collection<Voiture> liste_voiture = lecture_fichier_listeVoiture(utilisateurObject);
                 Collection <Avion> liste_avion = lecture_fichier_listeAvion(utilisateurObject);
-                Collection <Bus> liste_Bus = lecture_fichier_listeBus(utilisateurObject);
+                Bus bus = lecture_fichier_bus(utilisateurObject);
                 Collection <TGV> liste_tgv = lecture_fichier_listeTgv(utilisateurObject);
                 ServicesPublic s = ServicesPublic.getInstance();
 
-                u = new Utilisateur(alimentation, bienConso, liste_logement, liste_voiture, liste_avion, liste_Bus, liste_tgv,s);
+                u = new Utilisateur(alimentation, bienConso, liste_logement, liste_voiture, liste_avion, bus, liste_tgv,s);
 
 
 
@@ -175,18 +175,12 @@ public class EntreeSortie{
     }
 
 
-    private Collection <Bus> lecture_fichier_listeBus(JSONObject utilisateurObject) throws ErrValNeg {
-        JSONArray listeBusArray = (JSONArray) utilisateurObject.get("listeBus");
-        ArrayList<Bus> liste_bus = new ArrayList<>();
-        for (int i = 0; i < listeBusArray.size() ; i++) {
-            JSONObject b = (JSONObject) listeBusArray.get(i);
-            long kilomAnnee = (long) b.get("km");
-            String type = (String) b.get("type");
-            TypeB typeB = TypeB.E.StringToTypeB(type);
-            Bus bus = new Bus((int)kilomAnnee, typeB);
-            liste_bus.add(bus);
-        }
-        return(liste_bus);
+    private Bus lecture_fichier_bus(JSONObject utilisateurObject) throws ErrValNeg {
+        JSONObject busObject = (JSONObject) utilisateurObject.get("bus");
+        long km = (long) busObject.get("km");
+        String type = (String) busObject.get("type");
+        Bus bus = new Bus((int)km, TypeB.StringToTypeB(type));
+        return (bus);
     }
 
     private Collection <TGV> lecture_fichier_listeTgv(JSONObject utilisateurObject) throws ErrValNeg {
@@ -207,54 +201,56 @@ public class EntreeSortie{
         //Etape 1 : alimentation :
         System.out.println("Initialisation de la catégorie Alimentation ");
         Alimentation a = initialisation_manuelle_alimentation();
+        System.out.println("\n");
 
         //Etape 2 : BienConso :
         System.out.println("Initialisation de la catégorie BienConso :");
         BienConso c = initialisation_manuelle_bienConso();
+        System.out.println("\n");
 
         //Etape 3 : Liste Logement :
         System.out.println("Initialisation de la catégorie Logements : ");
         System.out.println("Combien de logements possedez-vous ?");
         int nb = scan.nextInt();
-
         Collection<Logement> liste_logement = initialisation_manuelle_listeLogement(nb);
+        System.out.println("\n");
 
         //Etape 4 : Voiture :
         System.out.println("Initialisation de la catégorie Voitures");
         System.out.println("Combien de voitures possédez-vous ?");
         nb = scan.nextInt();
-
         Collection<Voiture> liste_voiture = initialisation_manuelle_listeVoiture(nb);
+        System.out.println("\n");
 
 
         //Etape 5 : Avion :
         System.out.println("Initialisation de la catégorie Trajets en Avion");
         System.out.println("Combien de trajets en avion souhaitez-vous ajouter ? (1 aller = 1 trajet)");
         nb = scan.nextInt();
-
         Collection<Avion> liste_avion = initialisation_manuelle_listeAvion(nb);
+        System.out.println("\n");
 
 
         //Etape 6 : Bus :
         System.out.println("Initialisation de la catégorie Bus");
-        System.out.println("Combien de trajets en Bus souhaitez-vous ajouter ?");
-        nb = scan.nextInt();
-
-        Collection<Bus> liste_bus = initialisation_manuelle_listeBus(nb);
+        Bus bus = initialisation_manuelle_bus();
+        System.out.println("\n");
 
         //Etape 7 : TGV
         System.out.println("Initialisation de la catégorie TGV");
         System.out.println("Combien de trajets en TGV souhaitez-vous ajouter ?");
         nb = scan.nextInt();
-
         Collection<TGV> liste_tgv = initialisation_manuelle_listeTgv(nb);
+        System.out.println("\n");
 
 
         //Etape 8 : Services Public:
         ServicesPublic s = ServicesPublic.getInstance();
+        System.out.println("\n");
+
 
         //Etape finale :
-        Utilisateur u = new Utilisateur(a, c, liste_logement, liste_voiture, liste_avion,  liste_bus, liste_tgv, s);
+        Utilisateur u = new Utilisateur(a, c, liste_logement, liste_voiture, liste_avion,  bus, liste_tgv, s);
         return (u);
 
     }
@@ -266,7 +262,6 @@ public class EntreeSortie{
         double txBoeuf = scan.nextDouble();
         a.setTxBoeuf(txBoeuf);
         System.out.println("Entrez le taux de consomation moyen de légumes par repas (un nombre compris entre 0 et 1 ) : ");
-        System.out.println("Remarque : Pour les virgules, il faut écrire \",\" et non \".\" .");
         double txVege = scan.nextDouble();
         a.setTxVege(txVege);
         return (a);
@@ -333,17 +328,18 @@ public class EntreeSortie{
         return (liste_avion);
     }
 
-    private Collection<Bus> initialisation_manuelle_listeBus(int nb) throws ErrValNeg {
-        ArrayList<Bus> liste_bus = new ArrayList<>();
-        for (int i=0 ; i<nb; i++){
-            System.out.println("Initialisation du trajet en bus numéro " + (i+1) + ":");
-            Bus b = new Bus();
-            System.out.println("Entrez le nombre de kilomètres parcourus durant le trajet numéro " + (i+1) + " :");
-            int km = scan.nextInt();
-            b.setKm(km);
-            liste_bus.add(b);
+    private Bus initialisation_manuelle_bus() throws ErrValNeg {
+        System.out.println("Initialisation de la catégorie Bus:");
+        Bus b = new Bus();
+        System.out.println("Entrez le nombre de kilomètres parcourus par ans en Bus:");
+        int km = scan.nextInt();
+        b.setKm(km);
+        if(km !=0) { //On considere qu'il est inutile de demander à l'utilisateur le type de Bus qu'il utilise s'il a entré avant qu'il n'utilisait pas le bus
+            TypeB type =  TypeB.StringToTypeBBis();
+            b.setType(type);
         }
-        return (liste_bus);
+
+        return (b);
     }
 
     private Collection<TGV> initialisation_manuelle_listeTgv(int nb) throws ErrValNeg {

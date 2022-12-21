@@ -1,6 +1,6 @@
 package Erreurs;
 
-//Toutes les erreurs qui concerent les taux
+//Exceptions qui permettent de s'assurer que la somme des taux est bien égale à 1
 public class ErrTx extends Exception {
 
     public ErrTx() {}

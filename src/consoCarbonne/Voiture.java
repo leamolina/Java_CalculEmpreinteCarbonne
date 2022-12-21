@@ -1,6 +1,5 @@
 package consoCarbonne;
 import java.util.*;
-//import java.io.*;
 import Erreurs.*;
 
 /**

@@ -42,7 +42,7 @@ public enum TypeB {
      * Methode qui demande à l'utilisateur si le bus est à moteur ou electrique.
      * @return la reponse de l'utilisateur concernant le type de bus en la convertissant en TypeB.
      */
-    public TypeB StringToTypeBBis(){
+    public static TypeB StringToTypeBBis(){
         boolean fin = false;
         TypeB resultat = TypeB.M;
         do{
@@ -65,7 +65,7 @@ public enum TypeB {
         return(resultat);
     }
 
-    public TypeB StringToTypeB(String taille){
+    public static TypeB StringToTypeB(String taille){
         boolean fin = false;
         TypeB resultat = TypeB.M;
         do{

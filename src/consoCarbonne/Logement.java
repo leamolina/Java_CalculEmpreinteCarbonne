@@ -1,6 +1,5 @@
 package consoCarbonne;
 import Erreurs.*;
-
 import java.util.Scanner;
 
 /**

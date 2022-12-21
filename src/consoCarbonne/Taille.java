@@ -1,6 +1,5 @@
 package consoCarbonne;
 import java.util.*;
-//import java.io.*;
 
 /**
  * La production d’une petite voiture émet 4.2tCO2eq et celle d’une grosse voiture 19tCO2eq.

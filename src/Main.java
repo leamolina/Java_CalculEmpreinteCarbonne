@@ -1,20 +1,12 @@
 import consoCarbonne.*;
 import Utilisateur.*;
-//import java.io.IOException;
 import Erreurs.*;
 import java.util.ArrayList;
-
-//import java.io.FileNotFoundException;
-//import java.io.FileReader;
-//import java.io.IOException;
-//import java.util.Collection;
 import java.util.Scanner;
 import java.lang.*;
 
 
 public class Main {
-
-    //private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws ErrValNeg, ErrTx {
 
@@ -44,7 +36,7 @@ public class Main {
 
 
 
-        System.out.println("\n\n");
+        System.out.println("\n");
 
 
 
@@ -61,13 +53,13 @@ public class Main {
         // AFFICHAGE DE L IMPACT //
 
         finSwitch = false;
-        System.out.println("Entrez 1 si vous souhaitez voir votre impact de consommation carbonne, 0 sinon");
+        System.out.println("Entrez 1 si vous souhaitez voir votre impact de consommation carbonne ( en tonne(s) de CO2 émise(s) par an), 0 sinon");
         do {
             choice = scan.nextInt();
             switch (choice) {
                 case (0) -> finSwitch = true;
                 case (1) -> {
-                    System.out.println("L'impact total est de : " + u1.calculerEmpreinte());
+                    System.out.println("L'impact total est de : " + u1.calculerEmpreinte() + "tonne(s) de CO2 émise(s) par an");
                     System.out.println("\n\n");
                     System.out.println("Le détail de l'impact est le suivant : ");
                     u1.detaillerEmpreinte();
@@ -78,7 +70,7 @@ public class Main {
             }
         }while(!finSwitch);
 
-        System.out.println("\n\n");
+        System.out.println("\n");
 
 
 
@@ -94,11 +86,11 @@ public class Main {
                     u1.recommandation();
                     finSwitch = true;
                 }
-                default -> System.out.println("Choix incorrect. Par défaut, nous considérons que vous avez entré 0.");
+                default -> System.out.println("Choix incorrect. Entrez 1 si vous souhaitez avoir des conseils pour réduire votre consommation carbonne, O sinon");
             }
         }while(!finSwitch);
 
-        System.out.println("\n\n");
+        System.out.println("\n");
 
 
         // CREATION DU SECOND UTILISATEUR //
@@ -135,7 +127,7 @@ public class Main {
                         System.out.println("Choix incorrect. Entrez 1 si vous souhaitez appliquer l'Article 145 sur la population, O sinon");
             }
         }while(!finSwitch);
-        System.out.println("\n\n");
+        System.out.println("\n");
 
 
         scan.close();
