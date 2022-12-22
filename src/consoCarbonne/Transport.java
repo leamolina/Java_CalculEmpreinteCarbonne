@@ -19,7 +19,6 @@ public class Transport extends ConsoCarbonne{
     public Transport(int km) throws ErrValNeg {
 
         setKm(km);
-        //this.setCalculImpact();
     }
 
     private int km = 0;
@@ -35,17 +34,12 @@ public class Transport extends ConsoCarbonne{
         }
         else {
             this.km = km;
-            //setCalculImpact(); //Dès qu'on met à jour le nb de km, on recalcule l'impact
 
         }
     }
 
-    /**
-     *Nous récupèrons setCalculImpact de la classe fille
-     */
-    public void setCalculImpact(){
-    }
 
+    //Getter :
     /**
      * @return le nombre de kilometres parcourus par an
      */
