@@ -2,13 +2,13 @@ package consoCarbonne;
 import java.util.*;
 
 /**
- * La production d’une petite voiture émet 4.2tCO2eq et celle d’une grosse voiture 19tCO2eq.
+ * La production d’une petite voiture emet 4.2tCO2eq et celle d’une grosse voiture 19tCO2eq.
  * L'enumeration Taille contient les differentes tailles de voitures: petite voiture="P" et grosse voiture="G".
  * C'est en fonction de cette taille que les emissions necesaires a la fabrication de la voiture sont calculees .
  */
 public enum Taille {
     P(4.2),G(19);
-    private static Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in);
     //Constructeur par défaut
     Taille(){}
 
@@ -42,7 +42,7 @@ public enum Taille {
      * Methode qui permet d'interagir avec l'utilisateur et qui renvoie la taille correspondante de la voiture.
      * @return la reponse de l'utilisateur concernant la taille de la voiture et convertit cette reponse en type Taille.
      */
-    public static Taille StringToTailleBis(){
+    public Taille StringToTailleBis(){
         boolean fin = false;
         Taille resultat = Taille.P;
         do{
@@ -72,7 +72,6 @@ public enum Taille {
         do{
 
             if (taille.equals("P")){
-                resultat = Taille.P;
                 fin = true;
                 break;
             }
@@ -82,7 +81,7 @@ public enum Taille {
                 break;
             }
             else {
-                System.out.println("La taille indiquée n'existe pas ");
+                System.out.println("La taille indiquée n'existe pas. Par défaut, nous considérons que la voiture est petite. ");
             }
 
         }while(!fin);
