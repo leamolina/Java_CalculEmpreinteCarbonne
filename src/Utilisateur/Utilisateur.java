@@ -32,8 +32,11 @@ public class Utilisateur {
         setService(service);
     }
 
-    //Nouveau Constructeur : à l'aide de la classe Entree Sortie
-    public Utilisateur(String nom_fichier) throws ErrTx, ErrValNeg {
+    /**
+     * Deuxieme constructeur qui permet cette fois de créer un Utilisateur à l'aide de la classe Entree Sortie.
+     * @param nom_fichier correspond au nom du fichier
+     */
+    public Utilisateur(String nom_fichier) {
         EntreeSortie e = new EntreeSortie();
         Utilisateur u = e.initialisation_fichier(nom_fichier);
         setAlimentation(u.alimentation);
@@ -66,15 +69,15 @@ public class Utilisateur {
     }
 
 
-    private Alimentation alimentation;
-    private BienConso bienConso;
-
-    private Collection<Logement> collection_logement;
-    private Collection<Voiture> collection_voiture;
-    private Collection<Avion> collection_avion;
-    private Bus bus;
-    private Collection<TGV> collection_tgv;
-    private ServicesPublic service;
+    //Attributs de la classe (avec des valeurs par défaut)
+    private Alimentation alimentation = new Alimentation();
+    private BienConso bienConso = new BienConso();
+    private Collection<Logement> collection_logement = new ArrayList<>();
+    private Collection<Voiture> collection_voiture = new ArrayList<>();
+    private Collection<Avion> collection_avion = new ArrayList<>();
+    private Bus bus = new Bus();
+    private Collection<TGV> collection_tgv = new ArrayList<>();
+    private ServicesPublic service = ServicesPublic.getInstance();
 
 
     //Setters :
@@ -128,9 +131,6 @@ public class Utilisateur {
      */
     public void setCollection_tgv(Collection<TGV> collection_tgv) {
         this.collection_tgv = collection_tgv;
-        //System.out.println("Collection de tgv dans le set " + collection_tgv);
-
-
     }
 
     /**
@@ -180,11 +180,14 @@ public class Utilisateur {
      */
 
     public double calculImpactLogement (Collection<Logement> collection_logement){
-        double somme = 0.0;
-        for (Logement l : collection_logement){
-            somme += l.getImpact();
+        if( collection_logement == null) return 0.0;
+        else {
+            double somme = 0.0;
+            for (Logement l : collection_logement) {
+                somme += l.getImpact();
+            }
+            return (somme);
         }
-        return (somme);
     }
 
     /**
@@ -193,11 +196,14 @@ public class Utilisateur {
      * @return La somme de tous les impacts des differentes voitures  de la liste de voitures.
      */
     public double calculImpactVoiture (Collection<Voiture> collection_voiture){
-        double somme = 0.0;
-        for (Voiture v : collection_voiture){
-            somme += v.getImpact();
+        if (collection_voiture == null) return 0.0;
+        else {
+            double somme = 0.0;
+            for (Voiture v : collection_voiture) {
+                somme += v.getImpact();
+            }
+            return (somme);
         }
-        return (somme);
     }
 
     /**
@@ -206,11 +212,14 @@ public class Utilisateur {
      * @return La somme de tous les impacts des differentes avions  de la liste d'avions.
      */
     public double calculImpactAvion (Collection<Avion> collection_avion){
-        double somme = 0.0;
-        for (Avion a : collection_avion){
-            somme += a.getImpact();
+        if(collection_avion == null) return 0.0;
+        else {
+            double somme = 0.0;
+            for (Avion a : collection_avion) {
+                somme += a.getImpact();
+            }
+            return (somme);
         }
-        return (somme);
     }
 
     /**
@@ -220,11 +229,14 @@ public class Utilisateur {
      */
     //Pour une liste de TGV :
     public double calculImpactTgv (Collection<TGV> collection_tgv){
-        double somme = 0.0;
-        for (TGV t : collection_tgv){
-            somme += t.getImpact();
+        if(collection_tgv == null) return 0.0;
+        else {
+            double somme = 0.0;
+            for (TGV t : collection_tgv) {
+                somme += t.getImpact();
+            }
+            return (somme);
         }
-        return (somme);
     }
 
 
@@ -247,9 +259,9 @@ public class Utilisateur {
     public void CompareAlimentation() {
         double moyenneAlimentation = 2.353;
         if (this.alimentation.getImpact() < moyenneAlimentation) {
-            System.out.println("L'impact calculé est plus petit que la moyenne d'alimentation d'un Francais \n");
+            System.out.println("L'impact calculé est plus petit que la moyenne d'alimentation d'un Francais ; pas de recommandation à faire.\n");
         } else {
-            System.out.println("L'impact calculé est plus élévé que la moyenne d'alimentation d'un Francais ");
+            System.out.println("L'impact calculé est plus élévé que la moyenne d'alimentation d'un Francais. ");
             System.out.println("Recommandation : privilégier les fruits, légumes et les aliments d'origine végétale par rapport à la viande. \n");
 
         }
@@ -263,9 +275,9 @@ public class Utilisateur {
     public void CompareBienConso() {
         double moyenneBienConso = 2.625;
         if (this.bienConso.getImpact() < moyenneBienConso) {
-            System.out.println("L'impact calculé est plus petit que la moyenne d'un Bien conso d'un Francais \n");
+            System.out.println("L'impact calculé est plus petit que la moyenne d'un Bien conso d'un Francais ; pas de recommandation à faire.\n");
         } else {
-            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Bien conso d'un Francais ");
+            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Bien conso d'un Francais. ");
             System.out.println("Recommandations : Éviter les achats impulsifs. Emprunter et louer. \n");
 
         }
@@ -278,10 +290,10 @@ public class Utilisateur {
     public void CompareLogement() {
         double moyenneLogement = 2.706;
         if (calculImpactLogement(this.collection_logement)  < moyenneLogement) {
-            System.out.println("L'impact calculé est plus petit que la moyenne d'un Logement d'un Francais \n");
+            System.out.println("L'impact calculé est plus petit que la moyenne d'un Logement d'un Francais ; pas de recommandation à faire.\n");
         } else {
-            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Logement d'un Francais ");
-            System.out.println("Recommandations : Privilegier un logement de bonne classe energetique \n");
+            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Logement d'un Francais. ");
+            System.out.println("Recommandations : Privilegier un logement de bonne classe energetique. \n");
 
         }
     }
@@ -293,11 +305,11 @@ public class Utilisateur {
     public void CompareVoiture() {
         double moyenneVoiture = 1.972;
         if (calculImpactVoiture(this.collection_voiture) < moyenneVoiture) {
-            System.out.println("L'impact calculé est plus petit que la moyenne d'une voiture d'un Francais \n");
+            System.out.println("L'impact calculé est plus petit que la moyenne d'une voiture d'un Francais ; pas de recommandation à faire.\n");
 
 
         } else {
-            System.out.println("L'impact calculé est plus élévé que la moyenne d'une voiture d'un Francais ");
+            System.out.println("L'impact calculé est plus élévé que la moyenne d'une voiture d'un Francais. ");
             System.out.println("Recommandations : Eviter les trajets en voiture. Privilegier les transports en communs, ou le co-voiturage. \n");
         }
     }
@@ -308,11 +320,11 @@ public class Utilisateur {
      */
     public void CompareAvion() {
         double moyenneAvion = 0.48;
-        if (calculImpactVoiture(this.collection_voiture) < moyenneAvion) {
-            System.out.println("L'impact calculé est plus petit que la moyenne d'un Francais en ce qui concerne les trajets en Avion");
+        if (calculImpactAvion(this.collection_avion) < moyenneAvion) {
+            System.out.println("L'impact calculé est plus petit que la moyenne d'un Francais en ce qui concerne les trajets en Avion ; pas de recommandation à faire..\n");
         } else {
-            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Francais en ce qui concerne les trajets en Avion");
-            System.out.println("Recommandations : Eviter les trajets courts en Avion. Privilégier le TGV \n ");
+            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Francais en ce qui concerne les trajets en Avion.");
+            System.out.println("Recommandations : Eviter les trajets courts en Avion. Privilégier le TGV. \n ");
         }
     }
 
@@ -323,9 +335,9 @@ public class Utilisateur {
     public void CompareBus() {
         double moyenneBus = 0.083;
         if (this.bus.getImpact() < moyenneBus) {
-            System.out.println("L'impact calculé est plus petit que la moyenne d'un Francais en ce qui concerne les trajets en Bus \n");
+            System.out.println("L'impact calculé est plus petit que la moyenne d'un Francais en ce qui concerne les trajets en Bus ; pas de recommandation à faire. \n");
         } else {
-            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Francais en ce qui concerne les trajets en Bus ");
+            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Francais en ce qui concerne les trajets en Bus. ");
             System.out.println("Recommandations : Eviter les trajets courts en Bus. Privilegier la marche à pieds si possible, ou les Bus éléctriques.\n ");
         }
     }
@@ -337,9 +349,9 @@ public class Utilisateur {
     public void CompareTgv() {
         double moyenneTgv = 0.001666;
         if (calculImpactTgv(this.collection_tgv) < moyenneTgv) {
-            System.out.println("L'impact calculé est plus petit que la moyenne d'un Francais en ce qui concerne les trajets en TGV \n");
+            System.out.println("L'impact calculé est plus petit que la moyenne d'un Francais en ce qui concerne les trajets en TGV ; pas de recommandation à faire. \n");
         } else {
-            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Francais en ce qui concerne les trajets en TGV ");
+            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Francais en ce qui concerne les trajets en TGV. ");
             System.out.println("Recommandations : Eviter  les trajets inutiles. \n");
 
         }
@@ -353,9 +365,9 @@ public class Utilisateur {
     public void CompareService() {
         double moyenneService = 1.489;
         if (this.service.getImpact() < moyenneService) {
-            System.out.println("L'impact des services est plus petit que la moyenne d'un Service d'un Francais \n");
+            System.out.println("L'impact des services est plus petit que la moyenne d'un Service d'un Francais; pas de recommandation à faire. \n");
         } else {
-            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Service d'un Francais \n ");
+            System.out.println("L'impact calculé est plus élévé que la moyenne d'un Service d'un Francais. \n ");
         }
     }
 
@@ -364,14 +376,14 @@ public class Utilisateur {
      * Nous avons compare l'empreinte de l'utilisateur avec l'empreinte moyenne d'un français.
      */
     public void detaillerEmpreinte(){
-        System.out.println("Impact de l'alimentation : "+ this.alimentation.getImpact() + " tonne(s) de CO2 émise(s) par an" );
-        System.out.println("Impact de bienConso : "+ this.bienConso.getImpact() + " tonne(s) de CO2 émise(s) par an");
-        System.out.println("Impact du logement : "+ calculImpactLogement(this.collection_logement) + " tonne(s) de CO2 émise(s) par an");
-        System.out.println("Impact de la voiture : "+ calculImpactVoiture(this.collection_voiture)+ " tonne(s) de CO2 émise(s) par an");
-        System.out.println("Impact de l'avion : "+ calculImpactAvion(this.collection_avion)+ " tonne(s) de CO2 émise(s) par an");
-        System.out.println("Impact du bus : "+ this.bus.getImpact()+ " tonne(s) de CO2 émise(s) par an");
-        System.out.println("Impact du tgv : "+ calculImpactTgv(this.collection_tgv)+ " tonne(s) de CO2 émise(s) par an");
-        System.out.println("Impact du service publique : "+ this.service.getImpact() + " tonne(s) de CO2 émise(s) par an");
+        System.out.println("Impact de l'alimentation : "+ this.alimentation.getImpact() + " tonne(s) de CO2 émise(s) par an." );
+        System.out.println("Impact de bienConso : "+ this.bienConso.getImpact() + " tonne(s) de CO2 émise(s) par an.");
+        System.out.println("Impact du logement : "+ calculImpactLogement(this.collection_logement) + " tonne(s) de CO2 émise(s) par an.");
+        System.out.println("Impact de la voiture : "+ calculImpactVoiture(this.collection_voiture)+ " tonne(s) de CO2 émise(s) par an.");
+        System.out.println("Impact de l'avion : "+ calculImpactAvion(this.collection_avion)+ " tonne(s) de CO2 émise(s) par an.");
+        System.out.println("Impact du bus : "+ this.bus.getImpact()+ " tonne(s) de CO2 émise(s) par an.");
+        System.out.println("Impact du tgv : "+ calculImpactTgv(this.collection_tgv)+ " tonne(s) de CO2 émise(s) par an.");
+        System.out.println("Impact du service publique : "+ this.service.getImpact() + " tonne(s) de CO2 émise(s) par an.");
 
     }
 
@@ -388,39 +400,42 @@ public class Utilisateur {
     public void recommandationImpact(double i) {
         //Alimentation :
         if (i == this.alimentation.getImpact()) {
-            System.out.println("L'impact de l'alimentation est de : " + i + " tonne(s) de CO2 émise(s) par an"  );
+            System.out.println("L'impact de l'alimentation est de : " + i + " tonne(s) de CO2 émise(s) par an."  );
             CompareAlimentation();
 
         //BienConso :
         } else if (i == this.bienConso.getImpact()) {
-            System.out.println("L'impact des biens conso est de : " + i + " tonne(s) de CO2 émise(s) par an" );
+            System.out.println("L'impact des biens conso est de : " + i + " tonne(s) de CO2 émise(s) par an." );
             CompareBienConso();
 
         //Logement :
         } else if (i == calculImpactLogement(this.collection_logement)) {
-            System.out.println("L'impact du logement est de : " + i + " tonne(s) de CO2 émise(s) par an" );
+            System.out.println("L'impact du logement est de : " + i + " tonne(s) de CO2 émise(s) par an." );
             CompareLogement();
 
         //Voiture
         } else if (i == calculImpactVoiture(this.collection_voiture)) {
-            System.out.println("L'impact de la voiture est de : " + i + " tonne(s) de CO2 émise(s) par an" );
+            System.out.println("L'impact de la voiture est de : " + i + " tonne(s) de CO2 émise(s) par an." );
             CompareVoiture();
 
         //Avion  :
         } else if(i == calculImpactAvion(this.collection_avion)){
-            System.out.println("L'impact de l'avion est de : " + i + " tonne(s) de CO2 émise(s) par an" );
+            System.out.println("L'impact de l'avion est de : " + i + " tonne(s) de CO2 émise(s) par an." );
             CompareAvion();
 
+        //Bus :
         } else if (i == this.bus.getImpact()){
-            System.out.println("L'impact du bus est de : " + i + " tonne(s) de CO2 émise(s) par an" );
+            System.out.println("L'impact du bus est de : " + i + " tonne(s) de CO2 émise(s) par an." );
             CompareBus();
 
+        //TGV :
         } else if (i == calculImpactTgv(this.collection_tgv)){
-            System.out.println("L'impact du TGV est de : " + i + " tonne(s) de CO2 émise(s) par an" );
+            System.out.println("L'impact du TGV est de : " + i + " tonne(s) de CO2 émise(s) par an." );
             CompareTgv();
 
+        //Services Publiques
         } else if (i == this.service.getImpact()) {
-            System.out.println("L'impact des services publiques est de : " + i + " tonne(s) de CO2 émise(s) par an" );
+            System.out.println("L'impact des services publiques est de : " + i + " tonne(s) de CO2 émise(s) par an." );
             CompareService();
         }
     }
@@ -430,7 +445,6 @@ public class Utilisateur {
      */
     public void recommandation() {
         double[] impacts = {this.alimentation.getImpact(), this.bienConso.getImpact(), calculImpactLogement(this.collection_logement), calculImpactVoiture(this.collection_voiture), calculImpactAvion(this.collection_avion), this.bus.getImpact(), calculImpactTgv(this.collection_tgv), this.service.getImpact()};
-        //Affichage de l'array :
         for (int i = 0; i < 8; i++) {
             recommandationImpact(impacts[i]);
         }
