@@ -1,36 +1,36 @@
 package consoCarbonne;
 import Erreurs.*;
+
 /**
  * La classe Transport represente l'empreinte carbonne moyenne d'un francais au niveau des transports.
  * Elle est la classe mere des classes Avion, Bus,TGV et Voiture.
  */
-
 public class Transport extends ConsoCarbonne{
 
-    //Constructeur (par défaut d'abbord)
-
-    public Transport(){
-
-    }
+    //Constructeur (par défaut)
+    public Transport(){}
 
     /**
-     * @param km
+     * @param km represente les kilomètres parcourus
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     public Transport(int km) throws ErrValNeg {
-
         setKm(km);
     }
 
     private int km = 0;
 
-    /**
-     *Methode permettant de verifier que le nombre de kilometres par an est bien positif et de le fixer.
-     * @param km
-     */
     //Setter :
+
+
+    /**
+     * Methode permettant de verifier que le nombre de kilometres est bien positif et de le fixer.
+     * @param km km represente les kilomètres parcourus
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     public void setKm(int km) throws ErrValNeg {
         if (km < 0) {
-            throw new ErrValNeg ("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
+            throw new ErrValNeg ("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus. ");
         }
         else {
             this.km = km;
@@ -41,9 +41,8 @@ public class Transport extends ConsoCarbonne{
 
     //Getter :
     /**
-     * @return le nombre de kilometres parcourus par an
+     * @return le nombre de kilometres parcourus
      */
-    //Getter :
     public int getKm() {
         return km;
     }
@@ -66,7 +65,7 @@ public class Transport extends ConsoCarbonne{
     }
 
     /**
-     * @return une chaîne contenant les informations de la classe Transport en affichant le nombre de kilometres parcourus par an ainsi que les informations relatives de la classe consocarbone.
+     * @return une chaîne contenant les informations de la classe Transport en affichant le nombre de kilometres parcourus ainsi que les informations relatives de la classe consocarbone.
      */
     @Override
     public String toString() {

@@ -2,15 +2,16 @@ package consoCarbonne;
 import Erreurs.*;
 
 /**
- * La classe Logement permet de representer l'empreinte carbonne moyenne du logement d'un francais en fonction de sa classe enrgetique et sa superficie .
+ * La classe Logement permet de representer l'empreinte carbonne moyenne du logement d'un Francais en fonction de sa classe energetique et sa superficie .
  */
 public class Logement extends ConsoCarbonne {
 
     public Logement(){}
     /**
      * Methode permettant de creer un logement.
-     * @param superficie
-     * @param ce
+     * @param superficie correspond a la superficie du logement de l'utilisateur en metres carre
+     * @param ce est la classe énergétique du logement
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     //Constructeur
     public Logement (int superficie, CE ce) throws ErrValNeg {
@@ -24,7 +25,8 @@ public class Logement extends ConsoCarbonne {
 
     /**
      *Methode permettant de verifier que la superficie du logement est positive et de la fixer.
-     * @param s
+     * @param s correspond a la superficie du logement de l'utilisateur en metres carre
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     //Setters
     public void setSuperficie (int s) throws ErrValNeg {
@@ -37,7 +39,7 @@ public class Logement extends ConsoCarbonne {
     }
 
     /**
-     * @param c
+     * @param c est la classe energetique du logement
      */
     public void setCe (CE c){
         this.ce = c ;
@@ -55,10 +57,10 @@ public class Logement extends ConsoCarbonne {
         }
     }
 
+    //Getters
     /**
      * @return la superficie du logement en metre carre
      */
-    //Getters
     public int getSuperficie(){
         return superficie;
     }

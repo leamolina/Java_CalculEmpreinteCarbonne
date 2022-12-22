@@ -2,7 +2,7 @@ package consoCarbonne;
 import Erreurs.*;
 
 /**
- * La classe Avion permet de connaitre l'impact d'un trajet en avion d'un francais en fonction des kilometres parcourus par an.
+ * La classe Avion permet de connaitre l'impact d'un trajet en avion d'un Francais en fonction des kilometres parcourus par trajet.
  */
 public class Avion extends Transport{
 
@@ -12,7 +12,8 @@ public class Avion extends Transport{
     }
 
     /**
-     * @param km km represente les kilometres parcourus par trajet
+     * @param km represente les kilometres parcourus par trajet
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     public Avion(int km) throws ErrValNeg {
         super(km);
@@ -20,6 +21,11 @@ public class Avion extends Transport{
     }
 
 
+    /**
+     * Methode permettant de verifier que le nombre de kilomètres parcourus par trajet est bien positif et de le fixer.
+     * @param km represente les kilomètres parcourus
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     //Setters
     @Override
     public void setKm(int km) throws ErrValNeg {

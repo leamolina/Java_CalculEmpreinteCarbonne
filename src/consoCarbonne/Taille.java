@@ -13,7 +13,7 @@ public enum Taille {
     Taille(){}
 
     /**
-     * @param fabrication
+     * @param fabrication represente les emission nécessaires a la fabrication de la voiture
      */
     Taille(double fabrication) {
         this.fabrication = fabrication;
@@ -21,19 +21,18 @@ public enum Taille {
 
     private double fabrication;
 
-
+    // Getters :
     /**
      * @return Les emissions necesaires a la fabrication de la voiture
      */
-    // Getters :
     public double getFabrication() {
         return fabrication;
     }
 
-    /**
-     * @param fabrication
-     */
     //Setters :
+    /**
+     * @param fabrication represente les emission necessaire à la fabrication de la voiture.
+     */
     public void setFabrication(double fabrication) {
         this.fabrication = fabrication;
     }
@@ -65,7 +64,11 @@ public enum Taille {
         return(resultat);
     }
 
-
+    /**
+     * Methode qui convertit un string (argument) en un element de type Taille.
+     * @param taille represente la taille du vehicule
+     * @return l'argument de la methode convertit en un element de type Taille.
+     */
     public static Taille StringToTaille(String taille){
         boolean fin = false;
         Taille resultat = Taille.P;

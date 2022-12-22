@@ -8,7 +8,6 @@ package consoCarbonne;
 public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
 
 
-
     //Constructeur
     public ConsoCarbonne() {
         ConsoCarbonne.counter += 1;
@@ -35,8 +34,8 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
     }
 
     /**
-     *Methode permettant de verifier que l'ID existe et de le fixer.
-     * @param counter
+     * Methode permettant de verifier que l'ID existe et de le fixer.
+     * @param counter est un compteur qui permet d'incrementer l'ID
      */
 
     //Setters
@@ -47,16 +46,12 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
 
     /**
      *Methode permerttant de fixer l'impact
-     * @param impact
+     * @param impact represente l'empreinte carbonne d'une ConsoCarbonne
      */
     public void setImpact(double impact) {
         this.impact = impact;
     }
 
-    /*
-    public void abstract setCalculImpact(){
-    }
-     */
 
     /**
      * @return une chaine contenant les informations de la classe ConsoCarbonne en affichant l'ID  attribue a l'instance ConsoCarbonne associe ainsi que son impact
@@ -70,10 +65,9 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
                 "}";
     }
 
-
     /**
-     * @param c the object to be compared.
-     * @return -1 si la valeur placée en argument est inferieur a c, 0 si elles sont egales, 1 sinon
+     * @param c est l'objet a comparer.
+     * @return -1 si la valeur placee en argument est inferieur a c, 0 si elles sont egales, 1 sinon
      */
     @Override
     public int compareTo(ConsoCarbonne c) {

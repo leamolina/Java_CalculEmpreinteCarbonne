@@ -4,7 +4,7 @@ import Erreurs.*;
 
 /**
  * La classe Voiture est une classe fille de la classe transport dans laquelle nous nous sommes interessees plus particulerement aux voitures en fonction des criteres suivant:
- * Est ce que l'utilisateur.rice possède une voiture ?
+ * Est ce que l'utilisateur possède une voiture ?
  * La taille de celle-ci.
  * La duree de conservation du vehicule.
  * Le nombre de kilomètres parcourus par an.
@@ -14,11 +14,12 @@ public class Voiture extends Transport{
     public Voiture(){}
 
     /**
-     * Cette methode permet de creer l'objet voiture
-     * @param taille
-     * @param possede
-     * @param km
-     * @param amortissement
+     * Cette methode permet de creer l'objet voiture.
+     * @param taille represente la taille de la voiture
+     * @param possede indique si l'utilisateur possède une voiture
+     * @param km represente le nombre de kilomètres parcourus par an
+     * @param amortissement represente la duree de conservation du vehicule
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     //Constructeur :
     public Voiture(Taille taille, boolean possede, int km, int amortissement) throws ErrValNeg{
@@ -34,55 +35,48 @@ public class Voiture extends Transport{
     private boolean possede = false;
     private Taille taille = Taille.P;
     private int amortissement = 0;
-/*
-    //Methode fabrication qui verifie si une voiture est petite ou grande et renvoie l emission de gaz de la fabrication correspondant
-    private double fabrication(Taille taille){
-        if (taille==Taille.P) return 4.2;
-        else return 19;
-    }*/
 
-    /**
-     * @return la taille du vehicule de l'utilisateur.rice (P si c'est une petite voiture, G si c'est une grande voiture)
-     */
     //Getters
+    /**
+     * @return la taille du vehicule de l'utilisateur (P si c'est une petite voiture, G si c'est une grande voiture).
+     */
     public Taille getTaille() {
         return this.taille;
     }
 
     /**
-     * @return un booleen indiquant si l'utilisateur.rice possede une voiture
+     * @return un booleen indiquant si l'utilisateur possede une voiture.
      */
     public boolean isPossede() {
         return possede;
     }
 
     /**
-     * @return le nombre de kilometres parcourus par an
+     * @return le nombre de kilometres parcourus par an.
      */
     public int getKilomAnnee() {
         return super.getKm();
     }
 
     /**
-     * @return la duree de conservation du vehicule
+     * @return la duree de conservation du vehicule.
      */
     public int getAmortissement() {
         return amortissement;
     }
 
-    /**
-     * @param taille
-     */
     //Setters
+    /**
+     * Methode permettant de fixer la taille de la voiture.
+     * @param taille represente la taille de la voiture
+     */
     public void setTaille(Taille taille) {
         this.taille = taille;
         setCalculImpact();
-
-
     }
 
     /**
-     * @param possede
+     * @param possede indique si l'utilisateur possede une voiture
      */
     public void setPossede(boolean possede) {
         this.possede = possede;
@@ -91,8 +85,9 @@ public class Voiture extends Transport{
     }
 
     /**
-     * Si le nombre de kilometres parcourus par an est negativf nous generons une erreur car cela est impossssible puisque c'est une distance
-     * @param km
+     * Si le nombre de kilometres parcourus par an est negatif nous generons une exception car cela est impossssible (c'est une distance)
+     * @param km represente le nombre de kilometres parcourus par an
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     @Override
     public void setKm(int km) throws ErrValNeg {
@@ -106,8 +101,9 @@ public class Voiture extends Transport{
     }
 
     /**
-     * Si la valeur d'amortissement est negatives nous generons une erreur car cela est impossssible puisque c'est une duree
-     * @param amortissement
+     * Si la valeur d'amortissement est negative nous generons une erreur car cela est impossssible (c'est une duree)
+     * @param amortissement represente la duree de conservation du vehicule
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     public void setAmortissement(int amortissement) throws ErrValNeg {
         if (amortissement < 0){

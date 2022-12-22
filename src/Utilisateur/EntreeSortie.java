@@ -29,12 +29,20 @@ public class EntreeSortie{
     public EntreeSortie(){}
 
 
+    /**
+     * Methode qui permet d'afficher le menu interactif.
+     */
     public static void printMenu() {
         System.out.println("Tapez 0 pour initialiser un utilisateur à partir d'un fichier texte.");
         System.out.println("Tapez 1 pour initialiser un utilisateur manuellement (en répondant à une suite de questions).");
     }
 
-    public Utilisateur AffichageUtilisateur() throws ErrTx, ErrValNeg {
+    /**
+     * @return l'utilisateur cree
+     * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
+    public Utilisateur CreationUtilisateur() throws ErrTx, ErrValNeg {
         Utilisateur u = new Utilisateur();
         boolean fin = false;
         do {
@@ -234,7 +242,12 @@ public class EntreeSortie{
     }
 
 
-
+    /**
+     * Cette methode permet l'initialisation manuelle d'un utilisateur
+     * @return l'utilisateur cree manuellement
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
+     */
     Utilisateur initialisation_manuelle() throws ErrValNeg, ErrTx {
         Utilisateur u = new Utilisateur();
         //Etape 1 : alimentation :
@@ -308,26 +321,42 @@ public class EntreeSortie{
 
     }
 
+    /**
+     * Cette methode permet l'initialisation manuelle du poste de consommation Alimentation
+     * @return le poste de consommation Alimentation saisi manuellement
+     * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
+     */
     private Alimentation initialisation_manuelle_alimentation() throws ErrTx {
         Alimentation a = new Alimentation();
         System.out.println("Entrez le taux de consommation moyen de Boeuf par repas (un nombre compris entre 0 et 1) : ");
         System.out.println("Remarque : Pour les virgules, il faut écrire \",\" et non \".\" .");
         double txBoeuf = scan.nextDouble();
         a.setTxBoeuf(txBoeuf);
-        System.out.println("Entrez le taux de consomation moyen de légumes par repas (un nombre compris entre 0 et 1 ) : ");
+        System.out.println("Entrez le taux de consommation moyen de légumes par repas (un nombre compris entre 0 et 1 ) : ");
         double txVege = scan.nextDouble();
         a.setTxVege(txVege);
         return (a);
     }
 
+    /**
+     * Cette methode permet l'initialisation manuelle du poste de consommation BienConso
+     * @return le poste de consommation BienConso saisi manuellement
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private BienConso initialisation_manuelle_bienConso() throws ErrValNeg {
         BienConso b = new BienConso();
-        System.out.println("Entrez le montant de vos dépenses anuelles");
+        System.out.println("Entrez le montant de vos dépenses annuelles");
         int montant = scan.nextInt();
         b.setMontant(montant);
         return (b);
     }
 
+    /**
+     * Cette methode permet l'initialisation manuelle du poste de consommation Logement
+     * @param nb correspond au nombre de logement que l'utilsateur possede
+     * @return le poste de consommation Logement saisi manuellement
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private Collection<Logement> initialisation_manuelle_listeLogement(int nb) throws ErrValNeg {
         ArrayList<Logement> liste_logement = new ArrayList<>();
         for (int i=0; i<nb;i++) {
@@ -344,7 +373,12 @@ public class EntreeSortie{
     }
 
 
-
+    /**
+     * Cette methode permet l'initialisation manuelle du poste de consommation Voiture
+     * @param nb correspond au nombre de voiture que l'utilsateur possede
+     * @return le poste de consommation Voiture saisi manuellement
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private Collection<Voiture> initialisation_manuelle_listeVoiture(int nb) throws ErrValNeg {
         ArrayList<Voiture> liste_voiture = new ArrayList<>();
         for (int i=0 ; i<nb; i++){
@@ -370,7 +404,12 @@ public class EntreeSortie{
     }
 
 
-
+    /**
+     * Cette methode permet l'initialisation manuelle du poste de consommation Avion
+     * @param nb correspond au nombre de trajet d'avion effectues par l'utilsateur
+     * @return le poste de consommation Avion saisi manuellement
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private Collection<Avion> initialisation_manuelle_listeAvion(int nb) throws ErrValNeg {
         ArrayList<Avion> liste_avion = new ArrayList<>();
         for (int i=0 ; i<nb; i++){
@@ -384,6 +423,11 @@ public class EntreeSortie{
         return (liste_avion);
     }
 
+    /**
+     * Cette methode permet l'initialisation manuelle du poste de consommation Bus
+     * @return le poste de consommation Bus saisi manuellement
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private Bus initialisation_manuelle_bus() throws ErrValNeg {
         Bus b = new Bus();
         System.out.println("Entrez le nombre de kilomètres parcourus par ans en Bus:");
@@ -397,6 +441,12 @@ public class EntreeSortie{
         return (b);
     }
 
+    /**
+     * Cette methode permet l'initialisation manuelle du poste de consommation TGV
+     * @param nb correspond au nombre de trajet en TGV effectues par l'utilsateur
+     * @return le poste de consommation TGV saisi manuellement
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private Collection<TGV> initialisation_manuelle_listeTgv(int nb) throws ErrValNeg {
         ArrayList<TGV> liste_tgv = new ArrayList<>();
         for (int i=0 ; i<nb; i++){

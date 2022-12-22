@@ -12,7 +12,7 @@ public enum TypeB {
     TypeB(){}
 
     /**
-     * @param coef
+     * @param coef represente le coefficient energetique
      */
     //Constructeur :
     TypeB(double coef) {
@@ -30,10 +30,10 @@ public enum TypeB {
         return coef;
     }
 
-    /**
-     * @param coef
-     */
     //Setter
+    /**
+     * @param coef represente le coefficient energetique
+     */
     public void setCoef(double coef) {
         this.coef = coef;
     }
@@ -65,7 +65,12 @@ public enum TypeB {
         return(resultat);
     }
 
-    public static TypeB StringToTypeB(String taille){
+    /**
+     * Methode qui convertit un string (argument) en un element de type TypeB.
+     * @param type represente le type de bus
+     * @return l'argument de la methode convertit en un element de type TypeB.
+     */
+    public static TypeB StringToTypeB(String type){
         boolean fin = false;
         TypeB resultat = TypeB.M;
         do{
@@ -85,6 +90,5 @@ public enum TypeB {
         }while(!fin);
         return(resultat);
     }
-
 
 }

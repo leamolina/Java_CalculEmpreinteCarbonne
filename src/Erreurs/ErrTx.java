@@ -6,10 +6,17 @@ package Erreurs;
 public class ErrTx extends Exception {
 
     public ErrTx() {}
+
+    /**
+     * @param s
+     */
     public ErrTx(String s) {
         super(s);
     }
 
+    /**
+     * @return le message d'erreur.
+     */
     @Override
     public String getMessage() {
         return super.getMessage();

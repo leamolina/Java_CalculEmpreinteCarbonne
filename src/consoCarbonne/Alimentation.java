@@ -2,7 +2,7 @@ package consoCarbonne;
 import Erreurs.*;
 
 /**
- * La classe Alimentation represente l'empreinte carbonne moyenne de l'alimentation d'un francais en fonction du taux de repas a base de boeuf, et le taux de repas vegetariens.
+ * La classe Alimentation represente l'empreinte carbonne moyenne de l'alimentation d'un Francais en fonction du taux de repas a base de boeuf, et le taux de repas vegetariens.
  * Cette empreinte carbonne est calculée selon la formule suivante: 8 × txBoeuf + 1.6 × (1 − txVege − txBoeuf) + 0.9 × txVege (selon l’hypothèse qu’un repas ni végétarien, ni à base de boeuf est à base de volaille).
  */
 public class Alimentation extends ConsoCarbonne {
@@ -12,8 +12,10 @@ public class Alimentation extends ConsoCarbonne {
     }
 
     /**
-     * @param txBoeuf txBoeuf represente le taux de repas a base de boeuf par repas
-     * @param txVege txVege represente le taux de repas a base de legumes par repas
+     * @param txBoeuf  represente le taux de repas a base de boeuf par repas
+     * @param txVege  represente le taux de repas a base de legumes par repas
+     * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
+     * @throws ErrSommeTx Exception en cas de somme de taux non egale a 1.
      */
     public Alimentation(double txBoeuf, double txVege) throws ErrTx, ErrSommeTx {
         if(txBoeuf + txVege <1) {
@@ -28,11 +30,12 @@ public class Alimentation extends ConsoCarbonne {
     private double txVege = 0.0;
     private double txVolaille = 0.0;
 
+    //Setters
     /**
      * Methode permettant de verifier que le taux de repas a base de boeuf est bien compris entre 0 et 1 et de le fixer.
-     * @param tb tb represente le taux de repas a base de boeuf
+     * @param tb represente le taux de repas a base de boeuf
+     * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      */
-    //Setters
     public void setTxBoeuf (double tb) throws ErrTx{
         if(tb >=0 && tb <=1) {
             this.txBoeuf = tb;
@@ -44,7 +47,8 @@ public class Alimentation extends ConsoCarbonne {
 
     /**
      * Methode permettant de verifier que le taux de repas vegetariens est bien compris entre 0 et 1 et de le fixer.
-     * @param tv tv represente le taux de repas a base de volaille
+     * @param tv represente le taux de repas a base de volaille
+     * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      */
     public void setTxVege (double tv)throws ErrTx{
         if(tv >=0 && tv <=1) {
@@ -57,8 +61,9 @@ public class Alimentation extends ConsoCarbonne {
 
     /**
      * Methode permettant de calculer le taux de repas a base de volaille.
-     * @param tb tb represente le taux de repas a base de boeuf
-     * @param tv tv represente le taux de repas a base de legumes
+     * @param tb  represente le taux de repas a base de boeuf
+     * @param tv  represente le taux de repas a base de legumes
+     * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      */
     public void setTxVolaille (double tb, double tv)throws ErrTx{
         if((tb + tv) == 1) {
@@ -88,7 +93,6 @@ public class Alimentation extends ConsoCarbonne {
 
     //Getters
 
-
     /**
      * @return  Le taux de repas a base de boeuf
      */
@@ -113,7 +117,7 @@ public class Alimentation extends ConsoCarbonne {
 
 
     /**
-     * Methode detaillant l'empreinte carbonne moyenne d un francais dans le domaine de l'alimentation.
+     * Methode detaillant l'empreinte carbonne moyenne d'un Francais dans le domaine de l'alimentation.
      */
     public static void EmpreinteAlimentation(){
         int viandePoisson = 1144;

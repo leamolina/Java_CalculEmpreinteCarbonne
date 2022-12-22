@@ -2,8 +2,8 @@ package consoCarbonne;
 import Erreurs.*;
 
 /**
- * La classe BienConso represente l'impact de chaque depenses en fonction du montant des depenses annuelles de l'utilisateur-rice.
- * Nous avons suppose qu'une tonne de CO2eq est equivalente a 1750€ de depenses.
+ * La classe BienConso represente l'impact de chaque depenses en fonction du montant des depenses annuelles de l'utilisateur.
+ * Nous avons suppose qu'une tonne de CO2eq est equivalente a 1750 euros de depenses.
  */
 public class BienConso extends ConsoCarbonne{
 
@@ -11,7 +11,8 @@ public class BienConso extends ConsoCarbonne{
     public BienConso(){}
 
     /**
-     * @param montant montant represente le montant des depenses annuelles
+     * @param montant represente le montant des depenses annuelles.
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     public BienConso(double montant) throws ErrValNeg {
         setMontant(montant);
@@ -19,19 +20,19 @@ public class BienConso extends ConsoCarbonne{
     }
     private double montant = 0.0;
 
-    /**
-     * @return Le montant des depenses annuelles de l'utilsateur.rice
-     */
     //Getters
+    /**
+     * @return Le montant des depenses annuelles de l'utilsateur.
+     */
     public double getMontant() {
         return montant;
     }
 
     //Setters
-
     /**
-     * Methode permettant de verifier que le montant est bien compris positif et de le fixer.
-     * @param montant montant represente le montant annuel des depenses
+     * Methode permettant de verifier que le montant est bien positif et de le fixer.
+     * @param montant represente le montant annuel des depenses.
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     public void setMontant(double montant) throws ErrValNeg {
         if( montant < 0) throw new ErrValNeg ("Le montant ne peut etre negatif ");
@@ -42,26 +43,25 @@ public class BienConso extends ConsoCarbonne{
     }
 
     /**
-     * Methode permettant de calculer l'impact des depenses de l'utilisateur-rice.s, avec l'hypothese qu’une tonne de CO2eq est equivalente à 1750€ de dépenses.
+     * Methode permettant de calculer l'impact des depenses de l'utilisateur, avec l'hypothese qu’une tonne de CO2eq est equivalente à 1750€ de dépenses.
      */
     public void setCalculImpact (){
         super.setImpact((1.0/1750.0)*this.montant);
     }
 
     /**
-     * Methode detaillant l'empreinte carbonne moyenne d un francais de chaque depenses de l'utilisateur-rice.
+     * Methode detaillant l'empreinte carbonne moyenne d un francais de chaque depenses de l'utilisateur.
      */
     public static void EmpreinteBienConso(){
         int habillement = 763;
         int autres = 682 ;
         int achatInternetTech = 1180;
         int sum = habillement + autres + achatInternetTech;
-        System.out.println("Details de l empreinte carbonne moyenne d un francais (BienConso) : ");
+        System.out.println("Details de l empreinte carbonne moyenne d'un francais (BienConso) : ");
         System.out.println("Habillement : " + habillement);
         System.out.println("Autres biens et services : " + autres);
         System.out.println("Achats et usages Internet et technologies: " + achatInternetTech);
         System.out.println("Somme: " + sum + "\n");
-
     }
 
     /**

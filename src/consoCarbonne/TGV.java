@@ -1,15 +1,15 @@
 package consoCarbonne;
 import Erreurs.*;
 /**
- * La classe TGV permet de connaitre l'impact d'un trajet en TGV d'un francais en fonction des kilometres parcourus par an.
+ * La classe TGV permet de connaitre l'impact d'un trajet en TGV d'un francais en fonction des kilometres parcourus.
  */
 public class TGV extends Transport{
 
-    public TGV(){
+    public TGV(){}
 
-    }
     /**
-     * @param km
+     * @param km represente les kilometres parcourus
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     //Constructeur
     public TGV(int km) throws ErrValNeg {

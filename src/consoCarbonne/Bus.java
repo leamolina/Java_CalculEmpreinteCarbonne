@@ -11,8 +11,9 @@ public class Bus extends Transport{
     private TypeB type = TypeB.M;
 
     /**
-     * @param km km represente les kilometres parcourus en bus chaque annee
-     * @param type type represente le type du bus : electrique ou a moteur
+     * @param km  represente les kilometres parcourus en bus chaque annee
+     * @param type  represente le type du bus : electrique ou a moteur
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     public Bus(int km, TypeB type) throws ErrValNeg {
         super(km);
@@ -21,6 +22,10 @@ public class Bus extends Transport{
 
     }
 
+    /**
+     * Methode permettant de fixer le type de bus utilise.
+     * @param type represente le type du bus : electrique ou a moteur
+     */
     //Setters :
     public void setType(TypeB type) {
         this.type = type;
@@ -45,8 +50,8 @@ public class Bus extends Transport{
 
     /**
      * Calcul de l'impact selon le site : https://impactco2.fr/transport/bus
-     * Nous avons séparé les deux cas suivant : bus electrique et bus a moteur
-     * Nous avons represente ses deux cas a l'aide d'une enumeration
+     * Nous avons separe les deux cas suivant : bus electrique et bus a moteur.
+     * Nous avons represente ces deux cas a l'aide d'une enumeration.
      */
     public void setCalculImpact (){
         super.setImpact(type.getCoef()*getKm());

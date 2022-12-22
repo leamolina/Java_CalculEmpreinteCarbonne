@@ -10,14 +10,14 @@ public class Utilisateur {
     public Utilisateur(){}
 
     /**
-     * @param alimentation 
-     * @param bienConso
-     * @param collection_logement
-     * @param collection_voiture
-     * @param collection_avion
-     * @param bus
-     * @param collection_tgv
-     * @param service
+     * @param alimentation correspond au poste de consommation Alimentation de l'utilisateur
+     * @param bienConso correspond au poste de consommation BienConso de l'utilisateur
+     * @param collection_logement correspond au poste de consommation Logement de l'utilisateur
+     * @param collection_voiture correspond au poste de consommation Voiture de l'utilisateur
+     * @param collection_avion correspond au poste de consommation Avion de l'utilisateur
+     * @param bus correspond au poste de consommation Bus de l'utilisateur
+     * @param collection_tgv correspond au poste de consommation TGV de l'utilisateur
+     * @param service correspond au poste de consommation service de l'utilisateur
      */
 
     //Constructeur :
@@ -50,11 +50,16 @@ public class Utilisateur {
 
     }
 
-    // Troisième Constructeur qui permet cette fois de créer un Utilisateur à partir d'interactions
-    //Le int entré en argument ne sera jamais utilisé, il permet juste de distinguer les trois constructeurs diférents
-    // Le premier est par défaut
-    // Le deuxieme utilise un fichier
-    // Le dernier (celui-ci) utilise les entrées/sorties
+    /**
+     * Troisieme constructeur qui permet cette fois de créer un Utilisateur à partir d'interactions.
+     * Le int entré en argument ne sera jamais utilisé, il permet juste de distinguer les trois constructeurs diférents.
+     * Le premier est par défaut
+     * Le deuxieme utilise un fichier
+     * Le dernier (celui-ci) utilise les entrées/sorties
+     * @param ignoredB  int qui n'est jamais utilise et qui permet de differencier les constructeurs
+     * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
+     * @throws ErrValNeg ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     public Utilisateur(int ignoredB) throws ErrTx, ErrValNeg {
         EntreeSortie e = new EntreeSortie();
         Utilisateur u = e.initialisation_manuelle();
@@ -83,36 +88,40 @@ public class Utilisateur {
     //Setters :
 
     /**
-     * @param alimentation 
+     * Cette methode permet de fixer l'attribut alimentation.
+     * @param alimentation correspond au poste de consommation Alimentation de l'utilisateur
      */
     public void setAlimentation(Alimentation alimentation) {
         this.alimentation = alimentation;
     }
 
     /**
-     * @param bienConso 
+     * Cette methode permet de fixer l'attribut bienConso.
+     * @param bienConso  correspond au poste de consommation BienConso de l'utilisateur
      */
     public void setBienConso(BienConso bienConso) {
         this.bienConso = bienConso;
     }
 
     /**
-     * @param collection_logement
+     * Cette methode permet de fixer l'attribut collection_logement.
+     * @param collection_logement correspond au poste de consommation Logement de l'utilisateur
      */
     public void setCollection_logement(Collection<Logement> collection_logement) {
         this.collection_logement = collection_logement;
     }
 
-
     /**
-     * @param collection_voiture
+     * Cette methode permet de fixer l'attribut collection_voiture.
+     * @param collection_voiture correspond au poste de consommation Voiture de l'utilisateur
      */
     public void setCollection_voiture(Collection<Voiture> collection_voiture) {
         this.collection_voiture = collection_voiture;
-
     }
+
     /**
-     * @param collection_avion
+     * Cette methode permet de fixer l'attribut collection_avion.
+     * @param collection_avion correspond au poste de consommation Avion de l'utilisateur
      */
     public void setCollection_avion(Collection<Avion> collection_avion) {
         this.collection_avion = collection_avion;
@@ -120,54 +129,68 @@ public class Utilisateur {
     }
 
     /**
-     * @param bus
+     * Cette methode permet de fixer l'attribut bus.
+     * @param bus correspond au poste de consommation Bus de l'utilisateur
      */
     public void setBus(Bus bus) {
         this.bus = bus;
     }
 
     /**
-     * @param collection_tgv
+     * Cette methode permet de fixer l'attribut collection_tgv.
+     * @param collection_tgv correspond au poste de consommation TGV de l'utilisateur
      */
     public void setCollection_tgv(Collection<TGV> collection_tgv) {
         this.collection_tgv = collection_tgv;
     }
 
     /**
-     * @param service 
+     * Cette methode permet de fixer l'attribut service.
+     * @param service correspond au poste de consommation service de l'utilisateur
      */
     public void setService(ServicesPublic service) {
         this.service = service;
     }
 
+    //Getters :
 
     /**
-     * @return Le poste de consommation carbone de l'utilisateur.rice concernant son alimentation.
+     * @return Le poste de consommation carbone de l'utilisateur concernant son alimentation.
      */
-    //Getters :
     public Alimentation getAlimentation() { return this.alimentation; }
 
     /**
-     * @return Le poste de consommation carbone de l'utilisateur.rice concernant ses depenses en biens de consommation.
+     * @return Le poste de consommation carbone de l'utilisateur concernant ses depenses en biens de consommation.
      */
     public BienConso getBienConso() {return this.bienConso; }
 
     /**
-     * @return Le poste de consommation carbone de l'utilisateur.rice concernant son logement.
+     * @return Le poste de consommation carbone de l'utilisateur concernant son logement.
      */
     public Collection<Logement> getCollection_logement() { return this.collection_logement; }
 
     /**
-     * @return Le poste de consommation carbone de l'utilisateur.rice concernant ses deplacements.
+     * @return Le poste de consommation carbone de l'utilisateur concernant ses deplacements en voiture.
      */
     public Collection<Voiture> getCollection_voiture() { return this.collection_voiture; }
+
+    /**
+     * @return Le poste de consommation carbone de l'utilisateur concernant ses trajets en avion.
+     */
     public Collection<Avion> getCollection_avion() { return this.collection_avion; }
+
+    /**
+     * @return Le poste de consommation carbone de l'utilisateur concernant ses deplacements en bus.
+     */
     public Bus getBus() { return this.bus; }
 
+    /**
+     * @return Le poste de consommation carbone de l'utilisateur concernant ses trajets en TGV.
+     */
     public Collection<TGV> getCollection_tgv() { return this.collection_tgv; }
 
     /**
-     * @return Le poste de consommation carbone de l'utilisateur.rice concernant son utilisation des services publics.
+     * @return Le poste de consommation carbone de l'utilisateur concernant son utilisation des services publics.
      */
     public ServicesPublic getService() { return this.service; }
 
@@ -175,7 +198,7 @@ public class Utilisateur {
 
     /**
      * Methode qui calcule la somme de tous les impacts des differentes logements  de la liste de logements.
-     * @param collection_logement
+     * @param collection_logement correspond au poste de consommation Logement de l'utilisateur
      * @return La somme de tous les impacts des differentes logements  de la liste de logements.
      */
 
@@ -192,7 +215,7 @@ public class Utilisateur {
 
     /**
      * Methode qui calcule la somme de tous les impacts des differentes voitures  de la liste de voitures.
-     * @param collection_voiture
+     * @param collection_voiture correspond au poste de consommation Voiture de l'utilisateur
      * @return La somme de tous les impacts des differentes voitures  de la liste de voitures.
      */
     public double calculImpactVoiture (Collection<Voiture> collection_voiture){
@@ -208,7 +231,7 @@ public class Utilisateur {
 
     /**
      * Methode qui calcule la somme de tous les impacts des differentes avions  de la liste d'avions.
-     * @param collection_avion
+     * @param collection_avion correspond au poste de consommation Avion de l'utilisateur
      * @return La somme de tous les impacts des differentes avions  de la liste d'avions.
      */
     public double calculImpactAvion (Collection<Avion> collection_avion){
@@ -224,7 +247,7 @@ public class Utilisateur {
 
     /**
      * Methode qui calcule la somme de tous les impacts des differentes TGV de la liste de TGV.
-     * @param collection_tgv
+     * @param collection_tgv correspond au poste de consommation TGV de l'utilisateur
      * @return la somme de tous les impacts des differentes TGV de la liste de TGV.
      */
     //Pour une liste de TGV :
@@ -249,8 +272,6 @@ public class Utilisateur {
         return(this.alimentation.getImpact() + this.bienConso.getImpact() + calculImpactLogement(this.collection_logement) + calculImpactVoiture(this.collection_voiture) + this.bus.getImpact() + calculImpactTgv(this.collection_tgv) + this.service.getImpact() + calculImpactAvion(this.collection_avion));
 
     }
-
-
 
     /**
      * Methode qui compare l'empreinte carbonne moyenne de l'alimentation d'un utilisateur avec la valeur moyenne d'un Français.
@@ -299,7 +320,7 @@ public class Utilisateur {
     }
 
     /**
-     * Methode qui comparent l'empreinte carbonne moyenne de la voiture de l'utilisateur avec la valeur moyenne d'un Français.
+     * Methode qui compare l'empreinte carbonne moyenne de la voiture de l'utilisateur avec la valeur moyenne d'un Français.
      * Les valeurs ont été trouvees sur Internet.
      */
     public void CompareVoiture() {
@@ -315,7 +336,7 @@ public class Utilisateur {
     }
 
     /**
-     * Methode qui comparent l'empreinte carbonne moyenne d'un trajet en avion de l'utilisateur avec la valeur moyenne d'un Français.
+     * Methode qui compare l'empreinte carbonne moyenne d'un trajet en avion de l'utilisateur avec la valeur moyenne d'un Français.
      * Les valeurs ont été trouvees sur Internet.
      */
     public void CompareAvion() {
@@ -329,7 +350,7 @@ public class Utilisateur {
     }
 
     /**
-     * Methode qui comparent l'empreinte carbonne moyenne d'un trajet en bus de l'utilisateur avec la valeur moyenne d'un Français.
+     * Methode qui compare l'empreinte carbonne moyenne d'un trajet en bus de l'utilisateur avec la valeur moyenne d'un Français.
      * Les valeurs ont été trouvees sur Internet.
      */
     public void CompareBus() {
@@ -343,7 +364,7 @@ public class Utilisateur {
     }
 
     /**
-     * Methode qui comparent l'empreinte carbonne moyenne d'un trajet en TGV de l'utilisateur avec la valeur moyenne d'un Français.
+     * Methode qui compare l'empreinte carbonne moyenne d'un trajet en TGV de l'utilisateur avec la valeur moyenne d'un Français.
      * Les valeurs ont été trouvees sur Internet.
      */
     public void CompareTgv() {
@@ -359,7 +380,7 @@ public class Utilisateur {
 
 
     /**
-     * Methode qui comparent l'empreinte carbonne moyenne induit par les services publics de l'utilisateur avec la valeur moyenne d'un Français.
+     * Methode qui compare l'empreinte carbonne moyenne induit par les services publics de l'utilisateur avec la valeur moyenne d'un Français.
      * Les valeurs ont été trouvees sur Internet.
      */
     public void CompareService() {
@@ -372,7 +393,7 @@ public class Utilisateur {
     }
 
     /**
-     * Cette methode affiche sur la console une description detaillee de l'empreinte carbonne de l'utilsateur.rice.
+     * Cette methode qui affiche sur la console une description detaillee de l'empreinte carbonne de l'utilisateur.
      * Nous avons compare l'empreinte de l'utilisateur avec l'empreinte moyenne d'un français.
      */
     public void detaillerEmpreinte(){
@@ -389,13 +410,11 @@ public class Utilisateur {
 
 
     /**
-     * Cette methode ordonne les consommations carbone de l’utilisateur.rice dans une liste, presente l’information obtenue à ce.tte dernier.e.
-     * Et fait des recommendations pour obtenir un mode de vie plus durable.
-     * Nous avons fait une methode qui, lorsqu'on lui donne un double, retourne le type.
-     * Nous avons décide de ne pas donner de recommandation sur les services publiques, sachant que la valeur est unique, et qu'aucun parametre ne pourra modifier cet impact.
+     * Cette methode determine, en fonction d'un double, le poste de consommation concerne.
+     * Si l'impact de celui-ci est plus eleve que la moyenne d'un francais, nous affichons une recommandation pour permettre a l utilisateur d adopter un mode de vie plus durable.
+     * Nous avons décide de ne pas donner de recommandation concernant les services publiques, etant donne que la valeur est unique. Aucun parametre ne pourra modifier cet impact.
      * En d'autres termes, l'utilisateur ne peut rien faire pour diminuer l'impact de cette categorie.
-     * si celui ci est plus eleve que la moyenne, nous affichons une recommandation.
-     * @param i
+     * @param i un double qui represente l impact d un poste de consommation carbonne (a detemriner grace a la methode)
      */
     public void recommandationImpact(double i) {
         //Alimentation :
@@ -441,7 +460,7 @@ public class Utilisateur {
     }
 
     /**
-     * Methode qui ordonne les consommations carbonne de l'utilisateur.rice dans une liste, et qui appelle la fonction recommandationImpact pour faire des recommendations a l'utilisateur.
+     * Methode qui ordonne les consommations carbonne de l'utilisateur dans une liste, et appelle la fonction recommandationImpact pour faire des recommendations a l'utilisateur.
      */
     public void recommandation() {
         double[] impacts = {this.alimentation.getImpact(), this.bienConso.getImpact(), calculImpactLogement(this.collection_logement), calculImpactVoiture(this.collection_voiture), calculImpactAvion(this.collection_avion), this.bus.getImpact(), calculImpactTgv(this.collection_tgv), this.service.getImpact()};

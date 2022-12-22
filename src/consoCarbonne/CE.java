@@ -16,7 +16,7 @@ public enum CE {
     CE(){}
 
     /**
-     * @param coefCE coefCE represente le coefficient associe a chaque classe energetique. Il permettra de calculer l'impact d'un logement
+     * @param coefCE  represente le coefficient associe a chaque classe energetique. Il permettra de calculer l'impact d'un logement
      */
     //Constructeur :
 
@@ -35,13 +35,11 @@ public enum CE {
         return coefCE;
     }
 
-
+    //Setter :
     /**
      * Methode permettant de fixer le coefficient energetique.
-     * @param coefCE coefCE de la classe energetique
+     * @param coefCE de la classe energetique
      */
-
-    //Setter :
     public void setCoefCE(double coefCE) {
         this.coefCE = coefCE;
     }
@@ -91,7 +89,10 @@ public enum CE {
     }
 
 
-
+    /**
+     * Methode qui convertit un string (argument) en un element de type CE.
+     * @return  l'argument de la methode convertit en un element de type CE.
+     */
     public static CE StringToCE(String c){
         boolean fin = false;
         CE resultat = CE.A;
