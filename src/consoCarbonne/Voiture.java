@@ -94,6 +94,7 @@ public class Voiture extends Transport{
      * Si le nombre de kilometres parcourus par an est negativf nous generons une erreur car cela est impossssible puisque c'est une distance
      * @param km
      */
+    @Override
     public void setKm(int km) throws ErrValNeg {
         if (km < 0) {
             throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
@@ -130,6 +131,7 @@ public class Voiture extends Transport{
         else super.setImpact(0.0);
     }
 
+    /*
     public Taille StringToTaille(){
         boolean fin = false;
         Taille resultat = Taille.P;
@@ -153,6 +155,8 @@ public class Voiture extends Transport{
         }while(!fin);
         return(resultat);
     }
+
+     */
 
 
     /**
