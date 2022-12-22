@@ -2,7 +2,7 @@
   "Utilisateur": {
     "alimentation": {
       "txBoeuf": 0.5,
-      "txVege": 0.9
+      "txVege": 0.1
     },
     "bienconso": {
        "montant": 7200.0

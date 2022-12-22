@@ -13,7 +13,7 @@ import java.lang.*;
 
 public class Main {
 
-    public static void main(String[] args) throws ErrValNeg, ErrTx, ErrSommeTx {
+    public static void main(String[] args) {
 
         Scanner scan = new Scanner(System.in);
 

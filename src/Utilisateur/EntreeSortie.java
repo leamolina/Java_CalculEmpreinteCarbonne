@@ -122,8 +122,9 @@ public class EntreeSortie{
         Alimentation a = new Alimentation();
             JSONObject alimentationObject = (JSONObject) utilisateurObject.get("alimentation");
             double txBoeuf = (double) alimentationObject.get("txBoeuf");
+            a.setTxBoeuf(txBoeuf);
             double txVege = (double) alimentationObject.get("txVege");
-            a = new Alimentation(txBoeuf, txVege);
+            a .setTxVege(txVege);
         return(a);
     }
 
@@ -134,12 +135,9 @@ public class EntreeSortie{
      * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     private BienConso lecture_fichier_bienConso(JSONObject utilisateurObject) throws ErrValNeg {
-        BienConso b = new BienConso();
         JSONObject bienConsoObject = (JSONObject) utilisateurObject.get("bienconso");
         double montant = (double) bienConsoObject.get("montant");
-        b = new BienConso(montant);
-
-        return(b);
+        return(new BienConso(montant));
     }
 
     /**
@@ -178,7 +176,7 @@ public class EntreeSortie{
                 String taille = (String) v.get("taille");
                 long kilomAnnee = (long) v.get("km");
                 long amortissement = (long) v.get("amortissement");
-                Voiture voiture = new Voiture(Taille.StringToTaille(taille), possede, (int) kilomAnnee, (int) amortissement);
+                Voiture voiture = new Voiture(Taille.StringToTaille(taille), true, (int) kilomAnnee, (int) amortissement);
                 liste_voiture.add(voiture);
             }
         }
