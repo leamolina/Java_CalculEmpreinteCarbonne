@@ -7,7 +7,7 @@ import java.io.*;
  */
 public enum TypeB {
     E(0.00002), M(0.0001);
-    private static Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in);
     //Constructeur par défaut
     TypeB(){}
 
@@ -42,7 +42,7 @@ public enum TypeB {
      * Methode qui demande à l'utilisateur si le bus est à moteur ou electrique.
      * @return la reponse de l'utilisateur concernant le type de bus en la convertissant en TypeB.
      */
-    public static TypeB StringToTypeBBis(){
+    public TypeB StringToTypeBBis(){
         boolean fin = false;
         TypeB resultat = TypeB.M;
         do{
@@ -69,17 +69,17 @@ public enum TypeB {
         boolean fin = false;
         TypeB resultat = TypeB.M;
         do{
-            if (taille.equals("M")){
+            if (type.equals("M")){
                 fin = true;
                 break;
             }
-            else if (taille.equals("E")){
+            else if (type.equals("E")){
                 resultat = TypeB.E;
                 fin = true;
                 break;
             }
             else {
-                System.out.println("Le type indiqué n'existe pas. Veuillez réesayer ");
+                System.out.println("Le type indiqué n'existe pas. Par défaut, nous considérons que le bus est à moteur ");
             }
 
         }while(!fin);
