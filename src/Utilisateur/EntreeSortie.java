@@ -42,7 +42,7 @@ public class EntreeSortie{
      * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
-    public Utilisateur CreationUtilisateur() throws ErrTx, ErrValNeg {
+    public Utilisateur CreationUtilisateur() throws ErrTx, ErrValNeg, ErrSommeTx {
         Utilisateur u = new Utilisateur();
         boolean fin = false;
         do {
@@ -64,7 +64,9 @@ public class EntreeSortie{
                 default -> System.out.println("Cette valeur ne fait pas partie des possibilités.");
             }
         } while (!fin);
-        return (u);
+
+
+    return(u);
     }
 
     /**
@@ -72,7 +74,7 @@ public class EntreeSortie{
      * @param nom_fichier est le nom du fichier texte
      * @return renvoie le nouvel utilisateur cree a partir d un fichier texte
      */
-    protected Utilisateur initialisation_fichier(String nom_fichier) {
+    protected Utilisateur initialisation_fichier(String nom_fichier) throws ErrSommeTx, ErrTx, ErrValNeg {
         Utilisateur u = new Utilisateur();
 
 
@@ -83,10 +85,8 @@ public class EntreeSortie{
                 FileReader reader = new FileReader(nom_fichier);
                 //Lecture du fichier JSON :
                 Object obj = jsonParser.parse(reader);
-
                 JSONObject objet = (JSONObject) obj;
                 JSONObject utilisateurObject = (JSONObject) objet.get("Utilisateur");
-
                 Alimentation alimentation = lecture_fichier_alimentation(utilisateurObject);
                 BienConso bienConso = lecture_fichier_bienConso(utilisateurObject);
                 Collection<Logement> liste_logement = lecture_fichier_listeLogement(utilisateurObject);
@@ -98,22 +98,14 @@ public class EntreeSortie{
 
                 u = new Utilisateur(alimentation, bienConso, liste_logement, liste_voiture, liste_avion, bus, liste_tgv,s);
 
-
-
             } catch (FileNotFoundException e) {
-                System.err.println("Erreur : fichier non trouvé.");
+                System.err.println("Erreur : fichier non trouvé. Fin du programme");
                 System.exit(1);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
-                System.err.println("Erreur dans l'utilisation du parse. Vérifier le format du fichier texte.");
+                System.err.println("Erreur dans l'utilisation du parse. Vérifier le format du fichier texte. Fin du programme");
                 e.printStackTrace();
-            } catch (ErrTx e) {
-                e.getMessage();
-            } catch (ErrValNeg e) {
-                e.getMessage();
-            } catch (ErrSommeTx e) {
-                e.getMessage();
         }
         return u;
     }
@@ -126,11 +118,13 @@ public class EntreeSortie{
      * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      * @throws ErrSommeTx Exception en cas de somme de taux non egale a 1.
      */
-    private Alimentation lecture_fichier_alimentation(JSONObject utilisateurObject) throws ErrTx, ErrSommeTx {
-        JSONObject alimentationObject = (JSONObject) utilisateurObject.get("alimentation");
-        double txBoeuf = (double) alimentationObject.get("txBoeuf");
-        double txVege = (double) alimentationObject.get("txVege");
-        return (new Alimentation(txBoeuf, txVege));
+    private Alimentation lecture_fichier_alimentation(JSONObject utilisateurObject) throws ErrTx, ErrSommeTx, ErrValNeg {
+        Alimentation a = new Alimentation();
+            JSONObject alimentationObject = (JSONObject) utilisateurObject.get("alimentation");
+            double txBoeuf = (double) alimentationObject.get("txBoeuf");
+            double txVege = (double) alimentationObject.get("txVege");
+            a = new Alimentation(txBoeuf, txVege);
+        return(a);
     }
 
     /**
@@ -140,9 +134,12 @@ public class EntreeSortie{
      * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     private BienConso lecture_fichier_bienConso(JSONObject utilisateurObject) throws ErrValNeg {
+        BienConso b = new BienConso();
         JSONObject bienConsoObject = (JSONObject) utilisateurObject.get("bienconso");
         double montant = (double) bienConsoObject.get("montant");
-        return (new BienConso(montant));
+        b = new BienConso(montant);
+
+        return(b);
     }
 
     /**
@@ -154,13 +151,14 @@ public class EntreeSortie{
     private Collection <Logement> lecture_fichier_listeLogement(JSONObject utilisateurObject) throws ErrValNeg {
         JSONArray listelogmentArray = (JSONArray) utilisateurObject.get("listelogement");
         Collection<Logement> liste_logement = new ArrayList<>();
-        for (int i = 0; i < listelogmentArray.size() ; i++) {
+        for (int i = 0; i < listelogmentArray.size(); i++) {
             JSONObject t = (JSONObject) listelogmentArray.get(i);
             long superficie = (Long) t.get("superficie");
             String classe = (String) t.get("classe");
             Logement logement = new Logement((int) superficie, CE.StringToCE(classe));
             liste_logement.add(logement);
         }
+
         return (liste_logement);
     }
 
@@ -173,7 +171,7 @@ public class EntreeSortie{
     private Collection<Voiture> lecture_fichier_listeVoiture(JSONObject utilisateurObject) throws ErrValNeg {
         JSONArray listevoitureArray = (JSONArray) utilisateurObject.get("listeVoiture");
         Collection<Voiture> liste_voiture = new ArrayList<>();
-        for (int i = 0; i < listevoitureArray.size() ; i++) {
+        for (int i = 0; i < listevoitureArray.size(); i++) {
             JSONObject v = (JSONObject) listevoitureArray.get(i);
             Boolean possede = (Boolean) v.get("possede");
             if (possede) {
@@ -197,7 +195,7 @@ public class EntreeSortie{
     private Collection <Avion> lecture_fichier_listeAvion(JSONObject utilisateurObject) throws ErrValNeg {
         JSONArray listeAvionArray = (JSONArray) utilisateurObject.get("listeAvion");
         Collection<Avion> liste_avion = new ArrayList<>();
-        for (int i = 0; i < listeAvionArray.size() ; i++) {
+        for (int i = 0; i < listeAvionArray.size(); i++) {
             JSONObject a = (JSONObject) listeAvionArray.get(i);
             long kilomAnnee = (long) a.get("km");
             Avion avion = new Avion((int) kilomAnnee);
@@ -208,7 +206,7 @@ public class EntreeSortie{
 
     /**
      * La methode va parcourir l'objet JSON et recuperer les differents attributs du poste de consommation Bus.
-     * @param utilisateurObject
+     * @param utilisateurObject l objet JSON recupere par la methode precedente
      * @return renvoie la consommation carbonne de la categorie Bus de l'Utilisateur
      * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
@@ -216,7 +214,8 @@ public class EntreeSortie{
         JSONObject busObject = (JSONObject) utilisateurObject.get("bus");
         Bus b = new Bus();
         long km = (long) busObject.get("km");
-        if(km!=0) {
+        if (km != 0) {
+            b.setKm((int) km);
             String type = (String) busObject.get("type");
             b.setType(TypeB.StringToTypeB(type));
         }
@@ -232,10 +231,10 @@ public class EntreeSortie{
     private Collection <TGV> lecture_fichier_listeTgv(JSONObject utilisateurObject) throws ErrValNeg {
         JSONArray listeTgvArray = (JSONArray) utilisateurObject.get("listeTGV");
         ArrayList<TGV> liste_tgv = new ArrayList<>();
-        for (int i = 0; i < listeTgvArray.size() ; i++) {
+        for (int i = 0; i < listeTgvArray.size(); i++) {
             JSONObject a = (JSONObject) listeTgvArray.get(i);
             long kilomAnnee = (long) a.get("km");
-            TGV tgv = new TGV((int)kilomAnnee);
+            TGV tgv = new TGV((int) kilomAnnee);
             liste_tgv.add(tgv);
         }
         return(liste_tgv);
@@ -248,7 +247,8 @@ public class EntreeSortie{
      * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      */
-    Utilisateur initialisation_manuelle() throws ErrValNeg, ErrTx {
+    Utilisateur initialisation_manuelle() throws ErrValNeg, ErrTx, ErrSommeTx {
+
         Utilisateur u = new Utilisateur();
         //Etape 1 : alimentation :
         System.out.println("Initialisation de la catégorie Alimentation ");
@@ -326,7 +326,7 @@ public class EntreeSortie{
      * @return le poste de consommation Alimentation saisi manuellement
      * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      */
-    private Alimentation initialisation_manuelle_alimentation() throws ErrTx {
+    private Alimentation initialisation_manuelle_alimentation() throws ErrTx, ErrSommeTx, ErrValNeg {
         Alimentation a = new Alimentation();
         System.out.println("Entrez le taux de consommation moyen de Boeuf par repas (un nombre compris entre 0 et 1) : ");
         System.out.println("Remarque : Pour les virgules, il faut écrire \",\" et non \".\" .");
@@ -336,6 +336,7 @@ public class EntreeSortie{
         double txVege = scan.nextDouble();
         a.setTxVege(txVege);
         return (a);
+
     }
 
     /**
@@ -383,21 +384,17 @@ public class EntreeSortie{
         ArrayList<Voiture> liste_voiture = new ArrayList<>();
         for (int i=0 ; i<nb; i++){
             Voiture v = new Voiture();
+            v.setPossede(true); //Nous considérons que si l'utilisateur a entré qu'il possédait nb voitures, alors à chaque initialisation de cette voiture, l'attribut possede est true.
+            System.out.println("Initialisation de la voiture numéro " + (i + 1) + ":");
+            Taille taille = Taille.G;
+            v.setTaille(taille.StringToTailleBis());
+            System.out.println("Entrez le nombre de kilomètres parcourus en moyenne en un an avec la voiture numéro " + (i + 1) + ":");
+            int km = scan.nextInt();
+            v.setKm(km);
+            System.out.println("Entrez l'amortissement de la voiture numéro " + (i + 1) + " (sa durée de conservation en année) :");
+            int amortissement = scan.nextInt();
+            v.setAmortissement(amortissement);
 
-            System.out.println("Entrez \"true\" vous possédez la voiture numéro " + (i+1) + ", \"false\" sinon");
-            boolean possede = scan.nextBoolean();
-            v.setPossede(possede);
-            if(possede) { //Si l'utilisateur possede bien la voiture, on peut fixer les attributs de la classe. Sinon, les attributs par défauts seront choisis.
-                System.out.println("Initialisation de la voiture numéro " + (i + 1) + ":");
-                Taille taille = Taille.G;
-                v.setTaille(taille.StringToTailleBis());
-                System.out.println("Entrez le nombre de kilomètres parcourus en moyenne en un an avec la voiture numéro " + (i + 1) + ":");
-                int km = scan.nextInt();
-                v.setKm(km);
-                System.out.println("Entrez l'amortissement de la voiture numéro " + (i + 1) + ":");
-                int amortissement = scan.nextInt();
-                v.setAmortissement(amortissement);
-            }
             liste_voiture.add(v);
         }
         return (liste_voiture);

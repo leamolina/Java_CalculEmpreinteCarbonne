@@ -68,9 +68,9 @@ public class Population {
     public void Article145() throws ErrValNeg {
         //System.out.println("Aciens utilisateurs : " + this.getCollection_utilisateur());
         double impact_avant = this.impactTotal;
-        Collection <Utilisateur> collection_utilisateur_new = new ArrayList();
+        ArrayList <Utilisateur> collection_utilisateur_new = new ArrayList<>();
         for (Utilisateur u : this.collection_utilisateur){
-            Collection avion_new = new ArrayList()   ;
+            ArrayList <Avion> avion_new = new ArrayList<>()   ;
             for (Avion a : u.getCollection_avion()) {
                 if (a.getKm() < 600){
                     TGV t = new TGV(a.getKm());
@@ -103,6 +103,7 @@ public class Population {
     public String toString() {
         return "Population{" +
                 "collection_utilisateur=" + collection_utilisateur +
+                ", impactTotal=" + impactTotal +
                 '}';
     }
 }

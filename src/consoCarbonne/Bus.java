@@ -7,7 +7,9 @@ import Erreurs.*;
  */
 public class Bus extends Transport{
 
-    public Bus(){}
+    public Bus() throws ErrValNeg {
+        super();
+    }
     private TypeB type = TypeB.M;
 
     /**
@@ -40,7 +42,7 @@ public class Bus extends Transport{
     @Override
     public void setKm(int km) throws ErrValNeg {
         if (km < 0) {
-            throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
+            throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. Fin du programme. ");
         }
         else {
             super.setKm(km);

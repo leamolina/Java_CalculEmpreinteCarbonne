@@ -8,7 +8,9 @@ import Erreurs.*;
 public class Transport extends ConsoCarbonne{
 
     //Constructeur (par défaut)
-    public Transport(){}
+    public Transport() throws ErrValNeg {
+        super();
+    }
 
     /**
      * @param km represente les kilomètres parcourus

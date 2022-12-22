@@ -1,5 +1,4 @@
 package consoCarbonne;
-import java.util.*;
 import Erreurs.*;
 
 /**
@@ -11,7 +10,9 @@ import Erreurs.*;
  */
 public class Voiture extends Transport{
 
-    public Voiture(){}
+    public Voiture() throws ErrValNeg {
+        super();
+    }
 
     /**
      * Cette methode permet de creer l'objet voiture.
@@ -30,7 +31,6 @@ public class Voiture extends Transport{
         setAmortissement(amortissement);
         setCalculImpact();
     }
-    private static Scanner scan = new Scanner(System.in);
 
     private boolean possede = false;
     private Taille taille = Taille.P;
@@ -126,33 +126,6 @@ public class Voiture extends Transport{
         }
         else super.setImpact(0.0);
     }
-
-    /*
-    public Taille StringToTaille(){
-        boolean fin = false;
-        Taille resultat = Taille.P;
-        do{
-            System.out.println("Entrer 0 si la voiture est petite, 1 sinon ");
-            int t = scan.nextInt();
-            if (t == 0){
-                resultat = Taille.P;
-                fin = true;
-                break;
-            }
-            else if (t == 1){
-                resultat = Taille.G;
-                fin = true;
-                break;
-            }
-            else {
-                System.out.println("La taille indiquée n'existe pas ");
-            }
-
-        }while(!fin);
-        return(resultat);
-    }
-
-     */
 
 
     /**

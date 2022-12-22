@@ -1,6 +1,5 @@
 package consoCarbonne;
 import java.util.*;
-import java.io.*;
 /**
  * L'enumeration TypeB contient les differentes types de bus associee a leurs coefficient energetique.
  * E represente les bus electrique, M les bus a moteur
@@ -46,7 +45,7 @@ public enum TypeB {
         boolean fin = false;
         TypeB resultat = TypeB.M;
         do{
-            System.out.println("Entrer 0 si le bus est à moteur, 1 s'il est electrique. ");
+            System.out.println("Entrez 0 si le bus est à moteur, 1 s'il est electrique. ");
             int t = scan.nextInt();
             if (t == 0){
                 fin = true;
@@ -58,10 +57,10 @@ public enum TypeB {
                 break;
             }
             else {
-                System.out.println("Le type indiqué n'existe pas ");
+                System.out.println("Le type indiqué n'existe pas. Veuillez rééssayer ");
             }
 
-        }while(fin == false);
+        }while(!fin);
         return(resultat);
     }
 

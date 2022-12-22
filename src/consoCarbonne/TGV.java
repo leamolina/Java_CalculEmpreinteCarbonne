@@ -5,7 +5,9 @@ import Erreurs.*;
  */
 public class TGV extends Transport{
 
-    public TGV(){}
+    public TGV() throws ErrValNeg {
+        super();
+    }
 
     /**
      * @param km represente les kilometres parcourus

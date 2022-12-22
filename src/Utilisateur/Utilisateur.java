@@ -1,4 +1,9 @@
+/*
+  Ce package regroupe les differentes classes permettant de calculer l'empreinte carbonne d'un utilisateur selon les differents postes de consommation decrits dans le package consoCarbonne
+ */
 package Utilisateur;
+
+import Erreurs.ErrSommeTx;
 import Erreurs.ErrTx;
 import Erreurs.ErrValNeg;
 import consoCarbonne.*;
@@ -7,7 +12,7 @@ import java.util.*;
 
 public class Utilisateur {
 
-    public Utilisateur(){}
+    public Utilisateur() throws ErrValNeg {}
 
     /**
      * @param alimentation correspond au poste de consommation Alimentation de l'utilisateur
@@ -36,7 +41,7 @@ public class Utilisateur {
      * Deuxieme constructeur qui permet cette fois de créer un Utilisateur à l'aide de la classe Entree Sortie.
      * @param nom_fichier correspond au nom du fichier
      */
-    public Utilisateur(String nom_fichier) {
+    public Utilisateur(String nom_fichier) throws ErrSommeTx, ErrTx, ErrValNeg {
         EntreeSortie e = new EntreeSortie();
         Utilisateur u = e.initialisation_fichier(nom_fichier);
         setAlimentation(u.alimentation);
@@ -60,7 +65,7 @@ public class Utilisateur {
      * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      * @throws ErrValNeg ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
-    public Utilisateur(int ignoredB) throws ErrTx, ErrValNeg {
+    public Utilisateur(int ignoredB) throws ErrTx, ErrValNeg, ErrSommeTx {
         EntreeSortie e = new EntreeSortie();
         Utilisateur u = e.initialisation_manuelle();
         setAlimentation(u.alimentation);
@@ -342,7 +347,7 @@ public class Utilisateur {
     public void CompareAvion() {
         double moyenneAvion = 0.48;
         if (calculImpactAvion(this.collection_avion) < moyenneAvion) {
-            System.out.println("L'impact calculé est plus petit que la moyenne d'un Francais en ce qui concerne les trajets en Avion ; pas de recommandation à faire..\n");
+            System.out.println("L'impact calculé est plus petit que la moyenne d'un Francais en ce qui concerne les trajets en Avion ; pas de recommandation à faire.\n");
         } else {
             System.out.println("L'impact calculé est plus élévé que la moyenne d'un Francais en ce qui concerne les trajets en Avion.");
             System.out.println("Recommandations : Eviter les trajets courts en Avion. Privilégier le TGV. \n ");
@@ -412,7 +417,7 @@ public class Utilisateur {
     /**
      * Cette methode determine, en fonction d'un double, le poste de consommation concerne.
      * Si l'impact de celui-ci est plus eleve que la moyenne d'un francais, nous affichons une recommandation pour permettre a l utilisateur d adopter un mode de vie plus durable.
-     * Nous avons décide de ne pas donner de recommandation concernant les services publiques, etant donne que la valeur est unique. Aucun parametre ne pourra modifier cet impact.
+     * Nous avons dcide de ne pas donner de recommandation concernant les services publiques, etant donne que la valeur est unique. Aucun parametre ne pourra modifier cet impact.
      * En d'autres termes, l'utilisateur ne peut rien faire pour diminuer l'impact de cette categorie.
      * @param i un double qui represente l impact d un poste de consommation carbonne (a detemriner grace a la methode)
      */

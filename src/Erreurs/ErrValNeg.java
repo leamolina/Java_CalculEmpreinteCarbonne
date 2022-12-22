@@ -7,7 +7,7 @@ public class ErrValNeg extends Exception {
     public ErrValNeg() {}
 
     /**
-     * @param s
+     * @param s s est le message que l on souhaite afficher en cas d'apparition d une exception de type ErrValNeg
      */
     public ErrValNeg(String s) {
         super(s);

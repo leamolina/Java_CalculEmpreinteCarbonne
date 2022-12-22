@@ -1,25 +1,31 @@
 {
   "Utilisateur": {
     "alimentation": {
-      "txBoeuf": 0.3,
-      "txVege": 0.4
+      "txBoeuf": 0.5,
+      "txVege": 0.2
     },
     "bienconso": {
-       "montant": 15000.0
+       "montant": 60000.0
     },
     "listelogement": [
       {
-        "superficie": 140,
+        "superficie": 150,
         "classe": "C"
       }
     ],
     "listeVoiture": [
       {
+        "taille": "G",
+        "possede": true,
+        "km": 8000,
+        "amortissement": 7
+      },
+      {
         "taille": "P",
         "possede": true,
-        "km": 20000,
-        "amortissement": 10
-      }
+        "km": 5000,
+        "amortissement": 7
+      },
     ],
     "listeAvion": [
       {
@@ -29,16 +35,16 @@
         "km": 3500
       },
       {
-        "km": 3500
+        "km": 2000
       },
       {
-        "km": 3500
+        "km": 2000
       },
       {
-        "km": 2500
+        "km": 2000
       },
       {
-        "km": 2500
+        "km": 2000
       },
       {
         "km": 920
@@ -48,16 +54,10 @@
       }
     ],
     "listeTGV":[
-      {
-        "km": 130
-      },
-      {
-        "km": 130
-      }
+
     ],
     "bus":  {
-        "km": 140,
-        "type": "M"
+        "km": 0,
     }
   }
 }

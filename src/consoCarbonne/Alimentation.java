@@ -8,7 +8,8 @@ import Erreurs.*;
 public class Alimentation extends ConsoCarbonne {
 
     //Constructeur par défaut
-    public Alimentation(){
+    public Alimentation() throws ErrValNeg {
+        super();
     }
 
     /**
@@ -17,14 +18,17 @@ public class Alimentation extends ConsoCarbonne {
      * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      * @throws ErrSommeTx Exception en cas de somme de taux non egale a 1.
      */
-    public Alimentation(double txBoeuf, double txVege) throws ErrTx, ErrSommeTx {
-        if(txBoeuf + txVege <1) {
+    public Alimentation(double txBoeuf, double txVege) throws ErrTx, ErrSommeTx, ErrValNeg {
+        super();
+        if(txBoeuf + txVege >1) {
+            throw new ErrSommeTx("Erreur : la somme des taux doit être comprise entre 0 et 1. Fin du programme. ");
+        }
+        else{
             setTxBoeuf(txBoeuf);
             setTxVege(txVege);
             setTxVolaille(txBoeuf, txVege);
             setCalculImpact();
         }
-        else throw new ErrSommeTx("Erreur : la somme des taux doit être comprise entre 0 et 1 ");
     }
     private double txBoeuf = 0.0;
     private double txVege = 0.0;
@@ -36,13 +40,18 @@ public class Alimentation extends ConsoCarbonne {
      * @param tb represente le taux de repas a base de boeuf
      * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      */
-    public void setTxBoeuf (double tb) throws ErrTx{
-        if(tb >=0 && tb <=1) {
-            this.txBoeuf = tb;
-            setTxVolaille(tb, this.txVege);
-            setCalculImpact();
+    public void setTxBoeuf (double tb) throws ErrTx, ErrSommeTx{
+        if(tb + this.txVege > 1) {
+            throw new ErrSommeTx("Erreur : la somme des taux doit être comprise entre 0 et 1. Fin du programme. ");
+           }
+        else {
+            if (tb >= 0 && tb <= 1) {
+                this.txBoeuf = tb;
+                setTxVolaille(tb, this.txVege);
+                setCalculImpact();
+            } else throw new ErrTx("Erreur : le taux de repas a base de boeuf doit etre compris entre 0 et 1. Fin du programme.");
+
         }
-        else throw new ErrTx("Erreur : le taux de repas a base de boeuf doit etre compris entre 0 et 1");
     }
 
     /**
@@ -50,13 +59,18 @@ public class Alimentation extends ConsoCarbonne {
      * @param tv represente le taux de repas a base de volaille
      * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
      */
-    public void setTxVege (double tv)throws ErrTx{
-        if(tv >=0 && tv <=1) {
-            this.txVege = tv;
-            setTxVolaille(this.txBoeuf, tv);
-            setCalculImpact();
+    public void setTxVege (double tv)throws ErrTx, ErrSommeTx{
+        if(tv + this.txBoeuf > 1) {
+            throw new ErrSommeTx("Erreur : la somme des taux doit être comprise entre 0 et 1. Fin du programme. ");
         }
-        else throw new ErrTx("Erreur : le taux de repas vegetarien doit etre compris entre 0 et 1");
+        else {
+            if (tv >= 0 && tv <= 1) {
+                this.txVege = tv;
+                setTxVolaille(this.txBoeuf, tv);
+                setCalculImpact();
+            } else throw new ErrTx("Erreur : le taux de repas a base de legumes doit etre compris entre 0 et 1. Fin du programme.");
+
+        }
     }
 
     /**
@@ -76,7 +90,7 @@ public class Alimentation extends ConsoCarbonne {
                 this.txVolaille = tVo;
                 setCalculImpact();
             }
-            else throw new ErrTx("Erreur : le taux de repas à base de volaille doit etre compris entre 0 et 1");
+            else throw new ErrTx("Erreur : le taux de repas à base de volaille doit etre compris entre 0 et 1. Fin du programme.");
         }
 
     }

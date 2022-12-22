@@ -8,7 +8,9 @@ import Erreurs.*;
 public class BienConso extends ConsoCarbonne{
 
     //Constructeur
-    public BienConso(){}
+    public BienConso() throws ErrValNeg {
+        super();
+    }
 
     /**
      * @param montant represente le montant des depenses annuelles.
@@ -35,7 +37,7 @@ public class BienConso extends ConsoCarbonne{
      * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     public void setMontant(double montant) throws ErrValNeg {
-        if( montant < 0) throw new ErrValNeg ("Le montant ne peut etre negatif ");
+        if( montant < 0) throw new ErrValNeg ("Erreur : le montant ne peut etre negatif. Fin du programme.");
         else {
             this.montant = montant;
             setCalculImpact();

@@ -1,4 +1,9 @@
+/**
+ * Ce package permet de regrouper les differentes classes représentant differents poste de consommation carbone.
+ */
 package consoCarbonne;
+
+import Erreurs.ErrValNeg;
 
 /**
  * La classe ConsoCarbonne represente un poste de consommation carbone generique.
@@ -9,7 +14,7 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
 
 
     //Constructeur
-    public ConsoCarbonne() {
+    public ConsoCarbonne() throws ErrValNeg {
         ConsoCarbonne.counter += 1;
         setId(ConsoCarbonne.counter);
     }
@@ -39,8 +44,8 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
      */
 
     //Setters
-    public void setId(int counter) {
-        if(counter<0) System.out.println("La valeur ID n'est pas possible");
+    public void setId(int counter) throws ErrValNeg {
+        if(counter<0) throw new ErrValNeg("La valeur ID n'est pas possible, elle ne peut pas être négative. Fin du programme.");
         else this.id = counter;
     }
 

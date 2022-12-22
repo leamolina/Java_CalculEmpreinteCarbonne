@@ -1,0 +1,53 @@
+{
+  "Utilisateur": {
+    "alimentation": {
+      "txBoeuf": 0.4,
+      "txVege": 0.1
+    },
+    "bienconso": {
+       "montant": 1200.0
+    },
+    "listelogement": [
+      {
+        "superficie": 140,
+        "classe": "B"
+      }
+    ],
+    "listeVoiture": [
+
+    ],
+    "listeAvion": [
+      {
+        "km": 550
+      },
+      {
+        "km": 550
+      },
+      {
+        "km": 400
+      },
+      {
+        "km": 400
+      },
+      {
+        "km": 550
+      },
+      {
+        "km": 550
+      },
+      {
+        "km": 550
+      },
+      {
+        "km": 550
+      }
+    ],
+    "listeTGV":[
+
+    ],
+    "bus":  {
+        "km": 1000,
+        "type": "M"
+    }
+  }
+}

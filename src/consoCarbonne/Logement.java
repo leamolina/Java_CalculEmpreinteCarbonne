@@ -6,7 +6,9 @@ import Erreurs.*;
  */
 public class Logement extends ConsoCarbonne {
 
-    public Logement(){}
+    public Logement() throws ErrValNeg {
+        super();
+    }
     /**
      * Methode permettant de creer un logement.
      * @param superficie correspond a la superficie du logement de l'utilisateur en metres carre

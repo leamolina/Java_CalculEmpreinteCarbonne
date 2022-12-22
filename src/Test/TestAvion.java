@@ -1,3 +1,6 @@
+/**
+ * Ce package regroupe les differentes classes permettant d'effectuer des tests Junit sur certaines de nos methodes, et donc de nous assurer qu elles fonctionnent bien
+ */
 package Test;
 import consoCarbonne.Avion;
 //import org.junit.*;
@@ -20,7 +23,7 @@ public class TestAvion {
      * A chaque fois que nous initialisons la classe TestAvion, un nouvel objet de type Avion est cree.
      */
     @BeforeEach
-    public void setUpTest() {
+    public void setUpTest() throws ErrValNeg {
        avionTest = new Avion();
     }
 

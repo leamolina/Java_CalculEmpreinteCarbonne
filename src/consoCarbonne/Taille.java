@@ -45,7 +45,7 @@ public enum Taille {
         boolean fin = false;
         Taille resultat = Taille.P;
         do{
-            System.out.println("Entrer 0 si la voiture est petite, 1 si elle est grande");
+            System.out.println("Entrez 0 si la voiture est petite, 1 si elle est grande");
             int t = scan.nextInt();
             if (t == 0){
                 fin = true;
@@ -57,7 +57,7 @@ public enum Taille {
                 break;
             }
             else {
-                System.out.println("La taille indiquée n'existe pas ");
+                System.out.println("La taille indiquée n'existe pas. Veuillez rééssayer ");
             }
 
         }while(!fin);

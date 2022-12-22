@@ -19,7 +19,7 @@ public class TestBienConso {
      */
 
     @BeforeEach
-    public void setUpTest() {
+    public void setUpTest() throws ErrValNeg {
         bienConsoTest = new BienConso();
     }
 

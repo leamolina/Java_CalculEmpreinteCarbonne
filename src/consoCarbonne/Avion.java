@@ -8,7 +8,8 @@ public class Avion extends Transport{
 
 
     //Constructeurs (par défaut)
-    public Avion(){
+    public Avion() throws ErrValNeg {
+        super();
     }
 
     /**
@@ -30,7 +31,7 @@ public class Avion extends Transport{
     @Override
     public void setKm(int km) throws ErrValNeg {
         if (km < 0) {
-            throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus par trajet. ");
+            throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus par trajet. Fin du programme. ");
         }
         else {
             super.setKm(km);
