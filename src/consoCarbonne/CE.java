@@ -2,12 +2,12 @@ package consoCarbonne;
 import java.util.*;
 
 /**
- * L'enumeration CE contient les differentes classes energetiques de A a G associees a leurs coefficient energetique.
+ * L'enumeration CE contient les differentes classes energetiques de A a G associees a leurs coefficient energetiques.
  * A represente une excellente classe energetique tandis que G une classe energetique deconseillee.
  */
 public enum CE {
     A(0.005), B(0.01), C(0.02), D(0.035), E( 0.055), F( 0.08), G(0.1);
-    private static Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in);
 
 
     /**
@@ -59,9 +59,7 @@ public enum CE {
             System.out.println("Entrez la classe energetique du logement (une lettre comprise entre A et G) :");
             String c = scan.next();
             switch (c) {
-                case ("A") -> {
-                    fin = true;
-                }
+                case ("A") -> fin = true;
                 case ("B") -> {
                     resultat = CE.B;
                     fin = true;
@@ -99,9 +97,7 @@ public enum CE {
         CE resultat = CE.A;
         do{
             switch (c) {
-                case ("A") -> {
-                    fin = true;
-                }
+                case ("A") -> fin = true;
                 case ("B") -> {
                     resultat = CE.B;
                     fin = true;
@@ -126,14 +122,11 @@ public enum CE {
                     resultat = CE.G;
                     fin = true;
                 }
-                default -> System.out.println("La classe energetique indiquée n'existe pas. ");
+                default -> System.out.println("La classe energetique indiquée n'existe pas. Par défaut, nous considérons que la classe énergetique du logement est C ");
             }
         } while(!fin);
         return (resultat);
     }
-
-
-    //Methoe qui passe d'un string a un type (pour de vrai ce
 
 }
 

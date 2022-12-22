@@ -1,6 +1,8 @@
 package Erreurs;
 
-//Exceptions qui permettent de s'assurer que la somme des taux est bien égale à 1
+/**
+ * La classe ErrTx permet de generer une Exception lorsqu’une valeur d’un taux n’est pas comprise entre 0 et 1.
+ */
 public class ErrTx extends Exception {
 
     public ErrTx() {}

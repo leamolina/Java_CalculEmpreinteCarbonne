@@ -10,8 +10,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,9 +18,12 @@ import java.util.Collection;
 import java.util.Scanner;
 import java.lang.*;
 
-
+/**
+ * La classe EntreeSortie permet de gerer toutes les interactions avec l'utilisateur
+ * En particulier l'initialisation d'un utilisateur selon deux methodes : par lecture de fichier ou en repondant a une serie de questions.
+ */
 public class EntreeSortie{
-    private static Scanner scan = new Scanner(System.in);
+    private final Scanner scan = new Scanner(System.in);
 
     //Constructeur par défaut
     public EntreeSortie(){}
@@ -38,32 +39,32 @@ public class EntreeSortie{
         boolean fin = false;
         do {
             printMenu();
-            //System.out.println("Appel de la fonction 2");
             int choixUtiliateur = scan.nextInt();
             scan.nextLine();
-            //System.out.println("Appel de la fonction 3");
             switch (choixUtiliateur) {
-                case (0):
+                case (0) -> {
                     System.out.println("Entrez le nom du fichier  :");
                     String nom_fichier = scan.nextLine();
+                    System.out.println("\n");
                     u = new Utilisateur(nom_fichier);
                     fin = true;
-                    break;
-
-                case (1):
+                }
+                case (1) -> {
                     u = new Utilisateur(0);
                     fin = true;
-
-                    break;
-                default:
-                    System.out.println("Cette valeur ne fait pas partie des possibilités.");
+                }
+                default -> System.out.println("Cette valeur ne fait pas partie des possibilités.");
             }
         } while (!fin);
         return (u);
     }
 
-
-    protected Utilisateur initialisation_fichier(String nom_fichier) throws ErrTx, ErrValNeg {
+    /**
+     *
+     * @param nom_fichier est le nom du fichier texte
+     * @return renvoie le nouvel utilisateur cree a partir d un fichier texte
+     */
+    protected Utilisateur initialisation_fichier(String nom_fichier) {
         Utilisateur u = new Utilisateur();
 
 
@@ -95,47 +96,56 @@ public class EntreeSortie{
                 System.err.println("Erreur : fichier non trouvé.");
                 System.exit(1);
             } catch (IOException e) {
-                System.err.println("Erreur : IOException.");
-                System.exit(1);
-                //e.printStackTrace();
+                e.printStackTrace();
             } catch (ParseException e) {
-                System.err.println("Erreur dans l'utilisation du Parse");
-                //System.exit(1);
+                System.err.println("Erreur dans l'utilisation du parse. Vérifier le format du fichier texte.");
                 e.printStackTrace();
             } catch (ErrTx e) {
-                throw new RuntimeException(e);
+                e.getMessage();
             } catch (ErrValNeg e) {
-                throw new RuntimeException(e);
+                e.getMessage();
             } catch (ErrSommeTx e) {
-            throw new RuntimeException(e);
+                e.getMessage();
         }
-        //scan.close();
         return u;
     }
 
 
-
-
+    /**
+     * La methode va parcourir l'objet JSON et recuperer les differents attributs du poste de consommation alimentation.
+     * @param utilisateurObject l'objet recupere grace au JSONParser, representant l'utilisateur.
+     * @return renvoie la consommation carbonne de la categorie Alimentation
+     * @throws ErrTx Exception en cas de taux non compris entre 0 et 1.
+     * @throws ErrSommeTx Exception en cas de somme de taux non egale a 1.
+     */
     private Alimentation lecture_fichier_alimentation(JSONObject utilisateurObject) throws ErrTx, ErrSommeTx {
         JSONObject alimentationObject = (JSONObject) utilisateurObject.get("alimentation");
         double txBoeuf = (double) alimentationObject.get("txBoeuf");
         double txVege = (double) alimentationObject.get("txVege");
-        Alimentation alimentation = new Alimentation(txBoeuf, txVege);
-        return (alimentation);
+        return (new Alimentation(txBoeuf, txVege));
     }
 
+    /**
+     * La methode va parcourir l'objet JSON et recuperer les differents attributs du poste de consommation bienConso.
+     * @param utilisateurObject l'objet recupere grace au JSONParser, representant l'utilisateur.
+     * @return renvoie la consommation carbonne de la categorie Alimentation
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private BienConso lecture_fichier_bienConso(JSONObject utilisateurObject) throws ErrValNeg {
         JSONObject bienConsoObject = (JSONObject) utilisateurObject.get("bienconso");
         double montant = (double) bienConsoObject.get("montant");
-        BienConso bienConso = new BienConso(montant);
-        //BienConso bienConso = new BienConso(montant);
-        return (bienConso);
+        return (new BienConso(montant));
     }
 
+    /**
+     * La methode va parcourir l'objet JSON et recuperer les differents attributs de chaque logement composant la liste_logement de l utilisateur.
+     * @param utilisateurObject l'objet recupere grace au JSONParser, representant l'utilisateur.
+     * @return renvoie une collection de Logement
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private Collection <Logement> lecture_fichier_listeLogement(JSONObject utilisateurObject) throws ErrValNeg {
         JSONArray listelogmentArray = (JSONArray) utilisateurObject.get("listelogement");
         Collection<Logement> liste_logement = new ArrayList<>();
-        //Collection <Logement> liste_logement = Collection;
         for (int i = 0; i < listelogmentArray.size() ; i++) {
             JSONObject t = (JSONObject) listelogmentArray.get(i);
             long superficie = (Long) t.get("superficie");
@@ -146,21 +156,35 @@ public class EntreeSortie{
         return (liste_logement);
     }
 
-
+    /**
+     * La methode va parcourir l'objet JSON et recuperer les differents attributs de chaque voiture composant la liste_voiture de l utilisateur.
+     * @param utilisateurObject l'objet recupere grace au JSONParser, representant l'utilisateur.
+     * @return renvoie une collection de voitures
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private Collection<Voiture> lecture_fichier_listeVoiture(JSONObject utilisateurObject) throws ErrValNeg {
         JSONArray listevoitureArray = (JSONArray) utilisateurObject.get("listeVoiture");
         Collection<Voiture> liste_voiture = new ArrayList<>();
         for (int i = 0; i < listevoitureArray.size() ; i++) {
             JSONObject v = (JSONObject) listevoitureArray.get(i);
-            String taille = (String) v.get("taille");
             Boolean possede = (Boolean) v.get("possede");
-            long kilomAnnee = (long) v.get("km");
-            long amortissement = (long) v.get("amortissement");
-            Voiture voiture = new Voiture(Taille.StringToTaille(taille),possede, (int) kilomAnnee, (int) amortissement);
-            liste_voiture.add(voiture);
+            if (possede) {
+                String taille = (String) v.get("taille");
+                long kilomAnnee = (long) v.get("km");
+                long amortissement = (long) v.get("amortissement");
+                Voiture voiture = new Voiture(Taille.StringToTaille(taille), possede, (int) kilomAnnee, (int) amortissement);
+                liste_voiture.add(voiture);
+            }
         }
         return (liste_voiture);
     }
+
+    /**
+     * La methode va parcourir l'objet JSON et recuperer les differents attributs de chaque trajet d avion composant la liste_avion de l utilisateur.
+     * @param utilisateurObject l'objet recupere grace au JSONParser, representant l'utilisateur.
+     * @return renvoie une collection de trajets d avion
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
 
     private Collection <Avion> lecture_fichier_listeAvion(JSONObject utilisateurObject) throws ErrValNeg {
         JSONArray listeAvionArray = (JSONArray) utilisateurObject.get("listeAvion");
@@ -174,15 +198,29 @@ public class EntreeSortie{
         return(liste_avion);
     }
 
-
+    /**
+     * La methode va parcourir l'objet JSON et recuperer les differents attributs du poste de consommation Bus.
+     * @param utilisateurObject
+     * @return renvoie la consommation carbonne de la categorie Bus de l'Utilisateur
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private Bus lecture_fichier_bus(JSONObject utilisateurObject) throws ErrValNeg {
         JSONObject busObject = (JSONObject) utilisateurObject.get("bus");
+        Bus b = new Bus();
         long km = (long) busObject.get("km");
-        String type = (String) busObject.get("type");
-        Bus bus = new Bus((int)km, TypeB.StringToTypeB(type));
-        return (bus);
+        if(km!=0) {
+            String type = (String) busObject.get("type");
+            b.setType(TypeB.StringToTypeB(type));
+        }
+        return (b);
     }
 
+    /**
+     * La methode va parcourir l'objet JSON et recuperer les differents attributs de chaque trajet de TGV composant la liste_tgv de l utilisateur.
+     * @param utilisateurObject l'objet recupere grace au JSONParser, representant l'utilisateur.
+     * @return renvoie une collection de trajets de TGV
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
     private Collection <TGV> lecture_fichier_listeTgv(JSONObject utilisateurObject) throws ErrValNeg {
         JSONArray listeTgvArray = (JSONArray) utilisateurObject.get("listeTGV");
         ArrayList<TGV> liste_tgv = new ArrayList<>();
@@ -198,59 +236,74 @@ public class EntreeSortie{
 
 
     Utilisateur initialisation_manuelle() throws ErrValNeg, ErrTx {
+        Utilisateur u = new Utilisateur();
         //Etape 1 : alimentation :
         System.out.println("Initialisation de la catégorie Alimentation ");
         Alimentation a = initialisation_manuelle_alimentation();
         System.out.println("\n");
+        u.setAlimentation(a);
 
         //Etape 2 : BienConso :
         System.out.println("Initialisation de la catégorie BienConso :");
         BienConso c = initialisation_manuelle_bienConso();
         System.out.println("\n");
+        u.setBienConso(c);
 
         //Etape 3 : Liste Logement :
         System.out.println("Initialisation de la catégorie Logements : ");
         System.out.println("Combien de logements possedez-vous ?");
         int nb = scan.nextInt();
-        Collection<Logement> liste_logement = initialisation_manuelle_listeLogement(nb);
-        System.out.println("\n");
+        if(nb != 0) { //Si l'utilisateur entre 0, alors la liste_logement sera celle par défaut (une liste contenant un unique logement par défaut)
+            Collection<Logement> liste_logement = initialisation_manuelle_listeLogement(nb);
+            u.setCollection_logement(liste_logement);
+            System.out.println("\n");
+
+        }
 
         //Etape 4 : Voiture :
         System.out.println("Initialisation de la catégorie Voitures");
         System.out.println("Combien de voitures possédez-vous ?");
         nb = scan.nextInt();
-        Collection<Voiture> liste_voiture = initialisation_manuelle_listeVoiture(nb);
-        System.out.println("\n");
+        if(nb != 0) {
+            Collection<Voiture> liste_voiture = initialisation_manuelle_listeVoiture(nb);
+            u.setCollection_voiture(liste_voiture);
+            System.out.println("\n");
+
+        }
 
 
         //Etape 5 : Avion :
         System.out.println("Initialisation de la catégorie Trajets en Avion");
         System.out.println("Combien de trajets en avion souhaitez-vous ajouter ? (1 aller = 1 trajet)");
         nb = scan.nextInt();
-        Collection<Avion> liste_avion = initialisation_manuelle_listeAvion(nb);
-        System.out.println("\n");
-
+        if (nb !=0) {
+            Collection<Avion> liste_avion = initialisation_manuelle_listeAvion(nb);
+            u.setCollection_avion(liste_avion);
+            System.out.println("\n");
+        }
 
         //Etape 6 : Bus :
         System.out.println("Initialisation de la catégorie Bus");
-        Bus bus = initialisation_manuelle_bus();
+        Bus b = initialisation_manuelle_bus();
+        u.setBus(b);
         System.out.println("\n");
 
         //Etape 7 : TGV
         System.out.println("Initialisation de la catégorie TGV");
-        System.out.println("Combien de trajets en TGV souhaitez-vous ajouter ?");
+        System.out.println("Combien de trajets en TGV souhaitez-vous ajouter ? (1 aller = 1 trajet)");
         nb = scan.nextInt();
-        Collection<TGV> liste_tgv = initialisation_manuelle_listeTgv(nb);
-        System.out.println("\n");
-
+        if(nb != 0) {
+            Collection<TGV> liste_tgv = initialisation_manuelle_listeTgv(nb);
+            u.setCollection_tgv(liste_tgv);
+            System.out.println("\n");
+        }
 
         //Etape 8 : Services Public:
         ServicesPublic s = ServicesPublic.getInstance();
+        u.setService(s);
         System.out.println("\n");
 
-
         //Etape finale :
-        Utilisateur u = new Utilisateur(a, c, liste_logement, liste_voiture, liste_avion,  bus, liste_tgv, s);
         return (u);
 
     }
@@ -276,7 +329,6 @@ public class EntreeSortie{
     }
 
     private Collection<Logement> initialisation_manuelle_listeLogement(int nb) throws ErrValNeg {
-        //Logement l = new Logement;
         ArrayList<Logement> liste_logement = new ArrayList<>();
         for (int i=0; i<nb;i++) {
             System.out.println("Initialisation du logement numéro " + (i+1) + ":");
@@ -296,18 +348,22 @@ public class EntreeSortie{
     private Collection<Voiture> initialisation_manuelle_listeVoiture(int nb) throws ErrValNeg {
         ArrayList<Voiture> liste_voiture = new ArrayList<>();
         for (int i=0 ; i<nb; i++){
-            System.out.println("Initialisation de la voiture numéro " + (i+1) + ":");
             Voiture v = new Voiture();
-            v.setTaille(Taille.StringToTailleBis());
+
             System.out.println("Entrez \"true\" vous possédez la voiture numéro " + (i+1) + ", \"false\" sinon");
             boolean possede = scan.nextBoolean();
             v.setPossede(possede);
-            System.out.println("Entrez le nombre de kilomètres parcourus en moyenne en un an avec la voiture numéro " + (i+1) + ":");
-            int km = scan.nextInt();
-            v.setKm(km);
-            System.out.println("Entrez l'amortissement de la voiture numéro "+ (i+1) +":");
-            int amortissement = scan.nextInt();
-            v.setAmortissement(amortissement);
+            if(possede) { //Si l'utilisateur possede bien la voiture, on peut fixer les attributs de la classe. Sinon, les attributs par défauts seront choisis.
+                System.out.println("Initialisation de la voiture numéro " + (i + 1) + ":");
+                Taille taille = Taille.G;
+                v.setTaille(taille.StringToTailleBis());
+                System.out.println("Entrez le nombre de kilomètres parcourus en moyenne en un an avec la voiture numéro " + (i + 1) + ":");
+                int km = scan.nextInt();
+                v.setKm(km);
+                System.out.println("Entrez l'amortissement de la voiture numéro " + (i + 1) + ":");
+                int amortissement = scan.nextInt();
+                v.setAmortissement(amortissement);
+            }
             liste_voiture.add(v);
         }
         return (liste_voiture);
@@ -329,14 +385,13 @@ public class EntreeSortie{
     }
 
     private Bus initialisation_manuelle_bus() throws ErrValNeg {
-        System.out.println("Initialisation de la catégorie Bus:");
         Bus b = new Bus();
         System.out.println("Entrez le nombre de kilomètres parcourus par ans en Bus:");
         int km = scan.nextInt();
         b.setKm(km);
         if(km !=0) { //On considere qu'il est inutile de demander à l'utilisateur le type de Bus qu'il utilise s'il a entré avant qu'il n'utilisait pas le bus
-            TypeB type =  TypeB.StringToTypeBBis();
-            b.setType(type);
+            TypeB type = TypeB.M;
+            b.setType(type.StringToTypeBBis());
         }
 
         return (b);

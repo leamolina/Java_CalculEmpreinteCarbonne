@@ -65,7 +65,7 @@ public class BienConso extends ConsoCarbonne{
     }
 
     /**
-     * @return Une chaîne contenant les informations sur la classe BienConso en indiquant le montant des depenses annuelles.
+     * @return Une chaine contenant les informations sur la classe BienConso en indiquant le montant des depenses annuelles.
      */
     @Override
     public String toString() {

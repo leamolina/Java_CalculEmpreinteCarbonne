@@ -1,7 +1,7 @@
 package consoCarbonne;
 
 /**
- * La classe ConsoCarbonne représente un poste de consommation carbone générique.
+ * La classe ConsoCarbonne represente un poste de consommation carbone generique.
  * Elle est la classe mere de toutes les autres.
  * C'est elle qui nous donne l'empreinte carbone de chaque objet qu'utilise un Francais en fonction de son mode de vie.
  */
@@ -21,7 +21,7 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
     //Getters
 
     /**
-     * @return l'ID correspondant a un iddentifiant unique attribue a l'instance ConsoCarbonne.
+     * @return l'ID correspondant a un identifiant unique attribue a l'instance ConsoCarbonne.
      */
     public int getId() {
         return this.id;
@@ -59,7 +59,7 @@ public abstract class ConsoCarbonne implements Comparable<ConsoCarbonne>  {
      */
 
     /**
-     * @return une chaîne contenant les informations de la classe ConsoCarbonne en affichant l'ID  attribue a l'instance ConsoCarbonne associe ainsi que son impact
+     * @return une chaine contenant les informations de la classe ConsoCarbonne en affichant l'ID  attribue a l'instance ConsoCarbonne associe ainsi que son impact
      */
     @Override
     public String toString() {
