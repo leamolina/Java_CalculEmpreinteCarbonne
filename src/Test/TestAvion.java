@@ -35,6 +35,7 @@ public class TestAvion {
 
     /**
      * Cette methode nous permet de tester la methode setCalculImpact.
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     @Test
     public void setCalculImpactTest() throws ErrValNeg {

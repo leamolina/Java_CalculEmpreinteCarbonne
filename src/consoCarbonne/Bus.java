@@ -2,8 +2,8 @@ package consoCarbonne;
 import Erreurs.*;
 
 /**
- * La classe Bus permet de connaire l'impact d'un trajet en bus d'un francais en fonction des kilometres parcourus par an et du type de bus(electrique ou a moteur.
- * Nous avons considere par défaut que le bus n'etait pas electrique.
+ * La classe Bus permet de connaire l'impact d'un trajet en bus d'un francais en fonction des kilometres parcourus et du type de bus (electrique ou a moteur).
+ * Nous avons considere par defaut que le bus n'etait pas electrique.
  */
 public class Bus extends Transport{
 
@@ -27,7 +27,12 @@ public class Bus extends Transport{
         setCalculImpact();
     }
 
-
+    /**
+     * Methode permettant de verifier que le nombre de kilometres parcourus chaque annee est bien positif et de le fixer.
+     * @param km represente les kilomètres parcourus chaque annee
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
+    @Override
     public void setKm(int km) throws ErrValNeg {
         if (km < 0) {
             throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");

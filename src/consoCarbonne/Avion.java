@@ -21,6 +21,7 @@ public class Avion extends Transport{
 
 
     //Setters
+    @Override
     public void setKm(int km) throws ErrValNeg {
         if (km < 0) {
             throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus par trajet. ");

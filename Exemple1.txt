@@ -18,7 +18,7 @@
         "taille": "P",
         "possede": true,
         "km": 20000,
-        "amortissement": 100
+        "amortissement": 10
       }
     ],
     "listeAvion": [

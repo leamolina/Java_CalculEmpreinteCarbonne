@@ -61,12 +61,19 @@ public class Alimentation extends ConsoCarbonne {
      * @param tv tv represente le taux de repas a base de legumes
      */
     public void setTxVolaille (double tb, double tv)throws ErrTx{
-        double tVo = 1 - tb - tv;
-        if(tVo >=0 && tVo <=1) {
-            this.txVolaille = tVo;
+        if((tb + tv) == 1) {
+            this.txVolaille = 0.0;
             setCalculImpact();
         }
-        else throw new ErrTx("Erreur : le taux de repas à base de volaille doit etre compris entre 0 et 1");
+        else {
+            double tVo = 1.0 - tb - tv;
+            if (tVo >= 0 && tVo <= 1) {
+                this.txVolaille = tVo;
+                setCalculImpact();
+            }
+            else throw new ErrTx("Erreur : le taux de repas à base de volaille doit etre compris entre 0 et 1");
+        }
+
     }
 
     /**
@@ -123,7 +130,7 @@ public class Alimentation extends ConsoCarbonne {
     }
 
     /**
-     * @return Une chaîne contenant les informations sur la classe Alimentation.
+     * @return Une chaine contenant les informations sur la classe Alimentation.
      */
     @Override
     public String toString() {

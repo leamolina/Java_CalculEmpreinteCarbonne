@@ -36,6 +36,7 @@ public class TestBienConso {
     /**
      * Test de la methode setCalculImpact
      * Nous avons decide de mettre le montant= 1750, la valeur attendue (calculee à la main) est 1.0
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     @Test
     public void setCalculImpactTest() throws ErrValNeg {
@@ -49,6 +50,7 @@ public class TestBienConso {
 
     /**
      * Cette methode nous permet de tester la methode setMontant.
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     @Test
     public void setMontantTest() throws ErrValNeg {
@@ -60,6 +62,7 @@ public class TestBienConso {
 
     /**
      * Cette methode nous permet de tester la methode toString.
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
      */
     @Test
     public void toStringTest() throws ErrValNeg {
