@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) throws ErrValNeg, ErrTx {
 
         Scanner scan = new Scanner(System.in);
+
         boolean finSwitch = false;
         int choice;
 
@@ -44,7 +45,7 @@ public class Main {
 
         EntreeSortie e = new EntreeSortie();
         System.out.println("Initialisation du premier utilisateur de la population"  + '\n');
-        Utilisateur u1 = e.AffichageUtilisateur();
+        Utilisateur u1 = e.CreationUtilisateur();
 
 
 
@@ -53,7 +54,7 @@ public class Main {
         // AFFICHAGE DE L IMPACT //
 
         finSwitch = false;
-        System.out.println("Entrez 1 si vous souhaitez voir votre impact de consommation carbonne ( en tonne(s) de CO2 émise(s) par an), 0 sinon");
+        System.out.println("Entrez 1 si vous souhaitez voir votre impact de consommation carbonne (en tonne(s) de CO2 émise(s) par an), 0 sinon");
         do {
             choice = scan.nextInt();
             switch (choice) {
@@ -96,7 +97,7 @@ public class Main {
         // CREATION DU SECOND UTILISATEUR //
 
         System.out.println("Initialisation du second utilisateur de la population"  + '\n');
-        Utilisateur u2 = e.AffichageUtilisateur();
+        Utilisateur u2 = e.CreationUtilisateur();
 
 
 

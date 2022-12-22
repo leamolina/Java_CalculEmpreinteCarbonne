@@ -1,6 +1,5 @@
 package consoCarbonne;
 import Erreurs.*;
-import java.util.Scanner;
 
 /**
  * La classe Logement permet de representer l'empreinte carbonne moyenne du logement d'un francais en fonction de sa classe enrgetique et sa superficie .
@@ -20,8 +19,7 @@ public class Logement extends ConsoCarbonne {
         setCalculImpact();
     }
     private int superficie = 0;
-    private CE ce = CE.A;
-    private static Scanner scan = new Scanner(System.in);
+    private CE ce = CE.C;
 
 
     /**
