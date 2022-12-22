@@ -17,6 +17,12 @@ public class TGV extends Transport{
         setCalculImpact();
     }
 
+    /**
+     * Methode permettant de verifier que le nombre de kilomètres parcourus est bien positif et de le fixer.
+     * @param km represente les kilomètres parcourus
+     * @throws ErrValNeg Exception en cas d entree d une valeur negative pour certains attributs de la classe
+     */
+    @Override
     public void setKm(int km) throws ErrValNeg {
         if (km < 0) {
             throw new ErrValNeg("Erreur : impossible d'avoir des valeurs négatives pour le nombre de km parcourus en un an. ");
