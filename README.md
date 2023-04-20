@@ -24,7 +24,7 @@ Il vous sera ensuite demandé d’initialiser la catégorie BienConso :
 Puis d’initialiser la catégorie Logements :
 - Entrez le nombre de logements que vous possédez ;
 - Entrez la superficie de chaque logement. 
-- 
+
 Ensuite initialiser la catégorie Voitures :
 - Entrez le nombre i de voitures que vous possédez ;
 - Entrez le nombre de kilomètres parcourus en moyenne en un an avec la voiture numéro i
