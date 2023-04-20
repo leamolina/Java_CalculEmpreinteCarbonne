@@ -16,7 +16,7 @@ Si vous souhaitez initialiser l’utilisateur à partir d’un fichier texte :
 - Entrez le nom du fichier ; (parmi une liste de 10 exemples inclus dans le dossier) Si vous souhaitez initialiser un utilisateur manuellement : Tapez 1 sur la console.
 Vous commencerez par initialiser le poste de consommation Alimentation :
 - -
-1)
+
 Il vous sera ensuite demandé d’initialiser la catégorie BienConso :
 - Entrez le montant de vos dépenses annuelles Puis d’initialiser la catégorie Logements :
 - Entrez le nombre de logements que vous possédez ;
